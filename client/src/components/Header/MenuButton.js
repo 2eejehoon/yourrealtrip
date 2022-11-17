@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
 
-const MenuButton = styled.button`
+const MenuBtn = styled.button`
   padding: 0;
   margin: 0;
   background: none;
@@ -11,12 +11,12 @@ const MenuButton = styled.button`
   align-items: center;
 `;
 
-export default function Menu() {
+export default function MenuButton() {
   return (
     <>
-      <MenuButton>
+      <MenuBtn>
         <AiOutlineMenu size={30} />
-      </MenuButton>
+      </MenuBtn>
     </>
   );
 }
