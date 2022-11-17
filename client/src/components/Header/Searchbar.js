@@ -7,10 +7,13 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: solid;
-  border-width: 1.5px;
+  border: solid 1px darkgray;
   border-radius: 15px;
   box-shadow: 0.5px 0.5px lightgray;
+
+  &:focus-within {
+    border: solid 2px black;
+  }
 `;
 
 const SearchInput = styled.input`

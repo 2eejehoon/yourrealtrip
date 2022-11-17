@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-import Menu from "./Menu";
+import Menu from "./MenuButton";
 import Searchbar from "./Searchbar";
+import MenuModal from "./MenuModal";
 
 const Wrapper = styled.header`
   display: flex;
@@ -18,6 +19,7 @@ export default function Header() {
     <Wrapper>
       <Searchbar></Searchbar>
       <Menu></Menu>
+      <MenuModal></MenuModal>
     </Wrapper>
   );
 }
