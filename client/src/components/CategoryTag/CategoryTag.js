@@ -12,12 +12,13 @@ const CategoryButton = styled.div`
 `;
 
 const CategoryButtonContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 50px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   border-bottom: solid 1px lightgray;
+  padding: 10px;
 `;
 
 export default function CategoryTag() {

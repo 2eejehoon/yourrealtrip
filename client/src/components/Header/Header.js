@@ -4,7 +4,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
 
 const SearchContainer = styled.div`
-  width: calc(100vw - 70px);
+  width: calc(100% - 40px);
   height: 35px;
   display: flex;
   justify-content: space-around;
@@ -19,7 +19,7 @@ const SearchContainer = styled.div`
 `;
 
 const Searchbar = styled.input`
-  width: calc(100vw - 120px);
+  width: calc(100% - 40px);
   border: none;
   font-size: 1em;
 
@@ -38,11 +38,11 @@ const MenuButton = styled.button`
   align-items: center;
 `;
 
-const Wrapper = styled.header`
+const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 50px;
   border-bottom: solid 1px lightgray;
   padding: 15px;
@@ -50,7 +50,7 @@ const Wrapper = styled.header`
 
 export default function Header() {
   return (
-    <Wrapper>
+    <HeaderContainer>
       <SearchContainer>
         <SlMagnifier size={25} />
         <Searchbar placeholder="검색" />
@@ -59,6 +59,6 @@ export default function Header() {
         <AiOutlineMenu size={30} />
       </MenuButton>
       {/* <MenuModal></MenuModal> */}
-    </Wrapper>
+    </HeaderContainer>
   );
 }
