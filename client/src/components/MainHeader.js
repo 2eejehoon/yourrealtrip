@@ -47,7 +47,7 @@ export default function Header() {
         <SlMagnifier size={25} onClick={() => {}} />
         <Searchbar placeholder="검색" />
       </SearchContainer>
-      <MenuButton size={30} />
+      <MenuButton size={25} color="gray" />
       {/* <MenuModal></MenuModal> */}
     </HeaderContainer>
   );

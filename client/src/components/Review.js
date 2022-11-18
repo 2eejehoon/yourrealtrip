@@ -15,7 +15,7 @@ const ReviewContainer = styled.div`
   padding: 5px;
 `;
 
-const TextContainer = styled.div`
+const InfoContainer = styled.div`
   position: relative;
   width: 100%;
   margin-top: 2px;
@@ -116,11 +116,11 @@ export default function Review() {
           <ReviewImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg" />
         </StyledSlider>
       </ReviewImageContainer>
-      <TextContainer>
+      <InfoContainer>
         <StarScore />
         <h3>제목</h3>
         <p>장소명, 주소</p>
-      </TextContainer>
+      </InfoContainer>
     </ReviewContainer>
   );
 }

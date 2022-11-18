@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 
 const Star = styled(AiFillStar)``;
+
 const StarContainer = styled.div`
   position: absolute;
   width: 70px;
