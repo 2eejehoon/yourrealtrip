@@ -7,6 +7,13 @@ const GlobalStyle = createGlobalStyle`
         padding:0;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
     }   
+    
+    body {
+        margin: 30px auto;
+        width: 390px;
+        border: 1px solid lightgray;
+        box-shadow: 0.5px 0.5px lightgray;
+    }
 `;
 
 export default GlobalStyle;
