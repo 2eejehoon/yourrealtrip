@@ -10,6 +10,7 @@ const ModalContainer = styled.ul`
   border: 1px solid darkgray;
   border-radius: 5px;
   position: absolute;
+  box-shadow: 0.5px 0.5px lightgray;
   right: 15px;
   top: 55px;
 

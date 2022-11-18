@@ -9,6 +9,7 @@ const CategoryButton = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 0.75em;
+  box-shadow: 0.5px 0.5px lightgray;
 `;
 
 const CategoryButtonContainer = styled.div`

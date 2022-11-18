@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
 
+const MenuButton = styled(AiOutlineMenu)``;
+
 const SearchContainer = styled.div`
   width: calc(100% - 40px);
   height: 35px;
@@ -28,16 +30,6 @@ const Searchbar = styled.input`
   }
 `;
 
-const MenuButton = styled.button`
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
@@ -52,12 +44,10 @@ export default function Header() {
   return (
     <HeaderContainer>
       <SearchContainer>
-        <SlMagnifier size={25} />
+        <SlMagnifier size={25} onClick={() => {}} />
         <Searchbar placeholder="검색" />
       </SearchContainer>
-      <MenuButton>
-        <AiOutlineMenu size={30} />
-      </MenuButton>
+      <MenuButton size={30} />
       {/* <MenuModal></MenuModal> */}
     </HeaderContainer>
   );

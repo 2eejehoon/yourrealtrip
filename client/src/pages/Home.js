@@ -1,11 +1,13 @@
-import CategoryTag from "../components/CategoryTag/CategoryTag";
-import Header from "../components/Header/Header";
+import CategoryTag from "../components/CategoryTag";
+import Header from "../components/Header";
+import ReviewList from "../components/ReviewList";
 
 export default function Home() {
   return (
     <>
       <Header />
       <CategoryTag />
+      <ReviewList />
     </>
   );
 }
