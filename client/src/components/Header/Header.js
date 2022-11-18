@@ -1,8 +1,42 @@
 import styled from "styled-components";
+// import MenuModal from "./MenuModal";
+import { AiOutlineMenu } from "react-icons/ai";
+import { SlMagnifier } from "react-icons/sl";
 
-import Menu from "./MenuButton";
-import Searchbar from "./Searchbar";
-import MenuModal from "./MenuModal";
+const SearchContainer = styled.div`
+  width: calc(100vw - 70px);
+  height: 35px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: solid 1px darkgray;
+  border-radius: 15px;
+  box-shadow: 0.5px 0.5px lightgray;
+
+  &:focus-within {
+    border: solid 2px black;
+  }
+`;
+
+const Searchbar = styled.input`
+  width: calc(100vw - 120px);
+  border: none;
+  font-size: 1em;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const MenuButton = styled.button`
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Wrapper = styled.header`
   display: flex;
@@ -17,9 +51,14 @@ const Wrapper = styled.header`
 export default function Header() {
   return (
     <Wrapper>
-      <Searchbar></Searchbar>
-      <Menu></Menu>
-      <MenuModal></MenuModal>
+      <SearchContainer>
+        <SlMagnifier size={25} />
+        <Searchbar placeholder="검색" />
+      </SearchContainer>
+      <MenuButton>
+        <AiOutlineMenu size={30} />
+      </MenuButton>
+      {/* <MenuModal></MenuModal> */}
     </Wrapper>
   );
 }
