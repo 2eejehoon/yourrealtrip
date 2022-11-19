@@ -16,7 +16,7 @@ const TitleContainer = styled.div`
   }
 `;
 
-export default function DetailTitle() {
+export default function ReviewTitle() {
   return (
     <TitleContainer>
       <h3>제목</h3>

@@ -6,10 +6,6 @@ const DetailImageContainer = styled.div`
   width: 100%;
   border-radius: 10px;
   padding: 10px;
-
-  &:hover {
-    opacity: 70%;
-  }
 `;
 
 const DetailImage = styled.img`
