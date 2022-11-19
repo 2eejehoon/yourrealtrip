@@ -4,6 +4,7 @@ import SubHeader from "../components/SubHeader";
 import UserInfo from "../components/UserInfo";
 import ReviewContent from "../components/ReviewContent";
 import CommentForm from "../components/CommentForm";
+import CommentList from "../components/CommentList";
 
 export default function Detail() {
   return (
@@ -14,6 +15,7 @@ export default function Detail() {
       <ReviewImage />
       <ReviewContent />
       <CommentForm></CommentForm>
+      <CommentList></CommentList>
     </>
   );
 }
