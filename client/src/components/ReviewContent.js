@@ -5,7 +5,7 @@ const ContentContainer = styled.div`
   padding: 10px;
 `;
 
-const DateContainer = styled.div`
+const DateContainer = styled.p`
   width: 100%;
   font-size: 0.75em;
 `;
