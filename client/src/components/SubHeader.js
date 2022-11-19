@@ -32,7 +32,7 @@ export default function SubHeader() {
     <HeaderContainer>
       <GoBack size={25} color="gray"></GoBack>
       <Share size={25} color="gray"></Share>
-      <WishlistButton size={25} fill="lightgray"></WishlistButton>
+      <WishlistButton size={25} fill="gray"></WishlistButton>
     </HeaderContainer>
   );
 }
