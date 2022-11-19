@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { SlOptions } from "react-icons/sl";
+import CommentOptionModal from "./CommentOptionModal";
+import { useState } from "react";
 
 const OptionButton = styled(SlOptions)`
   position: absolute;
-  right: 10px;
+  right: 0px;
 `;
 
 const CommnetLi = styled.li`
@@ -59,6 +61,7 @@ const CommentText = styled.p`
 `;
 
 export default function Comment() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <CommnetLi>
       <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png" />
@@ -69,7 +72,14 @@ export default function Comment() {
         </UserInfoContainer>
         <CommentText>댓글 내용</CommentText>
       </CommentContainer>
-      <OptionButton size={15} color="gray"></OptionButton>
+      <OptionButton
+        size={15}
+        color="gray"
+        onClick={() => setIsModalOpen(true)}
+      ></OptionButton>
+      {isModalOpen ? (
+        <CommentOptionModal setIsModalOpen={setIsModalOpen} />
+      ) : null}
     </CommnetLi>
   );
 }

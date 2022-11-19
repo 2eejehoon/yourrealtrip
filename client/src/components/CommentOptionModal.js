@@ -1,5 +1,11 @@
 /* eslint-disable */
 import styled from "styled-components";
+import { BiPencil } from "react-icons/bi";
+import { HiOutlineTrash } from "react-icons/hi";
+
+const EditIcon = styled(BiPencil)``;
+
+const DeleteIcon = styled(HiOutlineTrash)``;
 
 const BackgroundDiv = styled.div`
   inset: 0;
@@ -13,13 +19,13 @@ const ModalContainer = styled.ul`
   justify-content: center;
   align-items: center;
   font-size: 0.75em;
-  width: 60px;
+  width: 55px;
   border: 1px solid darkgray;
   border-radius: 5px;
   position: absolute;
   box-shadow: 0.5px 0.5px lightgray;
-  right: 15px;
-  top: 40px;
+  right: 0px;
+  top: 35px;
   background-color: white;
   z-index: 2000;
 
@@ -28,9 +34,10 @@ const ModalContainer = styled.ul`
     background: none;
     border: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 25px;
+    padding: 5px;
 
     &:hover {
       background-color: lightgray;
@@ -39,12 +46,18 @@ const ModalContainer = styled.ul`
   }
 `;
 
-export default function MenuModal({ setIsModalOpen }) {
+export default function CommentOptionModal({ setIsModalOpen }) {
   return (
     <>
       <ModalContainer>
-        <li>로그인</li>
-        <li>회원가입</li>
+        <li>
+          <EditIcon size={15} />
+          수정
+        </li>
+        <li>
+          <DeleteIcon size={15} />
+          삭제
+        </li>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />
     </>

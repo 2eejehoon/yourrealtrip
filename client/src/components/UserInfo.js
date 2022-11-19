@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { SlOptions } from "react-icons/sl";
+import ReviewOptionModal from "./ReviewOptionModal";
+import { useState } from "react";
 
 const OptionButton = styled(SlOptions)`
   position: absolute;
@@ -43,6 +45,7 @@ const CreatedAtSpan = styled.span`
 `;
 
 export default function UserInfo() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <UserInfoContainer>
       <UserProfileContainer>
@@ -50,7 +53,14 @@ export default function UserInfo() {
         <UserNameSpan>작성자</UserNameSpan>
         <CreatedAtSpan>1시간 전</CreatedAtSpan>
       </UserProfileContainer>
-      <OptionButton size={15} color="gray"></OptionButton>
+      <OptionButton
+        size={15}
+        color="gray"
+        onClick={() => setIsModalOpen(true)}
+      ></OptionButton>
+      {isModalOpen ? (
+        <ReviewOptionModal setIsModalOpen={setIsModalOpen} />
+      ) : null}
     </UserInfoContainer>
   );
 }

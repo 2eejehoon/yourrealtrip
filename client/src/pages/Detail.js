@@ -5,6 +5,7 @@ import UserInfo from "../components/UserInfo";
 import ReviewContent from "../components/ReviewContent";
 import CommentForm from "../components/CommentForm";
 import CommentList from "../components/CommentList";
+import DetailMap from "../components/DetailMap";
 
 export default function Detail() {
   return (
@@ -16,6 +17,7 @@ export default function Detail() {
       <ReviewContent />
       <CommentForm></CommentForm>
       <CommentList></CommentList>
+      <DetailMap></DetailMap>
     </>
   );
 }

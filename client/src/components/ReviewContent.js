@@ -20,7 +20,7 @@ export default function ReviewContent() {
   return (
     <ContentContainer>
       <DateContainer>2022년 11월 19일 토요일</DateContainer>
-      <TextContainter>내용입니다.</TextContainter>
+      <TextContainter>내용</TextContainter>
     </ContentContainer>
   );
 }

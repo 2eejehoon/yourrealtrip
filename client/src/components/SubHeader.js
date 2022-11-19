@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FiShare } from "react-icons/fi";
 import { BsFillSuitHeartFill } from "react-icons/bs";
+import ShareModal from "./ShareModal";
+import { useState } from "react";
 
 const WishlistButton = styled(BsFillSuitHeartFill)`
   position: absolute;
@@ -28,11 +30,13 @@ const HeaderContainer = styled.header`
 `;
 
 export default function SubHeader() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <HeaderContainer>
-      <GoBack size={25} color="gray"></GoBack>
-      <Share size={25} color="gray"></Share>
-      <WishlistButton size={23} fill="gray"></WishlistButton>
+      <GoBack size={25} color="gray" />
+      <Share size={25} color="gray" onClick={() => setIsModalOpen(true)} />
+      <WishlistButton size={23} fill="gray" />
+      {isModalOpen ? <ShareModal setIsModalOpen={setIsModalOpen} /> : null}
     </HeaderContainer>
   );
 }

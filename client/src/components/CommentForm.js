@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const CommentFormContainer = styled.div`
@@ -76,18 +77,25 @@ const UserProfileImage = styled.img`
 `;
 
 export default function CommentForm() {
+  const [isFocused, setIsFocused] = useState(false);
   return (
     <>
       <CommentFormContainer>
         <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"></UserProfileImage>
         <CommentInputContainer>
-          <CommentInput placeholder="댓글을 입력해주세요."></CommentInput>
+          <CommentInput
+            placeholder="댓글을 입력해주세요."
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          ></CommentInput>
         </CommentInputContainer>
       </CommentFormContainer>
-      <ButtonContainer>
-        <CommentCancleButton>취소</CommentCancleButton>
-        <CommentSubmitButton>댓글</CommentSubmitButton>
-      </ButtonContainer>
+      {isFocused ? (
+        <ButtonContainer>
+          <CommentCancleButton>취소</CommentCancleButton>
+          <CommentSubmitButton>댓글</CommentSubmitButton>
+        </ButtonContainer>
+      ) : null}
     </>
   );
 }

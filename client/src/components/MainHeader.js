@@ -1,12 +1,13 @@
 import styled from "styled-components";
-// import MenuModal from "./MenuModal";
+import MenuModal from "./MenuModal";
 import { AiOutlineMenu } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
+import { useState } from "react";
 
 const MenuButton = styled(AiOutlineMenu)``;
 
 const SearchContainer = styled.div`
-  width: calc(100% - 40px);
+  width: calc(100% - 35px);
   height: 35px;
   display: flex;
   justify-content: space-around;
@@ -23,7 +24,7 @@ const SearchContainer = styled.div`
 const Searchbar = styled.input`
   width: calc(100% - 40px);
   border: none;
-  font-size: 1em;
+  font-size: 0.75em;
 
   &:focus {
     outline: none;
@@ -31,6 +32,7 @@ const Searchbar = styled.input`
 `;
 
 const HeaderContainer = styled.header`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,14 +43,16 @@ const HeaderContainer = styled.header`
 `;
 
 export default function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <HeaderContainer>
       <SearchContainer>
-        <SlMagnifier size={25} onClick={() => {}} />
+        <SlMagnifier size={20} onClick={() => {}} />
         <Searchbar placeholder="검색" />
       </SearchContainer>
-      <MenuButton size={25} color="gray" />
-      {/* <MenuModal></MenuModal> */}
+      <MenuButton size={25} color="gray" onClick={() => setIsModalOpen(true)} />
+      {isModalOpen ? <MenuModal setIsModalOpen={setIsModalOpen} /> : null}
     </HeaderContainer>
   );
 }

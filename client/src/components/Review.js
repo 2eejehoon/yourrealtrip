@@ -21,7 +21,7 @@ const InfoContainer = styled.div`
   margin-top: 2px;
 
   & h3 {
-    font-size: 1em;
+    font-size: 0.75em;
     font-weight: normal;
   }
   & p {

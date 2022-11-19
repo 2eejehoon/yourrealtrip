@@ -1,5 +1,8 @@
 /* eslint-disable */
 import styled from "styled-components";
+import { AiOutlineCopy } from "react-icons/ai";
+
+const ShareIcon = styled(AiOutlineCopy)``;
 
 const BackgroundDiv = styled.div`
   inset: 0;
@@ -13,13 +16,13 @@ const ModalContainer = styled.ul`
   justify-content: center;
   align-items: center;
   font-size: 0.75em;
-  width: 60px;
+  width: 80px;
   border: 1px solid darkgray;
   border-radius: 5px;
   position: absolute;
   box-shadow: 0.5px 0.5px lightgray;
-  right: 15px;
-  top: 40px;
+  right: 10px;
+  top: 45px;
   background-color: white;
   z-index: 2000;
 
@@ -28,9 +31,10 @@ const ModalContainer = styled.ul`
     background: none;
     border: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 25px;
+    padding: 5px;
 
     &:hover {
       background-color: lightgray;
@@ -39,12 +43,14 @@ const ModalContainer = styled.ul`
   }
 `;
 
-export default function MenuModal({ setIsModalOpen }) {
+export default function ShareModal({ setIsModalOpen }) {
   return (
     <>
       <ModalContainer>
-        <li>로그인</li>
-        <li>회원가입</li>
+        <li>
+          <ShareIcon size={20} />
+          링크복사
+        </li>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />
     </>
