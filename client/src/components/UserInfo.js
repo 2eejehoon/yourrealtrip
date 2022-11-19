@@ -10,6 +10,7 @@ const UserInfoContainer = styled.div`
   width: 100%;
   height: 50px;
   display: flex;
+  padding: 10px;
   justify-content: start;
   align-items: center;
   position: relative;
@@ -21,7 +22,6 @@ const UserProfileContainer = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  padding: 5px;
 `;
 
 const UserProfileImage = styled.img`
