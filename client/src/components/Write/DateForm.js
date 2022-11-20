@@ -33,24 +33,20 @@ const DatePickerContainer = styled.div`
     align-items: center;
     border: 1px solid gray;
     border-radius: 10px;
-
     &:focus-within {
       border: 1px solid black;
     }
   }
-
   .react-datepicker__input-container {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-
     & input {
       border: none;
       text-align: center;
       font-size: 1em;
-
       &:focus {
         outline: none;
       }
@@ -94,7 +90,7 @@ const DatePickerContainer = styled.div`
   }
 `;
 
-export default function DatePick() {
+export default function DateForm() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 

@@ -20,6 +20,10 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/detail" element={<Detail />} />
               <Route path="/write" element={<Write />} />
+              {/* <Route path="/write" element={<Login />} />
+              <Route path="/write" element={<SignUp />} />
+              <Route path="/write" element={<Mypage />} />
+              <Route path="/write" element={<WishList />} /> */}
             </Routes>
           </Suspense>
         </BrowserRouter>

@@ -18,7 +18,7 @@ export default function DetailMap() {
         style={{
           // 지도의 크기
           width: "100%",
-          height: "200px",
+          height: "250px",
         }}
         level={3} // 지도의 확대 레벨
       />

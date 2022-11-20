@@ -1,8 +1,13 @@
 import WriteHeader from "../components/Write/WriteHeader";
 import WriteFooter from "../components/Write/WriteFooter";
 import styled from "styled-components";
-import TitleForm from "../components/Write/TitleForm";
-import DatePicker from "../components/Write/DatePick";
+
+// import TitleForm from "../components/Write/TitleForm";
+// import DateForm from "../components/Write/DateForm";
+// import ImageUpload from "../components/Write/ImageUpload";
+// import TextForm from "../components/Write/TextForm";
+// import AddressForm from "../components/Write/AddressForm";
+import Rating from "../components/Write/Rating";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,7 +16,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 `;
 
 export default function Write() {
@@ -19,8 +24,12 @@ export default function Write() {
     <>
       <WriteHeader></WriteHeader>
       <Wrapper>
-        <TitleForm></TitleForm>
-        <DatePicker></DatePicker>
+        {/* <TitleForm/> */}
+        {/* <DateForm/> */}
+        {/* <ImageUpload/> */}
+        {/* <TextForm/> */}
+        {/* <AddressForm /> */}
+        <Rating />
       </Wrapper>
       <WriteFooter></WriteFooter>
     </>

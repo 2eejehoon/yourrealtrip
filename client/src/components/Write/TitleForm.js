@@ -22,9 +22,10 @@ const TitleInput = styled.input`
   height: 25px;
   border: none;
   border-bottom: 1px solid lightgray;
-  font-size: 1em;
+  font-size: 0.75em;
   display: flex;
   justify-content: start;
+  align-items: start;
 
   &:focus {
     outline: none;
@@ -35,7 +36,7 @@ const TitleInput = styled.input`
 export default function TitleForm() {
   return (
     <TitleContainer>
-      <DescText>이번 여행의 제목을 만들어주세요.</DescText>
+      <DescText>게시글의 제목을 입력해주세요.</DescText>
       <TitleInput placeholder="제목을 입력하세요."></TitleInput>
     </TitleContainer>
   );
