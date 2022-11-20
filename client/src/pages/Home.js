@@ -1,6 +1,6 @@
-import CategoryTag from "../components/CategoryTag";
-import Header from "../components/MainHeader";
-import ReviewList from "../components/ReviewList";
+import CategoryTag from "../components/Home/CategoryTag";
+import Header from "../components/Home/MainHeader";
+import ReviewList from "../components/Home/ReviewList";
 
 export default function Home() {
   return (

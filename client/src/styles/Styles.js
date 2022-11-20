@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const GlobalStyle = createGlobalStyle`
     *, *::before, *::after {
@@ -16,6 +17,8 @@ const GlobalStyle = createGlobalStyle`
         border: 1px solid lightgray;
         box-shadow: 0.5px 0.5px lightgray;
         overflow-y: scroll;
+        min-height: 844px;
+        height:auto;
     }
 `;
 

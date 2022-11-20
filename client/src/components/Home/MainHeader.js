@@ -40,6 +40,9 @@ const HeaderContainer = styled.header`
   height: 50px;
   border-bottom: solid 1px lightgray;
   padding: 15px;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
 `;
 
 export default function Header() {

@@ -13,6 +13,8 @@ const CategoryButton = styled.div`
 `;
 
 const CategoryButtonContainer = styled.div`
+  background-color: white;
+  z-index: 1000;
   width: 100%;
   height: 50px;
   display: flex;

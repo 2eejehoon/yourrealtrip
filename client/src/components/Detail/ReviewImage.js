@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 
@@ -19,11 +20,13 @@ const StyledSlider = styled(Slider)`
   .slick-prev {
     left: 10px !important;
     z-index: 1000;
+    visibility: ${(props) => (props.hover === "hover" ? "visible" : "hidden")};
   }
 
   .slick-next {
     right: 10px !important;
     z-index: 1000;
+    visibility: ${(props) => (props.hover === "hover" ? "visible" : "hidden")};
   }
 
   .slick-dots {
@@ -64,6 +67,7 @@ const StyledSlider = styled(Slider)`
 `;
 
 export default function DetailCarousel() {
+  const [hover, setHover] = useState(false);
   const settings = {
     dots: true,
     infinite: true,
@@ -74,8 +78,11 @@ export default function DetailCarousel() {
 
   return (
     <>
-      <DetailImageContainer>
-        <StyledSlider {...settings}>
+      <DetailImageContainer
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        <StyledSlider {...settings} hover={hover ? "hover" : null}>
           <DetailImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"></DetailImage>
           <DetailImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"></DetailImage>
           <DetailImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"></DetailImage>
