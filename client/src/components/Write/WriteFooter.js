@@ -24,6 +24,10 @@ const PrevButton = styled.button`
   background-color: gray;
   left: 10px;
   display: ${(props) => (props.page === 0 ? "none" : "block")};
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const NextButton = styled.button`
@@ -40,6 +44,10 @@ const NextButton = styled.button`
   background-color: gray;
   right: 10px;
   display: ${(props) => (props.page === 5 ? "none" : "block")};
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 export default function WriteFooter({ page, setPage }) {

@@ -8,16 +8,28 @@ import { useState } from "react";
 const WishlistButton = styled(BsFillSuitHeartFill)`
   position: absolute;
   right: 5px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const GoBack = styled(RiArrowGoBackFill)`
   position: absolute;
   left: 5px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const Share = styled(FiShare)`
   position: absolute;
   right: 35px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const HeaderContainer = styled.header`

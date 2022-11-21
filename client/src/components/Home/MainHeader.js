@@ -4,7 +4,12 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
 import { useState } from "react";
 
-const MenuButton = styled(AiOutlineMenu)``;
+const MenuButton = styled(AiOutlineMenu)`
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
+`;
 
 const SearchContainer = styled.div`
   width: calc(100% - 35px);

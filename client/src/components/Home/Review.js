@@ -40,6 +40,7 @@ const ReviewImageContainer = styled.div`
 
   &:hover {
     opacity: 70%;
+    transition: 0.5s;
   }
 `;
 

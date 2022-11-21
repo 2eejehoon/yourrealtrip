@@ -4,6 +4,10 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 const GoBack = styled(RiArrowGoBackFill)`
   position: absolute;
   left: 5px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const HeaderContainer = styled.header`

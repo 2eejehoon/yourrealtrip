@@ -31,6 +31,10 @@ const CommentCancleButton = styled.button`
   border-radius: 10px;
   background-color: gray;
   margin: 2px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const CommentSubmitButton = styled.button`
@@ -45,6 +49,10 @@ const CommentSubmitButton = styled.button`
   border-radius: 10px;
   background-color: gray;
   margin: 2px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const CommentInputContainer = styled.div`
@@ -74,6 +82,10 @@ const UserProfileImage = styled.img`
   border: 1px solid lightgray;
   object-fit: cover;
   border-radius: 10px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 export default function CommentForm() {

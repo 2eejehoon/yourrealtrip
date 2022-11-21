@@ -6,6 +6,10 @@ import { useState } from "react";
 const OptionButton = styled(SlOptions)`
   position: absolute;
   right: 10px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const UserInfoContainer = styled.div`
@@ -32,11 +36,19 @@ const UserProfileImage = styled.img`
   border: 1px solid lightgray;
   object-fit: cover;
   border-radius: 10px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const UserNameSpan = styled.span`
   font-size: 0.75em;
   margin: 5px;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const CreatedAtSpan = styled.span`

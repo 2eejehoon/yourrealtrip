@@ -2,7 +2,27 @@ import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
 
-const Star = styled(AiFillStar)``;
+const Star = styled(AiFillStar)`
+  &:hover {
+    transition: 0.5s;
+  }
+`;
+
+const SubmitButton = styled.button`
+  width: 60px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75em;
+  color: white;
+  background-color: gray;
+  border: none;
+  border-radius: 10px;
+  &:hover {
+    opacity: 70%;
+  }
+`;
 
 const DescText = styled.p`
   width: 100%;
@@ -53,8 +73,8 @@ export default function Rating() {
 
   return (
     <>
-      <DescText>여행을 별점으로 평가해주세요.</DescText>
       <RatingContainer>
+        <DescText>여행을 별점으로 평가해주세요.</DescText>
         {text[click] !== null ? (
           <StyledText>{text[click - 1]}</StyledText>
         ) : null}
@@ -73,6 +93,7 @@ export default function Rating() {
           })}
         </StarContainer>
       </RatingContainer>
+      <SubmitButton>작성완료</SubmitButton>
     </>
   );
 }

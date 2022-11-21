@@ -10,6 +10,10 @@ const CategoryButton = styled.div`
   align-items: center;
   font-size: 0.75em;
   box-shadow: 0.5px 0.5px lightgray;
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
 `;
 
 const CategoryButtonContainer = styled.div`
