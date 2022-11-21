@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ReviewImage from "../components/Detail/ReviewImage";
 import ReviewTitle from "../components/Detail/ReviewTitle";
-import SubHeader from "../components/Detail/SubHeader";
+import DetailHeader from "../components/Detail/DetailHeader";
 import UserInfo from "../components/Detail/UserInfo";
 import ReviewContent from "../components/Detail/ReviewContent";
 import CommentForm from "../components/Detail/CommentForm";
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 export default function Detail() {
   return (
     <>
-      <SubHeader />
+      <DetailHeader />
       <Wrapper>
         <UserInfo />
         <ReviewTitle />

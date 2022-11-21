@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import Write from "./pages/Write";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import MyPage from "./pages/MyPage";
 
 const queryClient = new QueryClient();
 
@@ -22,9 +24,9 @@ function App() {
               <Route path="/detail" element={<Detail />} />
               <Route path="/write" element={<Write />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/signup" element={<SignUp />} />
-              <Route path="/mypage" element={<Mypage />} />
-              <Route path="/wishlist" element={<WishList />} /> */}
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/mypage" element={<MyPage />} />
+              {/* <Route path="/wishlist" element={<WishList />} /> */}
             </Routes>
           </Suspense>
         </BrowserRouter>

@@ -93,7 +93,7 @@ export default function Rating() {
           })}
         </StarContainer>
       </RatingContainer>
-      <SubmitButton>작성완료</SubmitButton>
+      <SubmitButton>완료</SubmitButton>
     </>
   );
 }

@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
         border: 1px solid lightgray;
         box-shadow: 0.5px 0.5px lightgray;
         overflow-y: scroll;
-        min-height: 844px;
+        min-height: 100vh;
         height:auto;
     }
 `;

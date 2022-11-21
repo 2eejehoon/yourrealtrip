@@ -1,7 +1,5 @@
-/* eslint-disable */
 import styled from "styled-components";
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 
 const DescText = styled.p`
   width: 100%;
@@ -12,55 +10,12 @@ const DescText = styled.p`
   justify-content: center;
 `;
 
-const GoogleButton = styled(FcGoogle)`
-  position: absolute;
-  left: 5px;
-`;
-
-const SocialLoginButton = styled.button`
-  font-size: 0.75em;
-  color: gray;
-  position: relative;
-  width: 250px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-  box-shadow: 0.5px 0.5px gray;
-  margin-bottom: 5px;
-  &:hover {
-    opacity: 70%;
-    transition: 0.5s;
-  }
-`;
-
 const ButtonContainer = styled.div`
   width: 250px;
   height: 40px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const LoginButton = styled.button`
-  width: 123px;
-  height: 30px;
-  display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.75em;
-  color: gray;
-  background-color: white;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-  box-shadow: 0.5px 0.5px gray;
-  &:hover {
-    opacity: 70%;
-    transition: 0.5s;
-  }
 `;
 
 const SignUpButton = styled.button`
@@ -81,7 +36,8 @@ const SignUpButton = styled.button`
   }
 `;
 
-const LoginContainer = styled.div`
+const SignUpContainer = styled.div`
+  background-color: white;
   width: 100%;
   height: calc(100vh - 100px);
   display: flex;
@@ -90,10 +46,10 @@ const LoginContainer = styled.div`
   align-items: center;
 `;
 
-const LoginInputContainer = styled.div`
+const SignUpInputContainer = styled.div`
   background-color: white;
   width: 250px;
-  height: 250px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -129,26 +85,36 @@ const LoginInputContainer = styled.div`
   }
 `;
 
-export default function LoginForm() {
-  const [loginInfo, setLoginInfo] = useState({
+export default function SignUpForm() {
+  const [userInfo, setUserInfo] = useState({
+    name: "",
     email: "",
     password: "",
   });
+  const [passwordCheck, setPasswordCheck] = useState("");
 
-  const { email, password } = loginInfo;
+  const { name, email, password } = userInfo;
 
   const handleInputChange = (e) => {
-    const { value, name } = e.target;
-    setLoginInfo({
-      ...loginInfo,
+    const { name, value } = e.target;
+    setUserInfo({
+      ...userInfo,
       [name]: value,
     });
   };
 
   return (
-    <LoginContainer>
-      <DescText>로그인 또는 회원가입</DescText>
-      <LoginInputContainer>
+    <SignUpContainer>
+      <DescText>회원가입</DescText>
+      <SignUpInputContainer>
+        <div>닉네임</div>
+        <input
+          autoComplete="off"
+          type="text"
+          name={"name"}
+          value={name}
+          onChange={handleInputChange}
+        />
         <div>이메일</div>
         <input
           autoComplete="off"
@@ -165,15 +131,17 @@ export default function LoginForm() {
           value={password}
           onChange={handleInputChange}
         />
-      </LoginInputContainer>
+        <div>비밀번호 확인</div>
+        <input
+          autoComplete="off"
+          type="password"
+          value={passwordCheck}
+          onChange={(e) => setPasswordCheck(e.target.value)}
+        />
+      </SignUpInputContainer>
       <ButtonContainer>
-        <LoginButton>로그인</LoginButton>
         <SignUpButton>회원가입</SignUpButton>
       </ButtonContainer>
-      <SocialLoginButton>
-        <GoogleButton size={25} />
-        구글 로그인
-      </SocialLoginButton>
-    </LoginContainer>
+    </SignUpContainer>
   );
 }
