@@ -1,6 +1,6 @@
+import styled from "styled-components";
 import WriteHeader from "../components/Write/WriteHeader";
 import WriteFooter from "../components/Write/WriteFooter";
-import styled from "styled-components";
 import TitleForm from "../components/Write/TitleForm";
 import DateForm from "../components/Write/DateForm";
 import ImageUpload from "../components/Write/ImageUpload";
@@ -11,8 +11,7 @@ import { useState } from "react";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: auto;
-  min-height: 744px;
+  min-height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,6 +20,7 @@ const Wrapper = styled.div`
 
 export default function Write() {
   const [page, setPage] = useState(0);
+
   return (
     <>
       <WriteHeader />

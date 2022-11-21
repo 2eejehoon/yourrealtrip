@@ -3,6 +3,7 @@ import Review from "./Review";
 
 const ReviewListContainer = styled.div`
   width: 100%;
+  min-height: calc(100vh - 100px);
   padding: 10px;
 `;
 

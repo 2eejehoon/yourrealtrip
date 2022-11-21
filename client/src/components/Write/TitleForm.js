@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 const TitleContainer = styled.div`
   width: 250px;
@@ -22,7 +23,7 @@ const TitleInput = styled.input`
   height: 25px;
   border: none;
   border-bottom: 1px solid lightgray;
-  font-size: 0.75em;
+  font-size: 1em;
   display: flex;
   justify-content: start;
   align-items: start;
@@ -34,10 +35,15 @@ const TitleInput = styled.input`
 `;
 
 export default function TitleForm() {
+  const [title, setTitle] = useState("");
   return (
     <TitleContainer>
       <DescText>여행의 제목을 입력해주세요.</DescText>
-      <TitleInput placeholder="제목을 입력하세요."></TitleInput>
+      <TitleInput
+        placeholder="제목을 입력하세요."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      ></TitleInput>
     </TitleContainer>
   );
 }

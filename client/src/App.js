@@ -7,6 +7,7 @@ import Loading from "./components/Loading";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import Write from "./pages/Write";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -20,10 +21,10 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/detail" element={<Detail />} />
               <Route path="/write" element={<Write />} />
-              {/* <Route path="/write" element={<Login />} />
-              <Route path="/write" element={<SignUp />} />
-              <Route path="/write" element={<Mypage />} />
-              <Route path="/write" element={<WishList />} /> */}
+              <Route path="/login" element={<Login />} />
+              {/* <Route path="/signup" element={<SignUp />} />
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/wishlist" element={<WishList />} /> */}
             </Routes>
           </Suspense>
         </BrowserRouter>

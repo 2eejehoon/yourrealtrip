@@ -9,9 +9,8 @@ const CommentListContainer = styled.ul`
 export default function CommentList() {
   return (
     <CommentListContainer>
-      <Comment></Comment>
-      <Comment></Comment>
-      <Comment></Comment>
+      <Comment />
+      <Comment />
     </CommentListContainer>
   );
 }
