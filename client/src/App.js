@@ -10,6 +10,7 @@ import Write from "./pages/Write";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
+import WishList from "./pages/Wishlist";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/mypage" element={<MyPage />} />
-              {/* <Route path="/wishlist" element={<WishList />} /> */}
+              <Route path="/wishlist" element={<WishList />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
