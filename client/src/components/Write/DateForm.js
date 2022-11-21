@@ -96,7 +96,7 @@ export default function DateForm() {
 
   return (
     <DatePickerContainer>
-      <DescText>전체 여행 일정을 알려주세요.</DescText>
+      <DescText>여행 일정을 알려주세요.</DescText>
       <StyledSpan>시작일</StyledSpan>
       <DatePicker
         dateFormat="yyyy년 MM월 dd일"

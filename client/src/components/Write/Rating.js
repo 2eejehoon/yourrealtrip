@@ -53,7 +53,7 @@ export default function Rating() {
 
   return (
     <>
-      <DescText>이번 여행을 평가해주세요.</DescText>
+      <DescText>여행을 별점으로 평가해주세요.</DescText>
       <RatingContainer>
         {text[click] !== null ? (
           <StyledText>{text[click - 1]}</StyledText>

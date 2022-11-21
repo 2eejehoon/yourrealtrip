@@ -36,7 +36,7 @@ const TitleInput = styled.input`
 export default function TitleForm() {
   return (
     <TitleContainer>
-      <DescText>게시글의 제목을 입력해주세요.</DescText>
+      <DescText>여행의 제목을 입력해주세요.</DescText>
       <TitleInput placeholder="제목을 입력하세요."></TitleInput>
     </TitleContainer>
   );

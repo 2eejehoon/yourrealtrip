@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
@@ -22,6 +23,7 @@ const PrevButton = styled.button`
   border-radius: 10px;
   background-color: gray;
   left: 10px;
+  display: ${(props) => (props.page === 0 ? "none" : "block")};
 `;
 
 const NextButton = styled.button`
@@ -37,13 +39,18 @@ const NextButton = styled.button`
   border-radius: 10px;
   background-color: gray;
   right: 10px;
+  display: ${(props) => (props.page === 5 ? "none" : "block")};
 `;
 
-export default function WriteFooter() {
+export default function WriteFooter({ page, setPage }) {
   return (
     <FooterContainer>
-      <PrevButton>이전</PrevButton>
-      <NextButton>다음</NextButton>
+      <PrevButton page={page} onClick={() => setPage(page - 1)}>
+        이전
+      </PrevButton>
+      <NextButton page={page} onClick={() => setPage(page + 1)}>
+        다음
+      </NextButton>
     </FooterContainer>
   );
 }

@@ -51,6 +51,7 @@ export default function TextForm() {
 
   return (
     <>
+      <DescText>공유하고 싶은 내용을 적어주세요.</DescText>
       <TextInputContainer>
         <TextInput
           typeof="textarea"
