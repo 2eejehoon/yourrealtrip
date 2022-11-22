@@ -1,11 +1,11 @@
 import MyPageHeader from "../components/MyPage/MyPageHeader";
-import WishListContainer from "../components/WishList/WishListContainer";
+import LikeList from "../components/Like/LikeList";
 
 export default function Wishlist() {
   return (
     <>
       <MyPageHeader />
-      <WishListContainer />
+      <LikeList />
     </>
   );
 }

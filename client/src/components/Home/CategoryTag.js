@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CategoryButton = styled.div`
+const CategoryButton = styled.button`
   width: 45px;
   height: 45px;
   border: 1px solid lightgray;
@@ -10,6 +10,7 @@ const CategoryButton = styled.div`
   align-items: center;
   font-size: 0.75em;
   box-shadow: 0.5px 0.5px lightgray;
+  background-color: white;
   &:hover {
     opacity: 70%;
     transition: 0.5s;

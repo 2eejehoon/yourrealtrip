@@ -11,7 +11,7 @@ const StarContainer = styled.div`
   align-items: center;
 `;
 
-export default function WishListStarScore() {
+export default function LikeStarScore() {
   const score = 3;
   return (
     <StarContainer>

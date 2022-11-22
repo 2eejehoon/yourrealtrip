@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import WishListStarScore from "./StarScore";
+import LikeStarScore from "./StarScore";
 
 const ReviewContainer = styled.li`
   width: 100%;
@@ -47,14 +47,14 @@ const ContentContainer = styled.div`
   }
 `;
 
-export default function WishListReview() {
+export default function LikeReview() {
   return (
     <ReviewContainer>
       <ReivewImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg" />
       <ContentContainer>
         <span>제목</span>
         <p>장소명, 주소</p>
-        <WishListStarScore />
+        <LikeStarScore />
         <p>내용</p>
       </ContentContainer>
     </ReviewContainer>
