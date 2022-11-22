@@ -3,6 +3,8 @@ import MenuModal from "./MenuModal";
 import { AiOutlineMenu } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { searchState } from "../../atoms/search";
 
 const MenuButton = styled(AiOutlineMenu)`
   &:hover {
@@ -52,12 +54,17 @@ const HeaderContainer = styled.header`
 
 export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [search, setSearch] = useRecoilState(searchState);
 
   return (
     <HeaderContainer>
       <SearchContainer>
         <SlMagnifier size={20} onClick={() => {}} />
-        <Searchbar placeholder="검색" />
+        <Searchbar
+          placeholder="검색"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </SearchContainer>
       <MenuButton size={25} color="gray" onClick={() => setIsModalOpen(true)} />
       {isModalOpen ? <MenuModal setIsModalOpen={setIsModalOpen} /> : null}
