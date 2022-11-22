@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 
@@ -13,8 +14,7 @@ const StarContainer = styled.div`
   right: 0px;
 `;
 
-export default function StarScore() {
-  const score = 3;
+export default function StarScore({ score }) {
   return (
     <StarContainer>
       {[1, 2, 3, 4, 5].map((num) => {

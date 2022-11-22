@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState } from "react";
 import StarScore from "./StarScore";
 import Slider from "react-slick";
@@ -101,7 +102,7 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-export default function Review() {
+export default function Review({ review }) {
   const [hover, setHover] = useState(false);
 
   const settings = {
@@ -120,15 +121,20 @@ export default function Review() {
       >
         <WishlistButton size={20} color="white" fill="lightgray" />
         <StyledSlider {...settings} hover={hover ? "hover" : null}>
-          <ReviewImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg" />
-          <ReviewImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg" />
-          <ReviewImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg" />
+          {review.images.map((image) => {
+            return (
+              <ReviewImage
+                key={image}
+                src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"
+              />
+            );
+          })}
         </StyledSlider>
       </ReviewImageContainer>
       <InfoContainer>
-        <StarScore />
-        <h3>제목</h3>
-        <p>장소명, 주소</p>
+        <StarScore score={review.score} />
+        <h3>{review.title}</h3>
+        <p>{`${review.place}, ${review.address}`}</p>
       </InfoContainer>
     </ReviewContainer>
   );
