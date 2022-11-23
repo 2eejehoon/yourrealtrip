@@ -116,7 +116,7 @@ export default function Review({ review }) {
 
   return (
     <ReviewContainer>
-      <Link to={`:${review.id}`}>
+      <Link to={`/reviews/${review.id}`}>
         <ReviewImageContainer
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
@@ -142,7 +142,7 @@ export default function Review({ review }) {
       <InfoContainer>
         <StarScore score={review.score} />
         <h3>{review.title}</h3>
-        <p>{`${review.place}, ${review.address}`}</p>
+        <p>{`${review.place}, ${review.city} ${review.district} ${review.street}`}</p>
       </InfoContainer>
     </ReviewContainer>
   );

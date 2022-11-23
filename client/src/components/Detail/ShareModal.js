@@ -33,7 +33,7 @@ const ModalContainer = styled.ul`
   background-color: white;
   z-index: 2000;
 
-  & li {
+  & button {
     width: 100%;
     background: none;
     border: none;
@@ -66,7 +66,7 @@ export default function ShareModal({ setIsModalOpen }) {
     }
   };
 
-  const id = useParams().id.slice(1);
+  const { id } = useParams();
   const { data } = useQuery(["review", id], () => {
     return axios.get(`http://localhost:4000/reviews/${id}`);
   });
@@ -83,7 +83,7 @@ export default function ShareModal({ setIsModalOpen }) {
     if (window.Kakao) {
       const kakao = window.Kakao;
 
-      kakao.init(process.env.REACT_APP_KAKAOMAP_API);
+      kakao.init(process.env.REACT_APP_KAKAO_API);
       kakao.isInitialized();
     }
 
@@ -91,7 +91,8 @@ export default function ShareModal({ setIsModalOpen }) {
       objectType: "feed",
       content: {
         title: data?.data.title,
-        imageUrl: "...",
+        imageUrl:
+          "http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg",
         link: {
           mobileWebUrl: `http://localhost:3000/:${id}`,
           webUrl: `http://localhost:3000/:${id}`,
@@ -103,7 +104,7 @@ export default function ShareModal({ setIsModalOpen }) {
   return (
     <>
       <ModalContainer>
-        <li
+        <button
           onClick={() => {
             copyToClipboard(`http://localhost:3000${location.pathname}`);
             setIsModalOpen(false);
@@ -111,15 +112,16 @@ export default function ShareModal({ setIsModalOpen }) {
         >
           <ShareIcon size={20} />
           링크복사
-        </li>
-        <li
+        </button>
+        <button
           onClick={() => {
             ShareTokakaoTalk();
+            setIsModalOpen(false);
           }}
         >
           <KakaoTalkIcon size={20} />
           카카오톡
-        </li>
+        </button>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />
     </>
