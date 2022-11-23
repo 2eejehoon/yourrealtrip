@@ -47,7 +47,7 @@ const ContentContainer = styled.div`
   }
 `;
 
-export default function LikeReview() {
+export default function Wish() {
   return (
     <ReviewContainer>
       <ReivewImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg" />

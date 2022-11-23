@@ -30,7 +30,7 @@ const SocialLoginButton = styled.button`
   border: 1px solid lightgray;
   border-radius: 10px;
   box-shadow: 0.5px 0.5px gray;
-  margin-bottom: 5px;
+
   &:hover {
     opacity: 70%;
     transition: 0.5s;
@@ -124,7 +124,6 @@ const LoginInputContainer = styled.div`
 
     &:focus {
       outline: 1px solid black;
-      border: none;
     }
   }
 `;

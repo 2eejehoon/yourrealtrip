@@ -5,54 +5,75 @@
       "title": "남대문을 다녀왔습니다.",
       "place": "남대문",
       "city": "서울",
-      "address": "서울 중구 남대문로4가",
+      "district": "중구",
+      "street": "남대문로4가",
       "score": 3,
-      "images": [1, 2, 3]
+      "images": [1, 2, 3],
+      "wish": true,
+      "createdAt": ""
     },
     {
       "id": 2,
       "title": "남대문을 다녀왔습니다.",
       "place": "남대문",
-      "city": "인천",
-      "address": "서울 중구 남대문로4가",
+      "city": "서울",
+      "district": "중구",
+      "street": "남대문로4가",
       "score": 4,
-      "images": [1, 2]
+      "images": [1, 2],
+      "wish": true
     },
     {
       "id": 3,
       "title": "남대문을 다녀왔습니다.",
       "place": "남대문",
-      "city": "인천",
-      "address": "서울 중구 남대문로4가",
+      "city": "서울",
+      "district": "중구",
+      "street": "남대문로4가",
       "score": 4,
-      "images": [1, 2]
+      "images": [1, 2],
+      "wish": true
     },
     {
       "id": 4,
       "title": "남대문을 다녀왔습니다.",
       "place": "남대문",
-      "city": "인천",
-      "address": "서울 중구 남대문로4가",
+      "city": "서울",
+      "district": "중구",
+      "street": "남대문로4가",
       "score": 4,
-      "images": [1, 2]
+      "images": [1, 2],
+      "wish": true
     },
     {
       "id": 5,
       "title": "남대문을 다녀왔습니다.",
       "place": "남대문",
-      "city": "인천",
-      "address": "서울 중구 남대문로4가",
+      "city": "서울",
+      "district": "중구",
+      "street": "남대문로4가",
       "score": 4,
-      "images": [1, 2]
+      "images": [1, 2],
+      "like": true
     },
     {
       "id": 6,
       "title": "남대문을 다녀왔습니다.",
       "place": "남대문",
-      "city": "인천",
-      "address": "서울 중구 남대문로4가",
+      "city": "서울",
+      "district": "중구",
+      "street": "남대문로4가",
       "score": 4,
-      "images": [1, 2]
+      "images": [1, 2],
+      "wish": false
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "jehoon lee",
+      "reviews": [],
+      "wishList": []
     }
   ]
 }

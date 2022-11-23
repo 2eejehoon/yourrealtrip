@@ -1,5 +1,6 @@
 /* eslint-disable */
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const BackgroundDiv = styled.div`
   inset: 0;
@@ -23,6 +24,16 @@ const ModalContainer = styled.ul`
   background-color: white;
   z-index: 2000;
 
+  & a {
+    outline: none;
+    text-decoration: none;
+
+    &:visited {
+      text-decoration: none;
+      color: black;
+    }
+  }
+
   & li {
     width: 100%;
     background: none;
@@ -43,8 +54,24 @@ export default function MenuModal({ setIsModalOpen }) {
   return (
     <>
       <ModalContainer>
-        <li>로그인</li>
-        <li>회원가입</li>
+        <li>
+          <Link to="login">로그인 </Link>
+        </li>
+        <li>
+          <Link to="signup">회원가입</Link>
+        </li>
+        <li>
+          <Link to="signup">로그아웃</Link>
+        </li>
+        <li>
+          <Link to="mypage">마이페이지</Link>
+        </li>
+        <li>
+          <Link to="wishlist">위시리스트</Link>
+        </li>
+        <li>
+          <Link to="write">작성하기 </Link>
+        </li>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />
     </>

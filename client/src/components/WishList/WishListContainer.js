@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LikeReview from "./LikeReview";
+import Wish from "./Wish";
 
 const DescText = styled.p`
   width: 100%;
@@ -10,7 +10,7 @@ const DescText = styled.p`
   justify-content: center;
 `;
 
-const LikeWrapper = styled.ul`
+const WishContainer = styled.ul`
   padding: 10px;
   width: 100%;
   display: flex;
@@ -18,19 +18,18 @@ const LikeWrapper = styled.ul`
   align-items: center;
 `;
 
-export default function LikeList() {
+export default function WishListContainer() {
   return (
     <>
       <DescText>작성자님의 좋아요 목록</DescText>
-      <LikeWrapper>
-        <LikeReview />
-        <LikeReview />
-        <LikeReview />
-        <LikeReview />
-        <LikeReview />
-        <LikeReview />
-        <LikeReview />
-      </LikeWrapper>
+      <WishContainer>
+        <Wish />
+        <Wish />
+        <Wish />
+        <Wish />
+        <Wish />
+        <Wish />
+      </WishContainer>
     </>
   );
 }

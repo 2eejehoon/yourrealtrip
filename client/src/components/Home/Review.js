@@ -4,12 +4,13 @@ import StarScore from "./StarScore";
 import Slider from "react-slick";
 import styled from "styled-components";
 import { BsFillSuitHeartFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const WishlistButton = styled(BsFillSuitHeartFill)`
   position: absolute;
-  z-index: 1000;
   right: 5px;
   top: 5px;
+  z-index: 500;
 `;
 
 const ReviewContainer = styled.div`
@@ -115,22 +116,29 @@ export default function Review({ review }) {
 
   return (
     <ReviewContainer>
-      <ReviewImageContainer
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <WishlistButton size={20} color="white" fill="lightgray" />
-        <StyledSlider {...settings} hover={hover ? "hover" : null}>
-          {review.images.map((image) => {
-            return (
-              <ReviewImage
-                key={image}
-                src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"
-              />
-            );
-          })}
-        </StyledSlider>
-      </ReviewImageContainer>
+      <Link to={`:${review.id}`}>
+        <ReviewImageContainer
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          <WishlistButton
+            size={20}
+            color="white"
+            fill={review.like ? "red" : "lightgray"}
+          />
+
+          <StyledSlider {...settings} hover={hover ? "hover" : null}>
+            {review.images.map((image) => {
+              return (
+                <ReviewImage
+                  key={image}
+                  src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"
+                />
+              );
+            })}
+          </StyledSlider>
+        </ReviewImageContainer>
+      </Link>
       <InfoContainer>
         <StarScore score={review.score} />
         <h3>{review.title}</h3>
