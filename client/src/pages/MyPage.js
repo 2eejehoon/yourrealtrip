@@ -1,10 +1,10 @@
 import UserInfo from "../components/MyPage/UserInfo";
-import MyPageHeader from "../components/MyPage/MyPageHeader";
+import WriteHeader from "../components/Write/SubHeader";
 
 export default function MyPage() {
   return (
     <>
-      <MyPageHeader />
+      <WriteHeader />
       <UserInfo />
     </>
   );

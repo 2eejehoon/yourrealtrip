@@ -1,10 +1,10 @@
-import MyPageHeader from "../components/MyPage/MyPageHeader";
 import WishListContainer from "../components/WishList/WishListContainer";
+import SubHeader from "../components/Write/SubHeader";
 
 export default function Wishlist() {
   return (
     <>
-      <MyPageHeader />
+      <SubHeader />
       <WishListContainer />
     </>
   );

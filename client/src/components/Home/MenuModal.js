@@ -26,6 +26,7 @@ const ModalContainer = styled.ul`
 
   & a {
     outline: none;
+    color: black;
     text-decoration: none;
 
     &:visited {
@@ -55,22 +56,22 @@ export default function MenuModal({ setIsModalOpen }) {
     <>
       <ModalContainer>
         <li>
-          <Link to="login">로그인 </Link>
+          <Link to="/login">로그인</Link>
         </li>
         <li>
-          <Link to="signup">회원가입</Link>
+          <Link to="/signup">회원가입</Link>
         </li>
         <li>
-          <Link to="signup">로그아웃</Link>
+          <Link to="/signup">로그아웃</Link>
         </li>
         <li>
-          <Link to="mypage">마이페이지</Link>
+          <Link to="/mypage">마이페이지</Link>
         </li>
         <li>
-          <Link to="wishlist">위시리스트</Link>
+          <Link to="/wishlist">위시리스트</Link>
         </li>
         <li>
-          <Link to="write">작성하기 </Link>
+          <Link to="/write">작성하기</Link>
         </li>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />

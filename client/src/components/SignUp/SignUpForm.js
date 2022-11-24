@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const DescText = styled.p`
   width: 100%;
@@ -39,7 +43,7 @@ const SignUpButton = styled.button`
 const SignUpContainer = styled.div`
   background-color: white;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,6 +51,7 @@ const SignUpContainer = styled.div`
 `;
 
 const SignUpInputContainer = styled.div`
+  position: relative;
   background-color: white;
   width: 250px;
   height: 380px;
@@ -85,62 +90,168 @@ const SignUpInputContainer = styled.div`
   }
 `;
 
+const ErrorText = styled.div`
+  color: tomato;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  font-size: 0.75em;
+`;
+
 export default function SignUpForm() {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const { name, email, password } = userInfo;
+  const signUp = useMutation((userInfo) => {
+    return axios.post(`http://localhost:4000/users`, userInfo);
+  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo({
-      ...userInfo,
-      [name]: value,
-    });
+  const handleSignUp = () => {
+    signUp.mutate(
+      {
+        name: name,
+        email: email,
+        password: password,
+        id: uuidv4(),
+      },
+      {
+        onSuccess: () => {
+          alert("회원가입이 완료되었습니다.");
+          navigate("/login");
+          return queryClient.invalidateQueries(["users"]);
+        },
+      }
+    );
   };
+
+  const nameInput = useRef(null);
+  const emailInput = useRef(null);
+  const passwordInput = useRef(null);
+  const passwordCheckInput = useRef(null);
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordCheckError, setPasswordCheckError] = useState("");
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("올바른 이메일 형식이 아닙니다.");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요."
+      );
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const handlePasswordCheckChange = (e) => {
+    setPasswordCheck(e.target.value);
+  };
+
+  useEffect(() => {
+    nameInput.current.focus();
+  }, []);
+
+  useEffect(() => {
+    if (password === passwordCheck) {
+      setPasswordCheckError("");
+    } else {
+      setPasswordCheckError("비밀번호가 일치하지 않습니다.");
+    }
+  }, [passwordCheck]);
 
   return (
     <SignUpContainer>
       <DescText>회원가입</DescText>
       <SignUpInputContainer>
+        <ErrorText>
+          {emailError !== ""
+            ? emailError
+            : passwordError !== ""
+            ? passwordError
+            : passwordCheckError !== ""
+            ? passwordCheckError
+            : null}
+        </ErrorText>
         <div>닉네임</div>
         <input
+          ref={nameInput}
           autoComplete="off"
           type="text"
-          name={"name"}
           value={name}
-          onChange={handleInputChange}
+          onChange={handleNameChange}
+          onKeyUp={(e) => {
+            e.key === "Enter" && emailInput.current.focus();
+          }}
         />
         <div>이메일</div>
         <input
+          ref={emailInput}
           autoComplete="off"
           type="text"
-          name={"email"}
           value={email}
-          onChange={handleInputChange}
+          onChange={handleEmailChange}
+          onKeyUp={(e) => {
+            e.key === "Enter" && passwordInput.current.focus();
+          }}
         />
         <div>비밀번호</div>
         <input
+          ref={passwordInput}
           autoComplete="off"
           type="password"
-          name={"password"}
           value={password}
-          onChange={handleInputChange}
+          onChange={handlePasswordChange}
+          onKeyUp={(e) => {
+            e.key === "Enter" && passwordCheckInput.current.focus();
+          }}
         />
         <div>비밀번호 확인</div>
         <input
+          ref={passwordCheckInput}
           autoComplete="off"
           type="password"
           value={passwordCheck}
-          onChange={(e) => setPasswordCheck(e.target.value)}
+          onChange={handlePasswordCheckChange}
         />
       </SignUpInputContainer>
       <ButtonContainer>
-        <SignUpButton>회원가입</SignUpButton>
+        <SignUpButton
+          disabled={
+            emailError !== "" ||
+            passwordError !== "" ||
+            passwordCheckError !== ""
+          }
+          onClick={handleSignUp}
+        >
+          회원가입
+        </SignUpButton>
       </ButtonContainer>
     </SignUpContainer>
   );

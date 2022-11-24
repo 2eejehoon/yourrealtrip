@@ -2,6 +2,8 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 const DescText = styled.p`
   width: 100%;
@@ -83,7 +85,7 @@ const SignUpButton = styled.button`
 
 const LoginContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -144,20 +146,32 @@ export default function LoginForm() {
     });
   };
 
+  const emailInput = useRef();
+  const passwordInput = useRef();
+
+  useEffect(() => {
+    emailInput.current.focus();
+  }, []);
+
   return (
     <LoginContainer>
       <DescText>로그인 또는 회원가입</DescText>
       <LoginInputContainer>
         <div>이메일</div>
         <input
+          ref={emailInput}
           autoComplete="off"
           type="text"
           name={"email"}
           value={email}
           onChange={handleInputChange}
+          onKeyUp={(e) => {
+            e.key === "Enter" && passwordInput.current.focus();
+          }}
         />
         <div>비밀번호</div>
         <input
+          ref={passwordInput}
           autoComplete="off"
           type="password"
           name={"password"}

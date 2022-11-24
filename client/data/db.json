@@ -8,10 +8,7 @@
       "district": "중구",
       "street": "남대문로4가",
       "score": 4,
-      "images": [
-        1,
-        2
-      ],
+      "images": [1, 2],
       "createdAt": "날짜",
       "content": "내용",
       "wish": true
@@ -24,10 +21,7 @@
       "district": "중구",
       "street": "남대문로4가",
       "score": 4,
-      "images": [
-        1,
-        2
-      ],
+      "images": [1, 2],
       "createdAt": "날짜",
       "content": "내용",
       "wish": true
@@ -40,10 +34,7 @@
       "district": "중구",
       "street": "남대문로4가",
       "score": 4,
-      "images": [
-        1,
-        2
-      ],
+      "images": [1, 2],
       "createdAt": "날짜",
       "content": "내용",
       "wish": true
@@ -56,10 +47,7 @@
       "district": "중구",
       "street": "남대문로4가",
       "score": 4,
-      "images": [
-        1,
-        2
-      ],
+      "images": [1, 2],
       "createdAt": "날짜",
       "content": "내용",
       "wish": true
@@ -72,10 +60,7 @@
       "district": "중구",
       "street": "남대문로4가",
       "score": 4,
-      "images": [
-        1,
-        2
-      ],
+      "images": [1, 2],
       "createdAt": "날짜",
       "content": "내용",
       "wish": true
@@ -83,34 +68,13 @@
   ],
   "users": [
     {
-      "id": 1,
-      "name": "jehoon lee",
-      "reviews": [],
-      "wishList": []
+      "name": "순돌이",
+      "email": "2eejehoon@gmail.com",
+      "password": "!tnsehfdl6808",
+      "id": "ad40085b-e2c3-43bd-8145-ddbc7e22816b"
     }
   ],
   "comments": [
-    {
-      "id": "555c9ca0-5019-48b0-b1db-7dc17092aa74",
-      "content": "추가변경또변경변경변경",
-      "createdAt": "2022-11-24T03:25:43.646Z",
-      "review": {
-        "id": 1,
-        "title": "남대문을 다녀왔습니다.",
-        "place": "남대문",
-        "city": "서울",
-        "district": "중구",
-        "street": "남대문로4가",
-        "score": 4,
-        "images": [
-          1,
-          2
-        ],
-        "createdAt": "날짜",
-        "content": "내용",
-        "wish": true
-      }
-    },
     {
       "id": "022e1a51-93b1-4f60-b894-94b7ba895a8d",
       "content": "추가수정",
@@ -123,10 +87,7 @@
         "district": "중구",
         "street": "남대문로4가",
         "score": 4,
-        "images": [
-          1,
-          2
-        ],
+        "images": [1, 2],
         "createdAt": "날짜",
         "content": "내용",
         "wish": true
@@ -144,10 +105,7 @@
         "district": "중구",
         "street": "남대문로4가",
         "score": 4,
-        "images": [
-          1,
-          2
-        ],
+        "images": [1, 2],
         "createdAt": "날짜",
         "content": "내용",
         "wish": true

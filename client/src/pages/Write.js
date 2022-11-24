@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import WriteHeader from "../components/Write/WriteHeader";
+import SubHeader from "../components/Write/SubHeader";
 import WriteFooter from "../components/Write/WriteFooter";
 import TitleForm from "../components/Write/TitleForm";
 import DateForm from "../components/Write/DateForm";
@@ -23,7 +23,7 @@ export default function Write() {
 
   return (
     <>
-      <WriteHeader />
+      <SubHeader />
       <Wrapper>
         {page === 0 ? (
           <TitleForm />

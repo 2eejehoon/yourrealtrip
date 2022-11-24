@@ -1,12 +1,10 @@
-import MainHeader from "../components/Home/MainHeader";
-import CategoryTag from "../components/Home/CategoryTag";
 import SignUpForm from "../components/SignUp/SignUpForm";
+import WriteHeader from "../components/Write/SubHeader";
 
 export default function SignUp() {
   return (
     <>
-      <MainHeader />
-      <CategoryTag />
+      <WriteHeader />
       <SignUpForm />
     </>
   );

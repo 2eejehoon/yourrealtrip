@@ -41,7 +41,7 @@ const HeaderContainer = styled.header`
   align-items: center;
 `;
 
-export default function SubHeader() {
+export default function DetailHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <HeaderContainer>
