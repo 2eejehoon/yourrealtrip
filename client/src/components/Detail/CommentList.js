@@ -17,7 +17,7 @@ export default function CommentList() {
       return axios.get(`http://localhost:4000/comments/`);
     },
     {
-      select: (comments) => comments.data.filter((el) => el.review.id == id),
+      select: (comments) => comments.data.filter((el) => el.reviewId == id),
     }
   );
 

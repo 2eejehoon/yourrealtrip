@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -98,9 +98,6 @@ export default function CommentForm() {
 
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const { data } = useQuery(["review", id], () => {
-    return axios.get(`http://localhost:4000/reviews/${id}`);
-  });
 
   const addComment = useMutation((comment) => {
     return axios.post(`http://localhost:4000/comments`, comment);
@@ -115,7 +112,7 @@ export default function CommentForm() {
       id: uuidv4(),
       content: commentInputValue,
       createdAt: new Date(),
-      review: data?.data,
+      reviewId: id,
     };
 
     addComment.mutate(comment, {
