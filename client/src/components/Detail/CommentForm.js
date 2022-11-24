@@ -1,5 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const CommentFormContainer = styled.div`
   width: 100%;
@@ -90,6 +94,37 @@ const UserProfileImage = styled.img`
 
 export default function CommentForm() {
   const [isFocused, setIsFocused] = useState(false);
+  const [commentInputValue, setCommentInputValue] = useState("");
+
+  const { id } = useParams();
+  const queryClient = useQueryClient();
+  const { data } = useQuery(["review", id], () => {
+    return axios.get(`http://localhost:4000/reviews/${id}`);
+  });
+
+  const addComment = useMutation((comment) => {
+    return axios.post(`http://localhost:4000/comments`, comment);
+  });
+
+  const handleCommentSubmit = () => {
+    if (commentInputValue === "") {
+      return alert("댓글 내용을 입력해주세요.");
+    }
+
+    const comment = {
+      id: uuidv4(),
+      content: commentInputValue,
+      createdAt: new Date(),
+      review: data?.data,
+    };
+
+    addComment.mutate(comment, {
+      onSuccess: () => {
+        setCommentInputValue("");
+        return queryClient.invalidateQueries(["comments"]);
+      },
+    });
+  };
   return (
     <>
       <CommentFormContainer>
@@ -98,14 +133,24 @@ export default function CommentForm() {
           <CommentInput
             placeholder="댓글을 입력해주세요."
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            value={commentInputValue}
+            onChange={(e) => setCommentInputValue(e.target.value)}
           ></CommentInput>
         </CommentInputContainer>
       </CommentFormContainer>
       {isFocused ? (
         <ButtonContainer>
-          <CommentCancleButton>취소</CommentCancleButton>
-          <CommentSubmitButton>댓글</CommentSubmitButton>
+          <CommentCancleButton onClick={() => setIsFocused(false)}>
+            취소
+          </CommentCancleButton>
+          <CommentSubmitButton
+            onClick={() => {
+              handleCommentSubmit();
+              setIsFocused(false);
+            }}
+          >
+            댓글
+          </CommentSubmitButton>
         </ButtonContainer>
       ) : null}
     </>

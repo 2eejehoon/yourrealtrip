@@ -69,7 +69,7 @@ export default function UserInfo() {
         size={15}
         color="gray"
         onClick={() => setIsModalOpen(true)}
-      ></OptionButton>
+      />
       {isModalOpen ? (
         <ReviewOptionModal setIsModalOpen={setIsModalOpen} />
       ) : null}

@@ -2,6 +2,8 @@
 import styled from "styled-components";
 import { BiPencil } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 const EditIcon = styled(BiPencil)``;
 
@@ -29,7 +31,7 @@ const ModalContainer = styled.ul`
   background-color: white;
   z-index: 2000;
 
-  & li {
+  & button {
     width: 100%;
     background: none;
     border: none;
@@ -46,18 +48,46 @@ const ModalContainer = styled.ul`
   }
 `;
 
-export default function CommentOptionModal({ setIsModalOpen }) {
+export default function CommentOptionModal({
+  setIsModalOpen,
+  comment,
+  setIsCommentEdit,
+}) {
+  const queryClient = useQueryClient();
+  const deleteComment = useMutation(() => {
+    return axios.delete(`http://localhost:4000/comments/${comment.id}`);
+  });
+
+  const handleCommentDelete = () => {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      deleteComment.mutate(
+        {
+          id: comment.id,
+        },
+        {
+          onSuccess: () => {
+            return queryClient.invalidateQueries(["comments"]);
+          },
+        }
+      );
+    }
+  };
   return (
     <>
       <ModalContainer>
-        <li>
+        <button
+          onClick={() => {
+            setIsCommentEdit(true);
+            setIsModalOpen(false);
+          }}
+        >
           <EditIcon size={15} />
           수정
-        </li>
-        <li>
+        </button>
+        <button onClick={handleCommentDelete}>
           <DeleteIcon size={15} />
           삭제
-        </li>
+        </button>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />
     </>

@@ -2,6 +2,9 @@
 import styled from "styled-components";
 import { BiPencil } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 const EditIcon = styled(BiPencil)``;
 
@@ -13,7 +16,7 @@ const BackgroundDiv = styled.div`
   z-index: 1000;
 `;
 
-const ModalContainer = styled.ul`
+const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,7 +32,7 @@ const ModalContainer = styled.ul`
   background-color: white;
   z-index: 2000;
 
-  & li {
+  & button {
     width: 100%;
     background: none;
     border: none;
@@ -47,17 +50,43 @@ const ModalContainer = styled.ul`
 `;
 
 export default function ReviewOptionModal({ setIsModalOpen }) {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { id } = useParams();
+
+  const deleteReview = useMutation(() => {
+    return axios.delete(`http://localhost:4000/reviews/${id}`);
+  });
+
+  const handleReviewDelete = (id) => {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      deleteReview.mutate(
+        {
+          id,
+        },
+        {
+          onSuccess: () => {
+            navigate("/reviews");
+            return queryClient.invalidateQueries(["review", id]);
+          },
+        }
+      );
+    } else {
+      return true;
+    }
+  };
   return (
     <>
       <ModalContainer>
-        <li>
+        <button>
           <EditIcon size={15} />
           수정
-        </li>
-        <li>
+        </button>
+        <button onClick={handleReviewDelete}>
           <DeleteIcon size={15} />
           삭제
-        </li>
+        </button>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />
     </>

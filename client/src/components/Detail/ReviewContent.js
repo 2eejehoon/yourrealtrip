@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const ContentContainer = styled.div`
   width: 100%;
@@ -17,10 +20,14 @@ const TextContainter = styled.div`
 `;
 
 export default function ReviewContent() {
+  const { id } = useParams();
+  const { data } = useQuery(["review", id], () => {
+    return axios.get(`http://localhost:4000/reviews/${id}`);
+  });
   return (
     <ContentContainer>
-      <DateContainer>2022년 11월 19일 토요일</DateContainer>
-      <TextContainter>내용</TextContainter>
+      <DateContainer>{data?.data.createdAt}</DateContainer>
+      <TextContainter>{data?.data.content}</TextContainter>
     </ContentContainer>
   );
 }
