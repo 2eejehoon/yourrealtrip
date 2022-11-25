@@ -30,22 +30,21 @@ export default function ReviewList() {
           : category === "전체" && search !== ""
           ? reviews.data.filter(
               (el) =>
-                el.place.includes(search) ||
                 el.title.includes(search) ||
                 el.city.includes(search) ||
                 el.district.includes(search) ||
                 el.street.includes(search)
             )
           : category !== "전체" && search === ""
-          ? reviews.data.filter((el) => el.city === category)
+          ? reviews.data.filter((el) => el.city.includes(category))
           : category !== "전체" && search !== ""
           ? reviews.data.filter(
               (el) =>
-                el.place.includes(search) ||
-                el.title.includes(search) ||
-                el.city.includes(search) ||
-                el.district.includes(search) ||
-                el.street.includes(search)
+                el.city.includes(category) &&
+                (el.title.includes(search) ||
+                  el.city.includes(search) ||
+                  el.district.includes(search) ||
+                  el.street.includes(search))
             )
           : null,
     }
