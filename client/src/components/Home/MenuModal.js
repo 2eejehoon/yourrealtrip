@@ -71,7 +71,7 @@ export default function MenuModal({ setIsModalOpen }) {
           <Link to="/wishlist">위시리스트</Link>
         </li>
         <li>
-          <Link to="/write">작성하기</Link>
+          <Link to="/write">새 글 작성</Link>
         </li>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />

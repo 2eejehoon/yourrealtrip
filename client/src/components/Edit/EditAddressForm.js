@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import {
-  cityState,
-  districtState,
-  latLngState,
-  streetState,
-} from "../../atoms/write";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import {
+  editCityState,
+  editDistrictState,
+  editLatLngState,
+  editStreetState,
+} from "../../atoms/edit";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -75,11 +78,30 @@ const Map = styled.div`
 
 const { kakao } = window;
 
-export default function AddressForm() {
-  const [city, setCity] = useRecoilState(cityState);
-  const [district, setDistrict] = useRecoilState(districtState);
-  const [street, setStreet] = useRecoilState(streetState);
-  const [, setLatLng] = useRecoilState(latLngState);
+export default function EditAddressForm() {
+  const location = useLocation();
+
+  const [city, setCity] = useRecoilState(editCityState);
+  const [district, setDistrict] = useRecoilState(editDistrictState);
+  const [street, setStreet] = useRecoilState(editStreetState);
+  const [, setLatLng] = useRecoilState(editLatLngState);
+
+  const { data } = useQuery(
+    ["review", location.state.reviewId],
+    () => {
+      return axios.get(
+        `http://localhost:4000/reviews/${location.state.reviewId}`
+      );
+    },
+    {
+      onSuccess: () => {
+        setCity(data?.data.city);
+        setDistrict(data?.data.district);
+        setStreet(data?.data.street);
+        setLatLng(data?.data.latlng);
+      },
+    }
+  );
 
   useEffect(() => {
     let mapContainer = document.getElementById("map"), // 지도를 표시할 div

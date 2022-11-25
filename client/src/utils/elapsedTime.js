@@ -17,28 +17,22 @@ export default function elapsed(string) {
   const elapsedYear = Math.floor(elapsedSec / year);
 
   if (elapsedYear > 0) {
-    if (elapsedYear > 1) return `${elapsedYear} years ago`;
-    return "1 year ago";
+    return `${elapsedYear}년 전`;
   }
   if (elapsedMonth > 0) {
-    if (elapsedMonth > 1) return `${elapsedMonth} months ago`;
-    return "1 month ago";
+    return `${elapsedMonth}개월 전`;
   }
   if (elapsedDay > 0) {
-    if (elapsedDay > 1) return `${elapsedDay} days ago`;
-    return "1 day ago";
+    return `${elapsedDay}일 전`;
   }
   if (elapsedHour > 0) {
-    if (elapsedHour > 1) return `${elapsedHour} hours ago`;
-    return "1 hour ago";
+    return `${elapsedHour}시간 전`;
   }
   if (elapsedMin > 0) {
-    if (elapsedMin > 1) return `${elapsedMin} mins ago`;
-    return "1 min ago";
+    return `${elapsedMin}분 전`;
   }
   if (elapsedSec > 0) {
-    if (elapsedSec > 1) return `${Math.round(elapsedSec / 1000)} seconds ago`;
-    return "1 second ago";
+    return `${Math.round(elapsedSec / 1000)}초 전`;
   }
   return null;
 }

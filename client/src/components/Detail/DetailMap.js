@@ -1,27 +1,54 @@
+/* eslint-disable */
 import styled from "styled-components";
-import { Map } from "react-kakao-maps-sdk";
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const MapContainer = styled.div`
   width: 100%;
+  height: 350px;
   padding: 10px;
 `;
 
+const Map = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const { kakao } = window;
+
 export default function DetailMap() {
+  const { id } = useParams();
+  const { data, isLoading } = useQuery(["review", id], () => {
+    return axios.get(`http://localhost:4000/reviews/${id}`);
+  });
+
+  useEffect(() => {
+    if (!isLoading) {
+      let mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(
+            data?.data.latlng.Ma,
+            data?.data.latlng.La
+          ), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
+      let makerPosition = new kakao.maps.LatLng(
+        data?.data.latlng.Ma,
+        data?.data.latlng.La
+      );
+      let map = new kakao.maps.Map(mapContainer, mapOption);
+      let marker = new kakao.maps.Marker({
+        position: makerPosition,
+      });
+      marker.setMap(map);
+    }
+  }, [data]);
+
   return (
     <MapContainer>
-      <Map // 지도를 표시할 Container
-        center={{
-          // 지도의 중심좌표
-          lat: 33.450701,
-          lng: 126.570667,
-        }}
-        style={{
-          // 지도의 크기
-          width: "100%",
-          height: "250px",
-        }}
-        level={3} // 지도의 확대 레벨
-      />
+      <Map id="map" />
     </MapContainer>
   );
 }

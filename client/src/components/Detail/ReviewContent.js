@@ -24,9 +24,13 @@ export default function ReviewContent() {
   const { data } = useQuery(["review", id], () => {
     return axios.get(`http://localhost:4000/reviews/${id}`);
   });
+
+  const startDate = new Date(data?.data.startDate);
+  const endDate = new Date(data?.data.endDate);
+
   return (
     <ContentContainer>
-      <DateContainer>{data?.data.createdAt}</DateContainer>
+      <DateContainer>{`${startDate.getFullYear()}년 ${startDate.getMonth()}월 ${startDate.getDate()}일 ~ ${endDate.getFullYear()}년 ${endDate.getMonth()}월 ${endDate.getDate()}일`}</DateContainer>
       <TextContainter>{data?.data.content}</TextContainter>
     </ContentContainer>
   );

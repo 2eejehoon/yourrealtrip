@@ -1,6 +1,7 @@
 /* eslint-disable */
 import styled from "styled-components";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const BackgroundDiv = styled.div`
   inset: 0;
@@ -72,39 +73,65 @@ const ModalContainer = styled.div`
   }
 `;
 
+const ErrorText = styled.div`
+  color: tomato;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 10px;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  font-size: 0.75em;
+`;
+
 export default function PasswordModal({ setPasswordModalShow }) {
-  const [passwords, setPasswords] = useState({
-    password: "",
-    newPassword: "",
-  });
-
-  const { password, newPassword } = passwords;
-
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const handlePasswordInputChange = (e) => {
-    const { name, value } = e.target;
-    setPasswords({
-      ...passwords,
-      [name]: value,
-    });
+  const [newPasswordError, setNewPasswordError] = useState("");
+  const [passwordCheckError, setPasswordCheckError] = useState("");
+
+  const handlePasswordChange = (e) => {
+    setNewPassword(e.target.value);
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    if (!passwordRegex.test(newPassword)) {
+      setNewPasswordError(`숫자 + 영문자 + 특수문자 + 8자리 이상`);
+    } else {
+      setNewPasswordError("");
+    }
   };
+
+  useEffect(() => {
+    if (newPassword === passwordCheck) {
+      setPasswordCheckError("");
+    } else {
+      setPasswordCheckError("비밀번호가 일치하지 않습니다.");
+    }
+  }, [newPassword, passwordCheck]);
 
   return (
     <>
       <ModalContainer>
+        <ErrorText>
+          {newPasswordError !== ""
+            ? newPasswordError
+            : passwordCheckError !== ""
+            ? passwordCheckError
+            : null}
+        </ErrorText>
         <div>비밀번호 확인</div>
         <input
-          name={"password"}
           value={password}
-          onChange={handlePasswordInputChange}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
         />
         <div>새 비밀번호</div>
         <input
-          name={"newPassword"}
           value={newPassword}
-          onChange={handlePasswordInputChange}
+          onChange={handlePasswordChange}
           type="password"
         />
         <div>새 비밀번호 확인</div>
@@ -114,7 +141,16 @@ export default function PasswordModal({ setPasswordModalShow }) {
           type="password"
         />
       </ModalContainer>
-      <UpdateButton onClick={() => setPasswordModalShow(false)}>
+      <UpdateButton
+        disabled={
+          password === "" ||
+          newPassword === "" ||
+          passwordCheck === "" ||
+          newPasswordError !== "" ||
+          passwordCheckError !== ""
+        }
+        onClick={() => setPasswordModalShow(false)}
+      >
         업데이트
       </UpdateButton>
       <BackgroundDiv onClick={() => setPasswordModalShow(false)} />

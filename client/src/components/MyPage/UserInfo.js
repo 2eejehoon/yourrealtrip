@@ -102,6 +102,23 @@ const InputContainer = styled.div`
   }
 `;
 
+const SaveButton = styled.button`
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  right: 0px;
+
+  &:hover {
+    opacity: 70%;
+    transition: 0.5s;
+  }
+`;
+
 export default function UserInfo() {
   const [nameUpdateShow, setNameUpdateShow] = useState(false);
   const [nameUpdate, setNameUpdate] = useState(false);
@@ -145,12 +162,23 @@ export default function UserInfo() {
             type="text"
             disabled={nameUpdate ? false : true}
             ref={nameRef}
-            onBlur={() => setNameUpdate(!nameUpdate)}
           />
-          {nameUpdateShow ? (
-            <UpdateButton onClick={() => setNameUpdate(!nameUpdate)}>
-              업데이트
+          {nameUpdateShow && !nameUpdate ? (
+            <UpdateButton
+              onClick={() => {
+                setNameUpdate(true);
+              }}
+            >
+              수정
             </UpdateButton>
+          ) : nameUpdate ? (
+            <SaveButton
+              onClick={() => {
+                setNameUpdate(false);
+              }}
+            >
+              저장
+            </SaveButton>
           ) : null}
         </InputContainer>
         <InputContainer
@@ -162,12 +190,17 @@ export default function UserInfo() {
             type="text"
             disabled={emailUpdate ? false : true}
             ref={emailRef}
-            onBlur={() => setEmailUpdate(!emailUpdate)}
           />
-          {emailUpdateShow ? (
-            <UpdateButton onClick={() => setEmailUpdate(!emailUpdate)}>
-              업데이트
+          {emailUpdateShow && !emailUpdate ? (
+            <UpdateButton
+              onClick={() => {
+                setEmailUpdate(true);
+              }}
+            >
+              수정
             </UpdateButton>
+          ) : emailUpdate ? (
+            <SaveButton onClick={() => setEmailUpdate(false)}>저장</SaveButton>
           ) : null}
         </InputContainer>
         <InputContainer
@@ -178,7 +211,7 @@ export default function UserInfo() {
           <input type="password" disabled></input>
           {passUpdateShow ? (
             <UpdateButton onClick={() => setPasswordModalShow(true)}>
-              업데이트
+              수정
             </UpdateButton>
           ) : null}
         </InputContainer>

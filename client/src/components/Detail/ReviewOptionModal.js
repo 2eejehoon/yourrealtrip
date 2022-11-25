@@ -55,31 +55,35 @@ export default function ReviewOptionModal({ setIsModalOpen }) {
 
   const { id } = useParams();
 
-  const deleteReview = useMutation(() => {
-    return axios.delete(`http://localhost:4000/reviews/${id}`);
-  });
+  const deleteReview = useMutation(
+    () => {
+      return axios.delete(`http://localhost:4000/reviews/${id}`);
+    },
+    {
+      onSuccess: () => {
+        navigate("/reviews");
+        return queryClient.invalidateQueries(["reviews"]);
+      },
+    }
+  );
 
-  const handleReviewDelete = (id) => {
+  const handleReviewDelete = () => {
     if (confirm("정말 삭제하시겠습니까?")) {
-      deleteReview.mutate(
-        {
-          id,
-        },
-        {
-          onSuccess: () => {
-            navigate("/reviews");
-            return queryClient.invalidateQueries(["review", id]);
-          },
-        }
-      );
-    } else {
-      return true;
+      deleteReview.mutate();
     }
   };
   return (
     <>
       <ModalContainer>
-        <button>
+        <button
+          onClick={() => {
+            navigate(`/edit/${id}`, {
+              state: {
+                reviewId: id,
+              },
+            });
+          }}
+        >
           <EditIcon size={15} />
           수정
         </button>

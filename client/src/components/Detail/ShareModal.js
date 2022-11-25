@@ -94,8 +94,8 @@ export default function ShareModal({ setIsModalOpen }) {
         imageUrl:
           "http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg",
         link: {
-          mobileWebUrl: `http://localhost:3000/:${id}`,
-          webUrl: `http://localhost:3000/:${id}`,
+          mobileWebUrl: `http://localhost:3000/reviews/${id}`,
+          webUrl: `http://localhost:3000/reviews/${id}`,
         },
       },
     });

@@ -162,9 +162,7 @@ export default function SignUpForm() {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(password)) {
-      setPasswordError(
-        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요."
-      );
+      setPasswordError(`숫자 + 영문자 + 특수문자 + 8자리 이상`);
     } else {
       setPasswordError("");
     }
@@ -184,7 +182,7 @@ export default function SignUpForm() {
     } else {
       setPasswordCheckError("비밀번호가 일치하지 않습니다.");
     }
-  }, [passwordCheck]);
+  }, [password, passwordCheck]);
 
   return (
     <SignUpContainer>
@@ -244,6 +242,10 @@ export default function SignUpForm() {
       <ButtonContainer>
         <SignUpButton
           disabled={
+            name === "" ||
+            email === "" ||
+            password === "" ||
+            passwordCheck === "" ||
             emailError !== "" ||
             passwordError !== "" ||
             passwordCheckError !== ""

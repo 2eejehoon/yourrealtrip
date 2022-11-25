@@ -29,7 +29,6 @@ const InfoContainer = styled.div`
   }
   & p {
     font-size: 0.75em;
-    font-weight: lighter;
     color: grey;
   }
 `;
@@ -142,7 +141,7 @@ export default function Review({ review }) {
       <InfoContainer>
         <StarScore score={review.score} />
         <h3>{review.title}</h3>
-        <p>{`${review.place}, ${review.city} ${review.district} ${review.street}`}</p>
+        <p>{`${review.city} ${review.district} ${review.street}`}</p>
       </InfoContainer>
     </ReviewContainer>
   );

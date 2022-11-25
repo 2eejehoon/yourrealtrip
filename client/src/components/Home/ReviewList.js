@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 const ReviewListContainer = styled.div`
   width: 100%;
   min-height: calc(100vh - 100px);
-  padding: 10px;
+  padding: 5px;
 `;
 
 export default function ReviewList() {
@@ -32,7 +32,9 @@ export default function ReviewList() {
               (el) =>
                 el.place.includes(search) ||
                 el.title.includes(search) ||
-                el.address.includes(search)
+                el.city.includes(search) ||
+                el.district.includes(search) ||
+                el.street.includes(search)
             )
           : category !== "전체" && search === ""
           ? reviews.data.filter((el) => el.city === category)
@@ -41,7 +43,9 @@ export default function ReviewList() {
               (el) =>
                 el.place.includes(search) ||
                 el.title.includes(search) ||
-                el.address.includes(search)
+                el.city.includes(search) ||
+                el.district.includes(search) ||
+                el.street.includes(search)
             )
           : null,
     }

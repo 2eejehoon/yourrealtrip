@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { SlOptions } from "react-icons/sl";
 import ReviewOptionModal from "./ReviewOptionModal";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import elapsed from "../../utils/elapsedTime";
 
 const OptionButton = styled(SlOptions)`
   position: absolute;
@@ -58,12 +62,18 @@ const CreatedAtSpan = styled.span`
 
 export default function UserInfo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { id } = useParams();
+  const { data } = useQuery(["review", id], () => {
+    return axios.get(`http://localhost:4000/reviews/${id}`);
+  });
+
   return (
     <UserInfoContainer>
       <UserProfileContainer>
         <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"></UserProfileImage>
         <UserNameSpan>작성자</UserNameSpan>
-        <CreatedAtSpan>1시간 전</CreatedAtSpan>
+        <CreatedAtSpan>{elapsed(data?.data.createdAt)}</CreatedAtSpan>
       </UserProfileContainer>
       <OptionButton
         size={15}

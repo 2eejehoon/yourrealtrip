@@ -15,7 +15,6 @@ const TitleContainer = styled.div`
   }
   & p {
     font-size: 0.75em;
-    font-weight: lighter;
     color: grey;
   }
 `;
@@ -29,10 +28,7 @@ export default function ReviewTitle() {
   return (
     <TitleContainer>
       <h3>{data?.data.title}</h3>
-      <p>
-        {data?.data.place},{" "}
-        {`${data?.data.city} ${data?.data.district} ${data?.data.street}`}
-      </p>
+      <p>{`${data?.data.city} ${data?.data.district} ${data?.data.street}`}</p>
       <DetailStarScore score={data?.data.score} />
     </TitleContainer>
   );

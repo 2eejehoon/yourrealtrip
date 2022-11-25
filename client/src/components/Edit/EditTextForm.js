@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { contentState } from "../../atoms/write";
+import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { editContentState } from "../../atoms/edit";
 
 const DescText = styled.p`
   width: 100%;
@@ -47,9 +50,25 @@ const LengthSpan = styled.span`
   left: 5px;
 `;
 
-export default function TextForm() {
-  const [text, setText] = useRecoilState(contentState);
+export default function EditTextForm() {
+  const location = useLocation();
+
+  const [text, setText] = useRecoilState(editContentState);
   const [length, setLength] = useState(text.length);
+
+  const { data } = useQuery(
+    ["review", location.state.reviewId],
+    () => {
+      return axios.get(
+        `http://localhost:4000/reviews/${location.state.reviewId}`
+      );
+    },
+    {
+      onSuccess: () => {
+        setText(data?.data.content);
+      },
+    }
+  );
 
   return (
     <>

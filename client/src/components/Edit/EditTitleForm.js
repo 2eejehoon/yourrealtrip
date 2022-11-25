@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { titleState } from "../../atoms/write";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { editTitleState } from "../../atoms/edit";
 
 const TitleContainer = styled.div`
   width: 250px;
@@ -35,15 +38,30 @@ const TitleInput = styled.input`
   }
 `;
 
-export default function TitleForm() {
-  const [title, setTitle] = useRecoilState(titleState);
+export default function EditTitleForm() {
+  const location = useLocation();
+  const [title, setTitle] = useRecoilState(editTitleState);
+
+  const { data } = useQuery(
+    ["review", location.state.reviewId],
+    () => {
+      return axios.get(
+        `http://localhost:4000/reviews/${location.state.reviewId}`
+      );
+    },
+    {
+      onSuccess: () => {
+        setTitle(data?.data.title);
+      },
+    }
+  );
 
   return (
     <TitleContainer>
       <DescText>여행의 제목을 입력해주세요.</DescText>
       <TitleInput
         placeholder="제목을 입력하세요."
-        value={title}
+        value={title || ""}
         onChange={(e) => setTitle(e.target.value)}
       ></TitleInput>
     </TitleContainer>

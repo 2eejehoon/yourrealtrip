@@ -54,22 +54,20 @@ export default function CommentOptionModal({
   setIsCommentEdit,
 }) {
   const queryClient = useQueryClient();
-  const deleteComment = useMutation(() => {
-    return axios.delete(`http://localhost:4000/comments/${comment.id}`);
-  });
+  const deleteComment = useMutation(
+    () => {
+      return axios.delete(`http://localhost:4000/comments/${comment.id}`);
+    },
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(["comments"]);
+      },
+    }
+  );
 
   const handleCommentDelete = () => {
     if (confirm("정말 삭제하시겠습니까?")) {
-      deleteComment.mutate(
-        {
-          id: comment.id,
-        },
-        {
-          onSuccess: () => {
-            return queryClient.invalidateQueries(["comments"]);
-          },
-        }
-      );
+      deleteComment.mutate();
     }
   };
   return (

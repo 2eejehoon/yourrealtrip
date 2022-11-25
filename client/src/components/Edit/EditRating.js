@@ -1,22 +1,22 @@
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
-import {
-  contentState,
-  endDateState,
-  startDateState,
-  titleState,
-  scoreState,
-  cityState,
-  districtState,
-  streetState,
-  latLngState,
-} from "../../atoms/write";
 import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  editScoreState,
+  editStartDateState,
+  editTitleState,
+  editEndDateState,
+  editContentState,
+  editCityState,
+  editDistrictState,
+  editLatLngState,
+  editStreetState,
+} from "../../atoms/edit";
 
 const Star = styled(AiFillStar)`
   &:hover {
@@ -75,34 +75,52 @@ const StyledText = styled.p`
   align-items: center;
 `;
 
-export default function Rating() {
+export default function EditRating() {
+  const location = useLocation();
   const [hover, setHover] = useState(null);
-  const [click, setClick] = useRecoilState(scoreState);
-  const title = useRecoilValue(titleState);
-  const startDate = useRecoilValue(startDateState);
-  const endDate = useRecoilValue(endDateState);
-  const content = useRecoilValue(contentState);
-  const city = useRecoilValue(cityState);
-  const district = useRecoilValue(districtState);
-  const latlng = useRecoilValue(latLngState);
-  const street = useRecoilValue(streetState);
+  const [click, setClick] = useRecoilState(editScoreState);
+  const title = useRecoilValue(editTitleState);
+  const startDate = useRecoilValue(editStartDateState);
+  const endDate = useRecoilValue(editEndDateState);
+  const content = useRecoilValue(editContentState);
+  const city = useRecoilValue(editCityState);
+  const district = useRecoilValue(editDistrictState);
+  const latlng = useRecoilValue(editLatLngState);
+  const street = useRecoilValue(editStreetState);
 
-  const resetTitle = useResetRecoilState(titleState);
-  const resetStartDate = useResetRecoilState(startDateState);
-  const resetEndDate = useResetRecoilState(endDateState);
-  const resetContent = useResetRecoilState(contentState);
-  const resetCity = useResetRecoilState(cityState);
-  const resetDistrict = useResetRecoilState(districtState);
-  const resetStreet = useResetRecoilState(streetState);
-  const resetLatLng = useResetRecoilState(latLngState);
-  const resetScore = useResetRecoilState(scoreState);
+  const resetTitle = useResetRecoilState(editTitleState);
+  const resetStartDate = useResetRecoilState(editStartDateState);
+  const resetEndDate = useResetRecoilState(editEndDateState);
+  const resetContent = useResetRecoilState(editContentState);
+  const resetCity = useResetRecoilState(editCityState);
+  const resetDistrict = useResetRecoilState(editDistrictState);
+  const resetStreet = useResetRecoilState(editStreetState);
+  const resetLatLng = useResetRecoilState(editLatLngState);
+  const resetScore = useResetRecoilState(editScoreState);
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  const { data } = useQuery(
+    ["review", location.state.reviewId],
+    () => {
+      return axios.get(
+        `http://localhost:4000/reviews/${location.state.reviewId}`
+      );
+    },
+    {
+      onSuccess: () => {
+        setClick(data?.data.score);
+      },
+    }
+  );
+
   const addReview = useMutation(
     (review) => {
-      return axios.post(`http://localhost:4000/reviews`, review);
+      return axios.patch(
+        `http://localhost:4000/reviews/${location.state.reviewId}`,
+        review
+      );
     },
     {
       onSuccess: () => {
