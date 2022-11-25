@@ -150,6 +150,7 @@ export default function EditRating() {
     if (click === "") return alert("평점을 입력해주세요.");
 
     const review = {
+      ...data?.data,
       id: uuidv4(),
       title,
       startDate,
@@ -161,7 +162,6 @@ export default function EditRating() {
       street,
       latlng,
       score: click,
-      createdAt: new Date(),
     };
 
     addReview.mutate(review);
