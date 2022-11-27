@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 const DescText = styled.p`
   width: 100%;
@@ -45,6 +46,10 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  & a {
+    text-decoration: none;
+  }
 `;
 
 const LoginButton = styled.button`
@@ -90,6 +95,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: white;
 `;
 
 const LoginInputContainer = styled.div`
@@ -181,7 +187,9 @@ export default function LoginForm() {
       </LoginInputContainer>
       <ButtonContainer>
         <LoginButton>로그인</LoginButton>
-        <SignUpButton>회원가입</SignUpButton>
+        <Link to="/signup">
+          <SignUpButton>회원가입</SignUpButton>
+        </Link>
       </ButtonContainer>
       <SocialLoginButton>
         <GoogleButton size={25} />

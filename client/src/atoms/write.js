@@ -15,9 +15,9 @@ export const endDateState = atom({
   default: "",
 });
 
-export const imageState = atom({
-  key: "image",
-  default: "",
+export const imagesState = atom({
+  key: "images",
+  default: [],
 });
 
 export const contentState = atom({

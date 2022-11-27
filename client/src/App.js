@@ -22,6 +22,7 @@ function App() {
         <BrowserRouter>
           <Suspense fallback={<Loading />}>
             <Routes>
+              <Route index element={<Home />} />
               <Route path="/reviews" element={<Home />} />
               <Route path="/reviews/:id" element={<Detail />} />
               <Route path="/write" element={<Write />} />

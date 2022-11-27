@@ -12,6 +12,7 @@ const ReviewListContainer = styled.div`
   width: 100%;
   min-height: calc(100vh - 100px);
   padding: 5px;
+  background-color: white;
 `;
 
 export default function ReviewList() {

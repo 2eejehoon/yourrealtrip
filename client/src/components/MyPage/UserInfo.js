@@ -1,15 +1,26 @@
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import PasswordModal from "./PasswordModal";
+import { ImCancelCircle } from "react-icons/im";
+
+const ProfileDeleteButton = styled(ImCancelCircle)`
+  position: absolute;
+  top: -13px;
+  right: 8px;
+`;
 
 const UserProfileContainer = styled.div`
-  width: 350px;
+  position: relative;
+  width: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  & div {
+  & input {
+    display: none;
+  }
+  & button {
     margin-top: 2px;
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -69,6 +80,7 @@ const UserInfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: white;
 `;
 
 const InputContainer = styled.div`
@@ -126,9 +138,31 @@ export default function UserInfo() {
   const [emailUpdate, setEmailUpdate] = useState(false);
   const [passUpdateShow, setpassUpdateShow] = useState(false);
   const [passwordModalShow, setPasswordModalShow] = useState(false);
+  const [image, setImage] = useState(
+    "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"
+  );
+  const [profileImageDeleteButtonShow, setProfileImageDeleteButtonShow] =
+    useState(false);
 
+  const imageRef = useRef(null);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let imageFile = e.dataTransfer.files[0];
+    handleFile(imageFile);
+  };
+
+  const handleFile = (file) => {
+    setImage(URL.createObjectURL(file));
+  };
 
   useEffect(() => {
     if (nameUpdate === true) {
@@ -149,9 +183,41 @@ export default function UserInfo() {
       ) : null}
       <UserInfoContainer>
         <DescText>작성자님의 정보</DescText>
-        <UserProfileContainer>
-          <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png" />
-          <div>사진 업데이트</div>
+        <UserProfileContainer
+          onMouseEnter={() => setProfileImageDeleteButtonShow(true)}
+          onMouseLeave={() => setProfileImageDeleteButtonShow(false)}
+        >
+          {profileImageDeleteButtonShow ? (
+            <ProfileDeleteButton
+              size={15}
+              color="darkgray"
+              onClick={() => {
+                console.log("click");
+                if (confirm("정말 삭제하시겠습니까?")) {
+                  setImage(
+                    "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"
+                  );
+                }
+              }}
+            />
+          ) : null}
+          <UserProfileImage
+            src={image}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          />
+          <input
+            type="file"
+            ref={imageRef}
+            accept="image/*"
+            onChange={(e) => {
+              const imageFile = e.target.files[0];
+              setImage(URL.createObjectURL(imageFile));
+            }}
+          />
+          <button onClick={() => imageRef.current.click()}>
+            사진 업데이트
+          </button>
         </UserProfileContainer>
         <InputContainer
           onMouseEnter={() => setNameUpdateShow(true)}

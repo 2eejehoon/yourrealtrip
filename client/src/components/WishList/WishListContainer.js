@@ -8,28 +8,29 @@ const DescText = styled.p`
   color: gray;
   display: flex;
   justify-content: center;
+  background-color: white;
 `;
 
 const WishContainer = styled.ul`
   padding: 10px;
   width: 100%;
+  height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 `;
 
 export default function WishListContainer() {
   return (
-    <>
+    <WishContainer>
       <DescText>작성자님의 좋아요 목록</DescText>
-      <WishContainer>
-        <Wish />
-        <Wish />
-        <Wish />
-        <Wish />
-        <Wish />
-        <Wish />
-      </WishContainer>
-    </>
+      <Wish />
+      <Wish />
+      <Wish />
+      <Wish />
+      <Wish />
+      <Wish />
+    </WishContainer>
   );
 }

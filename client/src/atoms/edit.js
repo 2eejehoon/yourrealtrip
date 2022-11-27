@@ -15,9 +15,9 @@ export const editEndDateState = atom({
   default: "",
 });
 
-export const editImageState = atom({
+export const editImagesState = atom({
   key: "editImage",
-  default: "",
+  default: [],
 });
 
 export const editContentState = atom({

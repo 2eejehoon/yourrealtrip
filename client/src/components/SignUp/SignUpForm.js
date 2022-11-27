@@ -111,26 +111,26 @@ export default function SignUpForm() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const signUp = useMutation((userInfo) => {
-    return axios.post(`http://localhost:4000/users`, userInfo);
-  });
+  const signUp = useMutation(
+    (userInfo) => {
+      return axios.post(`http://localhost:4000/users`, userInfo);
+    },
+    {
+      onSuccess: () => {
+        alert("회원가입이 완료되었습니다.");
+        navigate("/login");
+        return queryClient.invalidateQueries(["users"]);
+      },
+    }
+  );
 
   const handleSignUp = () => {
-    signUp.mutate(
-      {
-        name: name,
-        email: email,
-        password: password,
-        id: uuidv4(),
-      },
-      {
-        onSuccess: () => {
-          alert("회원가입이 완료되었습니다.");
-          navigate("/login");
-          return queryClient.invalidateQueries(["users"]);
-        },
-      }
-    );
+    signUp.mutate({
+      id: uuidv4(),
+      name: name,
+      email: email,
+      password: password,
+    });
   };
 
   const nameInput = useRef(null);

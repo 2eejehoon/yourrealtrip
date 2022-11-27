@@ -8,6 +8,7 @@ const FooterContainer = styled.footer`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  background-color: white;
 `;
 
 const PrevButton = styled.button`

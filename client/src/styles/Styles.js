@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
         overflow-y: scroll;
         min-height: 100vh;
         height:auto;
+        background-color:lightslategray;
     }
 `;
 

@@ -1,68 +1,41 @@
 {
   "reviews": [
     {
-      "id": "03d696ec-9576-4fc7-9c88-c096d2805022",
-      "title": "남대문",
-      "startDate": "2022-11-03T15:00:00.000Z",
-      "images": [
-        1,
-        2,
-        3
-      ],
-      "endDate": "2022-11-04T15:00:00.000Z",
-      "content": "수정",
-      "city": "서울",
-      "district": "중구",
-      "street": "남대문로 4가",
-      "latlng": {
-        "La": 126.975457960662,
-        "Ma": 37.5601075547158
-      },
-      "score": 5,
-      "createdAt": "2022-11-25T08:00:10.611Z"
-    },
-    {
-      "id": "1e39f4eb-6f76-40d1-bb95-03145c2fbcb8",
-      "title": "구로구청",
+      "id": "9b1d8b57-cc1f-4aa4-a79f-987a5bf694e4",
+      "title": "1",
       "startDate": "2022-10-31T15:00:00.000Z",
       "images": [
         1,
         2,
         3
       ],
-      "endDate": "2022-11-29T15:00:00.000Z",
-      "content": "내용",
-      "city": "서울시",
+      "endDate": "2022-11-01T15:00:00.000Z",
+      "content": "1",
+      "city": "서울",
       "district": "중구",
       "street": "남대문로 4가",
       "latlng": {
-        "La": 126.975457960662,
-        "Ma": 37.5601075547158
+        "La": 126.97530407576598,
+        "Ma": 37.55998498705345
       },
-      "score": 3,
-      "createdAt": "2022-11-25T04:55:06.969Z"
+      "score": 5,
+      "createdAt": "2022-11-25T08:50:01.295Z"
     }
   ],
   "users": [
     {
-      "name": "순돌이",
-      "email": "2eejehoon@gmail.com",
-      "password": "!tnsehfdl6808",
-      "id": "ad40085b-e2c3-43bd-8145-ddbc7e22816b"
+      "id": "16189bcf-23eb-47ef-ba1f-92b5284fa689",
+      "name": "남대문",
+      "email": "namdaemun123@gmail.com",
+      "password": "!tnsehfdl6808"
     }
   ],
   "comments": [
     {
-      "id": "d178e980-55f2-4290-9514-8fc030c08c66",
-      "content": "수정",
-      "createdAt": "2022-11-25T04:51:48.147Z",
-      "reviewId": "03d696ec-9576-4fc7-9c88-c096d2805022"
-    },
-    {
-      "id": "212db7ad-70fb-4353-98da-9fb4999d2167",
-      "content": "댓글1",
-      "createdAt": "2022-11-25T06:52:55.124Z",
-      "reviewId": "1e39f4eb-6f76-40d1-bb95-03145c2fbcb8"
+      "id": "25027a19-a863-40db-894f-181763975910",
+      "content": "1",
+      "createdAt": "2022-11-25T08:50:13.444Z",
+      "reviewId": "9b1d8b57-cc1f-4aa4-a79f-987a5bf694e4"
     }
   ]
 }

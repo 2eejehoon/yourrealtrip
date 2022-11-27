@@ -24,9 +24,10 @@ const UpdateButton = styled.button`
   font-size: 0.75em;
   color: gray;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-radius: 10px;
   z-index: 2000;
+  box-shadow: 0.5px 0.5px lightgray;
   &:hover {
     opacity: 70%;
     transition: 0.5s;
