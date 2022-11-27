@@ -33,6 +33,7 @@ const PreviewContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border: dotted 1px gray;
+  border-top: none;
 `;
 
 const ImageIcon = styled(BsImage)`
@@ -41,7 +42,7 @@ const ImageIcon = styled(BsImage)`
 
 const UploadContainer = styled.div`
   width: 300px;
-  height: 350px;
+  height: 300px;
   border: dotted 1px gray;
   display: flex;
   flex-direction: column;

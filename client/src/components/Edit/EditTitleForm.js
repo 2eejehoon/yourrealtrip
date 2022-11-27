@@ -59,9 +59,8 @@ export default function EditTitleForm() {
 
   return (
     <TitleContainer>
-      <DescText>여행의 제목을 입력해주세요.</DescText>
+      <DescText>장소 이름을 입력해주세요.</DescText>
       <TitleInput
-        placeholder="제목을 입력하세요."
         value={title || ""}
         onChange={(e) => setTitle(e.target.value)}
       ></TitleInput>

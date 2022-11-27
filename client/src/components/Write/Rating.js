@@ -13,9 +13,9 @@ import {
   streetState,
   latLngState,
 } from "../../atoms/write";
+import axios from "axios";
 import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
@@ -76,7 +76,7 @@ const StyledText = styled.p`
   align-items: center;
 `;
 
-export default function Rating() {
+export default function Rating({ setPage }) {
   const [hover, setHover] = useState(null);
   const [click, setClick] = useRecoilState(scoreState);
   const title = useRecoilValue(titleState);
@@ -123,14 +123,37 @@ export default function Rating() {
   );
 
   const handleWriteSubmit = () => {
-    if (title === "") return alert("제목을 입력해주세요.");
-    if (startDate === "") return alert("시작일을 입력해주세요.");
-    if (endDate === "") return alert("종료일을 입력해주세요.");
-    if (content === "") return alert("내용을 입력해주세요.");
-    if (city === "") return alert("시/도를 입력해주세요.");
-    if (district === "") return alert("자치구를 입력해주세요.");
-    if (street === "") return alert("도로명을 입력해주세요.");
-    if (click === "") return alert("평점을 입력해주세요.");
+    if (title === "") {
+      alert("제목을 입력해주세요.");
+      return setPage(0);
+    }
+    if (startDate === "") {
+      alert("시작일을 입력해주세요.");
+      return setPage(1);
+    }
+    if (endDate === "") {
+      alert("종료일을 입력해주세요.");
+      return setPage(1);
+    }
+    if (content === "") {
+      alert("내용을 입력해주세요.");
+      return setPage(3);
+    }
+    if (city === "") {
+      alert("시/도를 입력해주세요.");
+      return setPage(4);
+    }
+    if (district === "") {
+      alert("자치구를 입력해주세요.");
+      return setPage(4);
+    }
+    if (street === "") {
+      alert("도로명을 입력해주세요.");
+      return setPage(4);
+    }
+    if (click === "") {
+      return alert("평점을 입력해주세요.");
+    }
 
     const review = {
       id: uuidv4(),

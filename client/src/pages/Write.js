@@ -37,7 +37,7 @@ export default function Write() {
         ) : page === 4 ? (
           <AddressForm />
         ) : page === 5 ? (
-          <Rating />
+          <Rating setPage={setPage} />
         ) : null}
       </Wrapper>
       <WriteFooter page={page} setPage={setPage} />
