@@ -8,7 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const KakaoTalkIcon = styled(RiKakaoTalkFill)``;
-
 const ShareIcon = styled(AiOutlineCopy)``;
 
 const BackgroundDiv = styled.div`
@@ -68,7 +67,7 @@ export default function ShareModal({ setIsModalOpen }) {
 
   const { id } = useParams();
   const { data } = useQuery(["review", id], () => {
-    return axios.get(`http://localhost:4000/reviews/${id}`);
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
   });
 
   useEffect(() => {
@@ -94,8 +93,8 @@ export default function ShareModal({ setIsModalOpen }) {
         imageUrl:
           "http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg",
         link: {
-          mobileWebUrl: `http://localhost:3000/reviews/${id}`,
-          webUrl: `http://localhost:3000/reviews/${id}`,
+          mobileWebUrl: `${process.env.REACT_APP_BASE_URL}/reviews/${id}`,
+          webUrl: `${process.env.REACT_APP_BASE_URL}/reviews/${id}`,
         },
       },
     });

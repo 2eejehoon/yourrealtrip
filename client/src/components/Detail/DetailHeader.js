@@ -48,6 +48,7 @@ const HeaderContainer = styled.header`
 
 export default function DetailHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <HeaderContainer>
       <Link to="/reviews">

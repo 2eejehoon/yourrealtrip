@@ -5,6 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from "react-google-login";
+import { gapi } from "gapi-script";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const DescText = styled.p`
   width: 100%;
@@ -136,7 +141,10 @@ const LoginInputContainer = styled.div`
   }
 `;
 
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -155,9 +163,43 @@ export default function LoginForm() {
   const emailInput = useRef();
   const passwordInput = useRef();
 
+  const login = useMutation(
+    (loginInfo) => {
+      axios.post(`${process.env.REACT_APP_BASE_API}/user/login`, loginInfo);
+    },
+    {
+      onSuccess: () => {
+        navigate("/");
+      },
+    }
+  );
+
   useEffect(() => {
     emailInput.current.focus();
   }, []);
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId,
+        scope: "email",
+      });
+    }
+
+    gapi.load("client:auth2", start);
+  }, []);
+
+  const onSuccess = (response) => {
+    console.log(response);
+  };
+
+  const onFailure = (response) => {
+    console.log(response);
+  };
+
+  const handleLogin = () => {
+    login.mutate(loginInfo);
+  };
 
   return (
     <LoginContainer>
@@ -186,15 +228,24 @@ export default function LoginForm() {
         />
       </LoginInputContainer>
       <ButtonContainer>
-        <LoginButton>로그인</LoginButton>
+        <LoginButton onClick={handleLogin}>로그인</LoginButton>
         <Link to="/signup">
           <SignUpButton>회원가입</SignUpButton>
         </Link>
       </ButtonContainer>
-      <SocialLoginButton>
-        <GoogleButton size={25} />
-        구글 로그인
-      </SocialLoginButton>
+      <GoogleLogin
+        clientId={clientId}
+        render={(renderProps) => {
+          return (
+            <SocialLoginButton onClick={renderProps.onClick}>
+              <GoogleButton size={25} />
+              구글 로그인
+            </SocialLoginButton>
+          );
+        }}
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+      />
     </LoginContainer>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -60,7 +61,7 @@ export default function EditTextForm() {
     ["review", location.state.reviewId],
     () => {
       return axios.get(
-        `http://localhost:4000/reviews/${location.state.reviewId}`
+        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
       );
     },
     {

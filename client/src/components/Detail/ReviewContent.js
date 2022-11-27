@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -22,7 +23,7 @@ const TextContainter = styled.div`
 export default function ReviewContent() {
   const { id } = useParams();
   const { data } = useQuery(["review", id], () => {
-    return axios.get(`http://localhost:4000/reviews/${id}`);
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
   });
 
   const startDate = new Date(data?.data.startDate);
@@ -30,7 +31,11 @@ export default function ReviewContent() {
 
   return (
     <ContentContainer>
-      <DateContainer>{`${startDate.getFullYear()}년 ${startDate.getMonth()}월 ${startDate.getDate()}일 ~ ${endDate.getFullYear()}년 ${endDate.getMonth()}월 ${endDate.getDate()}일`}</DateContainer>
+      <DateContainer>
+        {startDate === endDate
+          ? `${startDate.getFullYear()}년 ${startDate.getMonth()}월 ${startDate.getDate()}일}`
+          : `${startDate.getFullYear()}년 ${startDate.getMonth()}월 ${startDate.getDate()}일 ~ ${endDate.getFullYear()}년 ${endDate.getMonth()}월 ${endDate.getDate()}일`}
+      </DateContainer>
       <TextContainter>{data?.data.content}</TextContainter>
     </ContentContainer>
   );

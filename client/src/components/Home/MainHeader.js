@@ -24,7 +24,7 @@ const SearchContainer = styled.div`
   box-shadow: 0.5px 0.5px lightgray;
 
   &:focus-within {
-    border: solid 2px black;
+    border: solid 1.5px black;
   }
 `;
 
@@ -48,7 +48,6 @@ const HeaderContainer = styled.header`
   border-bottom: solid 1px lightgray;
   padding: 15px;
   top: 0;
-  z-index: 1000;
   background-color: white;
 `;
 
@@ -59,7 +58,7 @@ export default function Header() {
   return (
     <HeaderContainer>
       <SearchContainer>
-        <SlMagnifier size={20} onClick={() => {}} />
+        <SlMagnifier size={20} />
         <Searchbar
           placeholder="검색"
           value={search}

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
@@ -105,7 +106,7 @@ export default function EditRating() {
     ["review", location.state.reviewId],
     () => {
       return axios.get(
-        `http://localhost:4000/reviews/${location.state.reviewId}`
+        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
       );
     },
     {
@@ -118,7 +119,7 @@ export default function EditRating() {
   const addReview = useMutation(
     (review) => {
       return axios.patch(
-        `http://localhost:4000/reviews/${location.state.reviewId}`,
+        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`,
         review
       );
     },

@@ -14,7 +14,7 @@ const ModalContainer = styled.ul`
   justify-content: center;
   align-items: center;
   font-size: 0.75em;
-  width: 60px;
+  width: 70px;
   border: 1px solid darkgray;
   border-radius: 5px;
   position: absolute;
@@ -61,9 +61,7 @@ export default function MenuModal({ setIsModalOpen }) {
         <li>
           <Link to="/signup">회원가입</Link>
         </li>
-        <li>
-          <Link to="/signup">로그아웃</Link>
-        </li>
+        <li>로그아웃</li>
         <li>
           <Link to="/mypage">마이페이지</Link>
         </li>

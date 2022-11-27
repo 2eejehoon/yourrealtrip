@@ -192,7 +192,6 @@ export default function UserInfo() {
               size={15}
               color="darkgray"
               onClick={() => {
-                console.log("click");
                 if (confirm("정말 삭제하시겠습니까?")) {
                   setImage(
                     "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"

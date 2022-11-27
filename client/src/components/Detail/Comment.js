@@ -121,15 +121,24 @@ export default function Comment({ comment }) {
   );
 
   const { data } = useQuery(["comment", comment.id], () => {
-    return axios.get(`http://localhost:4000/comments/${comment.id}`);
-  });
-
-  const editComment = useMutation((editedComment) => {
-    return axios.patch(
-      `http://localhost:4000/comments/${comment.id}`,
-      editedComment
+    return axios.get(
+      `${process.env.REACT_APP_BASE_API}/comments/${comment.id}`
     );
   });
+
+  const editComment = useMutation(
+    (editedComment) => {
+      return axios.patch(
+        `${process.env.REACT_APP_BASE_API}/comments/${comment.id}`,
+        editedComment
+      );
+    },
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(["comment", comment.id]);
+      },
+    }
+  );
 
   const handleCommentEditSave = () => {
     const editedComment = {
@@ -137,11 +146,7 @@ export default function Comment({ comment }) {
       content: commentEditInputValue,
     };
 
-    editComment.mutate(editedComment, {
-      onSuccess: () => {
-        return queryClient.invalidateQueries(["comment", comment.id]);
-      },
-    });
+    editComment.mutate(editedComment);
   };
 
   const commentRef = useRef(null);
@@ -151,6 +156,7 @@ export default function Comment({ comment }) {
       commentRef.current.focus();
     }
   }, [isCommentEdit]);
+
   return (
     <CommnetLi>
       <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png" />
@@ -185,12 +191,11 @@ export default function Comment({ comment }) {
           onClick={() => setIsModalOpen(true)}
         />
       )}
-
       {isModalOpen ? (
         <CommentOptionModal
           setIsModalOpen={setIsModalOpen}
-          comment={comment}
           setIsCommentEdit={setIsCommentEdit}
+          comment={comment}
         />
       ) : null}
     </CommnetLi>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { SlOptions } from "react-icons/sl";
 import ReviewOptionModal from "./ReviewOptionModal";
@@ -65,7 +66,7 @@ export default function UserInfo() {
 
   const { id } = useParams();
   const { data } = useQuery(["review", id], () => {
-    return axios.get(`http://localhost:4000/reviews/${id}`);
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
   });
 
   return (

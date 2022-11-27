@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -113,7 +114,7 @@ export default function SignUpForm() {
 
   const signUp = useMutation(
     (userInfo) => {
-      return axios.post(`http://localhost:4000/users`, userInfo);
+      return axios.post(`${process.env.REACT_APP_BASE_API}/users`, userInfo);
     },
     {
       onSuccess: () => {

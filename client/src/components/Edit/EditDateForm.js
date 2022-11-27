@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { useRecoilState } from "recoil";
@@ -103,7 +104,7 @@ export default function EditDateForm() {
     ["review", location.state.reviewId],
     () => {
       return axios.get(
-        `http://localhost:4000/reviews/${location.state.reviewId}`
+        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
       );
     },
     {

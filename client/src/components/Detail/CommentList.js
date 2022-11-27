@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import Comment from "./Comment";
 import { useParams } from "react-router-dom";
@@ -11,10 +12,11 @@ const CommentListContainer = styled.ul`
 
 export default function CommentList() {
   const { id } = useParams();
+
   const { data } = useQuery(
     ["comments"],
     () => {
-      return axios.get(`http://localhost:4000/comments/`);
+      return axios.get(`${process.env.REACT_APP_BASE_API}/comments/`);
     },
     {
       select: (comments) => comments.data.filter((el) => el.reviewId == id),

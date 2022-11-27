@@ -6,7 +6,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const EditIcon = styled(BiPencil)``;
-
 const DeleteIcon = styled(HiOutlineTrash)``;
 
 const BackgroundDiv = styled.div`
@@ -56,7 +55,9 @@ export default function CommentOptionModal({
   const queryClient = useQueryClient();
   const deleteComment = useMutation(
     () => {
-      return axios.delete(`http://localhost:4000/comments/${comment.id}`);
+      return axios.delete(
+        `${process.env.REACT_APP_BASE_API}/comments/${comment.id}`
+      );
     },
     {
       onSuccess: () => {

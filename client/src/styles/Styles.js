@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     
     body {
         margin: auto;
-        width: 390px;
+        max-width: 390px;
         border: 1px solid lightgray;
         box-shadow: 0.5px 0.5px lightgray;
         overflow-y: scroll;

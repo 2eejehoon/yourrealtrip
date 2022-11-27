@@ -36,6 +36,7 @@ const MenuButton = styled(AiOutlineMenu)`
 
 export default function SubHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <HeaderContainer>
       <Link to="/reviews">

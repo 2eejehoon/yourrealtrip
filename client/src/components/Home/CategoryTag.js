@@ -36,47 +36,58 @@ const CategoryButtonContainer = styled.div`
 export default function CategoryTag() {
   const [category, setCategory] = useRecoilState(categoryState);
 
+  const handleClick = (e) => {
+    setCategory(e.target.value);
+  };
+
   return (
     <CategoryButtonContainer>
       <CategoryButton
+        value="전체"
         clicked={category === "전체" ? "clicked" : null}
-        onClick={() => setCategory("전체")}
+        onClick={handleClick}
       >
         전체
       </CategoryButton>
       <CategoryButton
+        value="서울"
         clicked={category === "서울" ? "clicked" : null}
-        onClick={() => setCategory("서울")}
+        onClick={handleClick}
       >
         서울
       </CategoryButton>
       <CategoryButton
+        value="제주"
         clicked={category === "제주" ? "clicked" : null}
-        onClick={() => setCategory("제주")}
+        onClick={handleClick}
       >
         제주
       </CategoryButton>
       <CategoryButton
+        value="부산"
         clicked={category === "부산" ? "clicked" : null}
-        onClick={() => setCategory("부산")}
+        onClick={handleClick}
       >
         부산
       </CategoryButton>
       <CategoryButton
+        value="인천"
         clicked={category === "인천" ? "clicked" : null}
-        onClick={() => setCategory("인천")}
+        onClick={handleClick}
       >
         인천
       </CategoryButton>
       <CategoryButton
+        value="대구"
         clicked={category === "대구" ? "clicked" : null}
-        onClick={() => setCategory("대구")}
+        onClick={handleClick}
       >
         대구
       </CategoryButton>
       <CategoryButton
+        value="광주"
         clicked={category === "광주" ? "clicked" : null}
-        onClick={() => setCategory("광주")}
+        onClick={handleClick}
       >
         광주
       </CategoryButton>

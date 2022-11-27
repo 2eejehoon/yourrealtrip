@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import Review from "./Review";
 import { useQuery } from "@tanstack/react-query";
@@ -22,7 +23,7 @@ export default function ReviewList() {
   const { data } = useQuery(
     ["reviews"],
     () => {
-      return axios.get("http://localhost:4000/reviews");
+      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews`);
     },
     {
       select: (reviews) =>

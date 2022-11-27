@@ -28,12 +28,18 @@
       "name": "남대문",
       "email": "namdaemun123@gmail.com",
       "password": "!tnsehfdl6808"
+    },
+    {
+      "id": "345fa513-a3e6-49ec-b715-97e2ea20411e",
+      "name": "순돌이",
+      "email": "2eejehoon@gmail.com",
+      "password": "!tnsehfdl6808"
     }
   ],
   "comments": [
     {
       "id": "25027a19-a863-40db-894f-181763975910",
-      "content": "1",
+      "content": "2",
       "createdAt": "2022-11-25T08:50:13.444Z",
       "reviewId": "9b1d8b57-cc1f-4aa4-a79f-987a5bf694e4"
     }

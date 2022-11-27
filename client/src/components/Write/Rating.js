@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { useState } from "react";
@@ -102,7 +103,7 @@ export default function Rating() {
 
   const addReview = useMutation(
     (review) => {
-      return axios.post(`http://localhost:4000/reviews`, review);
+      return axios.post(`${process.env.REACT_APP_BASE_API}/reviews`, review);
     },
     {
       onSuccess: () => {

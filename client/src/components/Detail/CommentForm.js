@@ -1,5 +1,6 @@
-import { useState } from "react";
+/* eslint-disable */
 import styled from "styled-components";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -100,7 +101,7 @@ export default function CommentForm() {
   const queryClient = useQueryClient();
 
   const addComment = useMutation((comment) => {
-    return axios.post(`http://localhost:4000/comments`, comment);
+    return axios.post(`${process.env.REACT_APP_BASE_API}/comments`, comment);
   });
 
   const handleCommentSubmit = () => {
@@ -130,8 +131,8 @@ export default function CommentForm() {
         <CommentInputContainer>
           <CommentInput
             placeholder="댓글을 입력해주세요."
-            onFocus={() => setIsFocused(true)}
             value={commentInputValue}
+            onFocus={() => setIsFocused(true)}
             onChange={(e) => setCommentInputValue(e.target.value)}
           ></CommentInput>
         </CommentInputContainer>

@@ -7,7 +7,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const EditIcon = styled(BiPencil)``;
-
 const DeleteIcon = styled(HiOutlineTrash)``;
 
 const BackgroundDiv = styled.div`
@@ -57,7 +56,7 @@ export default function ReviewOptionModal({ setIsModalOpen }) {
 
   const deleteReview = useMutation(
     () => {
-      return axios.delete(`http://localhost:4000/reviews/${id}`);
+      return axios.delete(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
     },
     {
       onSuccess: () => {
