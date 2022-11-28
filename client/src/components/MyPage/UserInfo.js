@@ -35,6 +35,7 @@ const UserProfileContainer = styled.div`
 `;
 
 const UserProfileImage = styled.img`
+  opacity: ${(props) => (props.drag === "drag" ? "70%" : "100%")};
   width: 100px;
   height: 100px;
   border: 1px solid lightgray;
@@ -143,6 +144,7 @@ export default function UserInfo() {
   );
   const [profileImageDeleteButtonShow, setProfileImageDeleteButtonShow] =
     useState(false);
+  const [drag, setDrag] = useState(false);
 
   const imageRef = useRef(null);
   const nameRef = useRef(null);
@@ -201,9 +203,15 @@ export default function UserInfo() {
             />
           ) : null}
           <UserProfileImage
+            drag={drag ? "drag" : null}
             src={image}
+            onDragEnter={() => setDrag(true)}
+            onDragLeave={() => setDrag(false)}
             onDragOver={handleDragOver}
-            onDrop={handleDrop}
+            onDrop={(e) => {
+              handleDrop(e);
+              setDrag(false);
+            }}
           />
           <input
             type="file"

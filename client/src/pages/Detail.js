@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   justify-content: start;
   background-color: white;
 `;
+
 export default function Detail() {
   return (
     <>

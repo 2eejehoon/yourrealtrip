@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { editImagesState } from "../../atoms/edit";
 import { ImCancelCircle } from "react-icons/im";
@@ -37,10 +37,11 @@ const PreviewContainer = styled.div`
 `;
 
 const ImageIcon = styled(BsImage)`
-  opacity: 75%;
+  opacity: ${(props) => (props.drag === "drag" ? "50%" : "70%")};
 `;
 
 const UploadContainer = styled.div`
+  opacity: ${(props) => (props.drag === "drag" ? "70%" : "100%")};
   width: 300px;
   height: 300px;
   border: dotted 1px gray;
@@ -86,6 +87,7 @@ const StyledText = styled.p`
 
 export default function EditImageUpload() {
   const [images, setImages] = useRecoilState(editImagesState);
+  const [drag, setDrag] = useState(false);
   const imageRef = useRef();
 
   const handleDragOver = (e) => {
@@ -115,8 +117,20 @@ export default function EditImageUpload() {
   return (
     <>
       <DescText>사진을 업로드 해주세요.</DescText>
-      <UploadContainer onDragOver={handleDragOver} onDrop={handleDrop}>
-        <ImageIcon size={50} color="black"></ImageIcon>
+      <UploadContainer
+        onDragEnter={() => setDrag(true)}
+        onDragLeave={() => setDrag(false)}
+        onDragOver={handleDragOver}
+        onDrop={(e) => {
+          handleDrop(e);
+          setDrag(false);
+        }}
+      >
+        <ImageIcon
+          drag={drag ? "drag" : null}
+          size={50}
+          color="black"
+        ></ImageIcon>
         <StyledText>여기에 사진을 놓아주세요.</StyledText>
         <UploadButton onClick={() => imageRef.current.click()}>
           기기에서 업로드
