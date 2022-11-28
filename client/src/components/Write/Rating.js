@@ -12,6 +12,7 @@ import {
   districtState,
   streetState,
   latLngState,
+  imagesState,
 } from "../../atoms/write";
 import axios from "axios";
 import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
@@ -77,11 +78,13 @@ const StyledText = styled.p`
 `;
 
 export default function Rating({ setPage }) {
+  const id = uuidv4();
   const [hover, setHover] = useState(null);
   const [click, setClick] = useRecoilState(scoreState);
   const title = useRecoilValue(titleState);
   const startDate = useRecoilValue(startDateState);
   const endDate = useRecoilValue(endDateState);
+  const images = useRecoilValue(imagesState);
   const content = useRecoilValue(contentState);
   const city = useRecoilValue(cityState);
   const district = useRecoilValue(districtState);
@@ -91,6 +94,7 @@ export default function Rating({ setPage }) {
   const resetTitle = useResetRecoilState(titleState);
   const resetStartDate = useResetRecoilState(startDateState);
   const resetEndDate = useResetRecoilState(endDateState);
+  const resetImages = useResetRecoilState(imagesState);
   const resetContent = useResetRecoilState(contentState);
   const resetCity = useResetRecoilState(cityState);
   const resetDistrict = useResetRecoilState(districtState);
@@ -110,13 +114,14 @@ export default function Rating({ setPage }) {
         resetTitle();
         resetStartDate();
         resetEndDate();
+        resetImages();
         resetContent();
         resetCity();
         resetDistrict();
         resetStreet();
         resetLatLng();
         resetScore();
-        navigate("/reviews");
+        navigate(`/review/${id}`);
         return queryClient.invalidateQueries(["reviews"]);
       },
     }
@@ -134,6 +139,10 @@ export default function Rating({ setPage }) {
     if (endDate === "") {
       alert("종료일을 입력해주세요.");
       return setPage(1);
+    }
+    if (images.length === 0) {
+      alert("사진을 업로드 해주세요.");
+      return setPage(2);
     }
     if (content === "") {
       alert("내용을 입력해주세요.");
@@ -156,7 +165,7 @@ export default function Rating({ setPage }) {
     }
 
     const review = {
-      id: uuidv4(),
+      id: id,
       title,
       startDate,
       images: [1, 2, 3],

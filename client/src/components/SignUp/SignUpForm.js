@@ -126,6 +126,19 @@ export default function SignUpForm() {
   );
 
   const handleSignUp = () => {
+    if (name === "") {
+      alert("닉네임을 입력해주세요.");
+      return nameInput.current.focus();
+    }
+    if (email === "") {
+      alert("이메일을 입력해주세요.");
+      return emailInput.current.focus();
+    }
+    if (password === "") {
+      alert("비밀번호를 입력해주세요.");
+      return passwordInput.current.focus();
+    }
+
     signUp.mutate({
       id: uuidv4(),
       name: name,
@@ -243,10 +256,6 @@ export default function SignUpForm() {
       <ButtonContainer>
         <SignUpButton
           disabled={
-            name === "" ||
-            email === "" ||
-            password === "" ||
-            passwordCheck === "" ||
             emailError !== "" ||
             passwordError !== "" ||
             passwordCheckError !== ""

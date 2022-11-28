@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
-import { imagesState } from "../../atoms/write";
+import { editImagesState } from "../../atoms/edit";
 import { ImCancelCircle } from "react-icons/im";
 
 const ProfileDeleteButton = styled(ImCancelCircle)`
@@ -85,7 +85,7 @@ const StyledText = styled.p`
 `;
 
 export default function EditImageUpload() {
-  const [images, setImages] = useRecoilState(imagesState);
+  const [images, setImages] = useRecoilState(editImagesState);
   const imageRef = useRef();
 
   const handleDragOver = (e) => {

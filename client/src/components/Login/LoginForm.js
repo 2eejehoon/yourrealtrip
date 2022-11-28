@@ -169,10 +169,37 @@ export default function LoginForm() {
     },
     {
       onSuccess: () => {
+        setLoginInfo({
+          email: "",
+          password: "",
+        });
         navigate("/");
+      },
+      onError: () => {
+        return alert("아이디 또는 비밀번호가 일치하지 않습니다.");
       },
     }
   );
+
+  const handleLogin = () => {
+    if (loginInfo.email === "") {
+      alert("이메일을 입력해주세요.");
+      return emailInput.current.focus();
+    }
+    if (loginInfo.password === "") {
+      alert("비밀번호를 입력해주세요.");
+      return passwordInput.current.focus();
+    }
+    login.mutate(loginInfo);
+  };
+
+  const onSuccess = (response) => {
+    console.log(response);
+  };
+
+  const onFailure = (response) => {
+    console.log(response);
+  };
 
   useEffect(() => {
     emailInput.current.focus();
@@ -188,18 +215,6 @@ export default function LoginForm() {
 
     gapi.load("client:auth2", start);
   }, []);
-
-  const onSuccess = (response) => {
-    console.log(response);
-  };
-
-  const onFailure = (response) => {
-    console.log(response);
-  };
-
-  const handleLogin = () => {
-    login.mutate(loginInfo);
-  };
 
   return (
     <LoginContainer>

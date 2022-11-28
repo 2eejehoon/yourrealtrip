@@ -56,7 +56,7 @@ export default function ReviewList() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const lastPage = Math.ceil(data?.length / 10);
+    const lastPage = Math.ceil(data?.length / 5);
 
     if (page !== lastPage && inView) setPage(page + 1);
   }, [inView]);
@@ -64,7 +64,7 @@ export default function ReviewList() {
   return (
     <>
       <ReviewListContainer>
-        {data?.slice(0, page * 10).map((review) => {
+        {data?.slice(0, page * 5).map((review) => {
           return <Review key={review.id} review={review} />;
         })}
         <div ref={ref} />

@@ -17,6 +17,7 @@ import {
   editDistrictState,
   editLatLngState,
   editStreetState,
+  editImagesState,
 } from "../../atoms/edit";
 
 const Star = styled(AiFillStar)`
@@ -83,6 +84,7 @@ export default function EditRating() {
   const title = useRecoilValue(editTitleState);
   const startDate = useRecoilValue(editStartDateState);
   const endDate = useRecoilValue(editEndDateState);
+  const images = useRecoilValue(editImagesState);
   const content = useRecoilValue(editContentState);
   const city = useRecoilValue(editCityState);
   const district = useRecoilValue(editDistrictState);
@@ -92,6 +94,7 @@ export default function EditRating() {
   const resetTitle = useResetRecoilState(editTitleState);
   const resetStartDate = useResetRecoilState(editStartDateState);
   const resetEndDate = useResetRecoilState(editEndDateState);
+  const resetImages = useResetRecoilState(editImagesState);
   const resetContent = useResetRecoilState(editContentState);
   const resetCity = useResetRecoilState(editCityState);
   const resetDistrict = useResetRecoilState(editDistrictState);
@@ -116,11 +119,11 @@ export default function EditRating() {
     }
   );
 
-  const addReview = useMutation(
-    (review) => {
+  const editReview = useMutation(
+    (editedReview) => {
       return axios.patch(
         `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`,
-        review
+        editedReview
       );
     },
     {
@@ -129,28 +132,56 @@ export default function EditRating() {
         resetStartDate();
         resetEndDate();
         resetContent();
+        resetImages();
         resetCity();
         resetDistrict();
         resetStreet();
         resetLatLng();
         resetScore();
-        navigate("/reviews");
+        navigate(`/reviews/${location.state.reviewId}`);
         return queryClient.invalidateQueries(["reviews"]);
       },
     }
   );
 
   const handleWriteSubmit = () => {
-    if (title === "") return alert("제목을 입력해주세요.");
-    if (startDate === "") return alert("시작일을 입력해주세요.");
-    if (endDate === "") return alert("종료일을 입력해주세요.");
-    if (content === "") return alert("내용을 입력해주세요.");
-    if (city === "") return alert("시/도를 입력해주세요.");
-    if (district === "") return alert("자치구를 입력해주세요.");
-    if (street === "") return alert("도로명을 입력해주세요.");
-    if (click === "") return alert("평점을 입력해주세요.");
+    if (title === "") {
+      alert("제목을 입력해주세요.");
+      return setPage(0);
+    }
+    if (startDate === "") {
+      alert("시작일을 입력해주세요.");
+      return setPage(1);
+    }
+    if (endDate === "") {
+      alert("종료일을 입력해주세요.");
+      return setPage(1);
+    }
+    if (images.length === 0) {
+      alert("사진을 업로드 해주세요.");
+      return setPage(2);
+    }
+    if (content === "") {
+      alert("내용을 입력해주세요.");
+      return setPage(3);
+    }
+    if (city === "") {
+      alert("시/도를 입력해주세요.");
+      return setPage(4);
+    }
+    if (district === "") {
+      alert("자치구를 입력해주세요.");
+      return setPage(4);
+    }
+    if (street === "") {
+      alert("도로명을 입력해주세요.");
+      return setPage(4);
+    }
+    if (click === "") {
+      return alert("평점을 입력해주세요.");
+    }
 
-    const review = {
+    const editedReview = {
       ...data?.data,
       id: uuidv4(),
       title,
@@ -165,7 +196,7 @@ export default function EditRating() {
       score: click,
     };
 
-    addReview.mutate(review);
+    editReview.mutate(editedReview);
   };
 
   const text = [
