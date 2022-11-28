@@ -2,6 +2,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useRef } from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const BackgroundDiv = styled.div`
   inset: 0;
@@ -94,6 +97,47 @@ export default function PasswordModal({ setPasswordModalShow }) {
   const [newPasswordError, setNewPasswordError] = useState("");
   const [passwordCheckError, setPasswordCheckError] = useState("");
 
+  const passwordRef = useRef();
+  const newPasswordRef = useRef();
+  const passwordCheckRef = useRef();
+
+  const updatePassword = useMutation(
+    (passwordInfo) => {
+      return axios.put(
+        `${process.env.REACT_APP_BASE_API}/users/userId`,
+        passwordInfo
+      );
+    },
+    {
+      onSuccess: () => {
+        alert("비빌번호가 변경되었습니다.");
+        setPasswordModalShow(false);
+      },
+
+      onError: () => {
+        alert("비밀번호가 일치하지 않습니다.");
+      },
+    }
+  );
+
+  const handlePasswordUpdate = () => {
+    if (password === "") {
+      alert("비밀번호를 입력해주세요.");
+      return passwordRef.current.focus();
+    }
+    if (newPassword === "") {
+      alert("새 비밀번호를 입력해주세요.");
+      return newPasswordRef.current.focus();
+    }
+
+    const passwordInfo = {
+      password,
+      newPassword,
+    };
+
+    updatePassword.mutate(passwordInfo);
+  };
+
   const handlePasswordChange = (e) => {
     setNewPassword(e.target.value);
     const passwordRegex =
@@ -113,6 +157,10 @@ export default function PasswordModal({ setPasswordModalShow }) {
     }
   }, [newPassword, passwordCheck]);
 
+  useEffect(() => {
+    passwordRef.current.focus();
+  }, []);
+
   return (
     <>
       <ModalContainer>
@@ -125,32 +173,29 @@ export default function PasswordModal({ setPasswordModalShow }) {
         </ErrorText>
         <div>비밀번호 확인</div>
         <input
+          ref={passwordRef}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
         />
         <div>새 비밀번호</div>
         <input
+          ref={newPasswordRef}
           value={newPassword}
           onChange={handlePasswordChange}
           type="password"
         />
         <div>새 비밀번호 확인</div>
         <input
+          ref={passwordCheckRef}
           value={passwordCheck}
           onChange={(e) => setPasswordCheck(e.target.value)}
           type="password"
         />
       </ModalContainer>
       <UpdateButton
-        disabled={
-          password === "" ||
-          newPassword === "" ||
-          passwordCheck === "" ||
-          newPasswordError !== "" ||
-          passwordCheckError !== ""
-        }
-        onClick={() => setPasswordModalShow(false)}
+        disabled={newPasswordError !== "" || passwordCheckError !== ""}
+        onClick={handlePasswordUpdate}
       >
         업데이트
       </UpdateButton>

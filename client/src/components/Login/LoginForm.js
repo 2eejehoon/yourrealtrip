@@ -165,7 +165,7 @@ export default function LoginForm() {
 
   const login = useMutation(
     (loginInfo) => {
-      axios.post(`${process.env.REACT_APP_BASE_API}/user/login`, loginInfo);
+      axios.post(`${process.env.REACT_APP_BASE_API}/users/login`, loginInfo);
     },
     {
       onSuccess: () => {
