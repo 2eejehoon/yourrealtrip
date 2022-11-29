@@ -1,6 +1,10 @@
-import { ImCancelCircle } from "react-icons/im";
+/* eslint-disable */
 import styled from "styled-components";
 import { useState, useRef } from "react";
+import { ImCancelCircle } from "react-icons/im";
+import S3 from "react-aws-s3";
+
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const UserProfileImage = styled.img`
   opacity: ${(props) => (props.drag === "drag" ? "70%" : "100%")};
@@ -27,7 +31,7 @@ const DescText = styled.p`
 const ProfileDeleteButton = styled(ImCancelCircle)`
   position: absolute;
   top: -11px;
-  right: 11px;
+  right: 14px;
 `;
 
 const UserProfileContainer = styled.div`
@@ -56,12 +60,13 @@ const UserProfileContainer = styled.div`
 `;
 
 export default function UserProfile() {
+  const [profileImageDeleteButtonShow, setProfileImageDeleteButtonShow] =
+    useState(false);
   const [image, setImage] = useState(
     "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"
   );
-  const [profileImageDeleteButtonShow, setProfileImageDeleteButtonShow] =
-    useState(false);
   const [drag, setDrag] = useState(false);
+
   const imageRef = useRef(null);
 
   const handleDragOver = (e) => {
@@ -76,9 +81,20 @@ export default function UserProfile() {
     handleFile(imageFile);
   };
 
-  const handleFile = (file) => {
-    setImage(URL.createObjectURL(file));
+  const config = {
+    bucketName: process.env.REACT_APP_BUCKET_NAME,
+    region: process.env.REACT_APP_REGION,
+    accessKeyId: process.env.REACT_APP_ACCESS,
+    secretAccessKey: process.env.REACT_APP_SECRET,
   };
+
+  const handleFile = async (file) => {
+    const ReactS3Client = new S3(config);
+    ReactS3Client.uploadFile(file, file.name)
+      .then((data) => setImage(data.location))
+      .catch((err) => console.error(err));
+  };
+
   return (
     <>
       <DescText>작성자님의 정보</DescText>
@@ -116,7 +132,7 @@ export default function UserProfile() {
           accept="image/*"
           onChange={(e) => {
             const imageFile = e.target.files[0];
-            setImage(URL.createObjectURL(imageFile));
+            handleFile(imageFile);
           }}
         />
         <button onClick={() => imageRef.current.click()}>사진 업데이트</button>
