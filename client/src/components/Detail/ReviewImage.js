@@ -1,6 +1,10 @@
+/* eslint-disable */
 import { useState } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const DetailImageContainer = styled.div`
   position: relative;
@@ -67,6 +71,7 @@ const StyledSlider = styled(Slider)`
 `;
 
 export default function DetailCarousel() {
+  const { id } = useParams();
   const [hover, setHover] = useState(false);
   const settings = {
     dots: true,
@@ -76,6 +81,12 @@ export default function DetailCarousel() {
     slidesToScroll: 1,
   };
 
+  const { data } = useQuery(["review", id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
+  });
+
+  console.log(data?.data.images);
+
   return (
     <>
       <DetailImageContainer
@@ -83,9 +94,9 @@ export default function DetailCarousel() {
         onMouseLeave={() => setHover(false)}
       >
         <StyledSlider {...settings} hover={hover ? "hover" : null}>
-          <DetailImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"></DetailImage>
-          <DetailImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"></DetailImage>
-          <DetailImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg"></DetailImage>
+          {data?.data.images.map((image) => {
+            return <DetailImage key={image} src={image} />;
+          })}
         </StyledSlider>
       </DetailImageContainer>
     </>

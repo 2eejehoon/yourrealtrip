@@ -186,7 +186,7 @@ export default function EditRating() {
       id: uuidv4(),
       title,
       startDate,
-      images: [1, 2, 3],
+      images,
       endDate,
       content,
       city,

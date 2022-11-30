@@ -1,9 +1,14 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
 import { useState, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { imagesState } from "../../atoms/write";
 import { ImCancelCircle } from "react-icons/im";
+import S3 from "react-aws-s3";
+import { v4 as uuidv4 } from "uuid";
+
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const ProfileDeleteButton = styled(ImCancelCircle)`
   position: absolute;
@@ -99,11 +104,31 @@ export default function ImageUpload() {
     e.stopPropagation();
 
     let imageFiles = e.dataTransfer.files;
-    handleFile(imageFiles);
+    for (let i = 0; i < imageFiles.length; i++) {
+      handleFile(imageFiles[i]);
+    }
   };
 
-  const handleFile = (files) => {
-    setImages([...images, ...files]);
+  const handleClick = (e) => {
+    let imageFiles = e.target.files;
+    for (let i = 0; i < imageFiles.length; i++) {
+      handleFile(imageFiles[i]);
+    }
+  };
+
+  const config = {
+    bucketName: process.env.REACT_APP_BUCKET_NAME,
+    region: process.env.REACT_APP_REGION,
+    accessKeyId: process.env.REACT_APP_ACCESS,
+    secretAccessKey: process.env.REACT_APP_SECRET,
+  };
+
+  const handleFile = async (file) => {
+    const ReactS3Client = new S3(config);
+    let fileName = file.name + uuidv4();
+    ReactS3Client.uploadFile(file, fileName)
+      .then((data) => setImages([...images, data.location]))
+      .catch((err) => console.error(err));
   };
 
   const handleDelete = (index) => {
@@ -142,9 +167,7 @@ export default function ImageUpload() {
           type="file"
           multiple
           accept="image/*"
-          onChange={(e) => {
-            setImages([...images, ...e.target.files]);
-          }}
+          onChange={handleClick}
         />
       </UploadContainer>
       <PreviewContainer>
@@ -157,7 +180,7 @@ export default function ImageUpload() {
                   handleDelete(index);
                 }}
               />
-              <img src={URL.createObjectURL(image)} alt="미리보기" />
+              <img src={image} alt="미리보기" />
             </PreviewImageContainter>
           );
         })}
