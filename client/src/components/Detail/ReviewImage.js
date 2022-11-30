@@ -85,8 +85,6 @@ export default function DetailCarousel() {
     return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
   });
 
-  console.log(data?.data.images);
-
   return (
     <>
       <DetailImageContainer

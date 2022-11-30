@@ -32,9 +32,11 @@ export default function ReviewContent() {
   return (
     <ContentContainer>
       <DateContainer>
-        {startDate === endDate
-          ? `${startDate.getFullYear()}년 ${startDate.getMonth()}월 ${startDate.getDate()}일}`
-          : `${startDate.getFullYear()}년 ${startDate.getMonth()}월 ${startDate.getDate()}일 ~ ${endDate.getFullYear()}년 ${endDate.getMonth()}월 ${endDate.getDate()}일`}
+        {`${startDate.getFullYear()}년 ${
+          startDate.getMonth() + 1
+        }월 ${startDate.getDate()}일 ~ ${endDate.getFullYear()}년 ${
+          endDate.getMonth() + 1
+        }월 ${endDate.getDate()}일`}
       </DateContainer>
       <TextContainter>{data?.data.content}</TextContainter>
     </ContentContainer>

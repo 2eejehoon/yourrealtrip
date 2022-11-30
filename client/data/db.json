@@ -3,13 +3,13 @@
     {
       "id": "3974acff-a1a3-4a09-8e86-aeb443f84dbb",
       "title": "테스트1",
-      "startDate": "2022-10-31T15:00:00.000Z",
+      "startDate": "2022-11-01T15:00:00.000Z",
       "images": [
         "https://your-real-trip.s3-ap-northeast-2.amazonaws.com/IMG_4865.JPGd5ef3fec-ec3d-4b7d-9afb-2fb9c8448e61",
         "https://your-real-trip.s3-ap-northeast-2.amazonaws.com/sophie.JPGad2f15d1-5a32-45b9-a7df-ce249ca1432e",
         "https://your-real-trip.s3-ap-northeast-2.amazonaws.com/IMG_4855.JPG04629eb8-ae1f-41d0-a0e6-abe2ff17eb11"
       ],
-      "endDate": "2022-10-31T15:00:00.000Z",
+      "endDate": "2022-11-02T15:00:00.000Z",
       "content": "테스트1",
       "city": "인천",
       "district": "계양구",
@@ -30,5 +30,12 @@
       "password": "!password123"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "id": "740d51b0-63c8-4df8-a68f-f13d895ddc04",
+      "content": "테스트1",
+      "createdAt": "2022-11-30T04:21:28.214Z",
+      "reviewId": "3974acff-a1a3-4a09-8e86-aeb443f84dbb"
+    }
+  ]
 }
