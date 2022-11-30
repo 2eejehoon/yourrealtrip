@@ -44,7 +44,6 @@ const SignUpButton = styled.button`
 const SignUpContainer = styled.div`
   background-color: white;
   width: 100%;
-  height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
   justify-content: center;

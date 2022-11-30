@@ -4,6 +4,10 @@ import { gapi } from "gapi-script";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleLogin } from "react-google-login";
 import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const GoogleButton = styled(FcGoogle)`
   position: absolute;
@@ -33,8 +37,36 @@ const SocialLoginButton = styled.button`
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export default function GoogleLoginForm() {
+  const navigate = useNavigate();
+
+  const googleLogin = useMutation(
+    async (loginInfo) => {
+      return axios
+        .post(`${process.env.REACT_APP_BASE_API}/users/login`, loginInfo)
+        .then((userInfo) => localStorage.setItem("user", userInfo))
+        .catch((err) => console.error(err));
+    },
+    {
+      onSuccess: () => {
+        alert("로그인 되었습니다.");
+        navigate("/reviews");
+      },
+      onError: () => {
+        alert("로그인에 실패했습니다.");
+      },
+    }
+  );
+
   const onSuccess = (response) => {
     console.log(response);
+    const loginInfo = {
+      id: uuidv4(),
+      name: response.profileObj.name,
+      email: response.profileObj.email,
+      profileImage: response.profileObj.imageUrl,
+      token: response.tokenId,
+    };
+    googleLogin.mutate(loginInfo);
   };
 
   const onFailure = (response) => {
@@ -55,6 +87,8 @@ export default function GoogleLoginForm() {
   return (
     <GoogleLogin
       clientId={clientId}
+      onSuccess={onSuccess}
+      onFailure={onFailure}
       render={(renderProps) => {
         return (
           <SocialLoginButton onClick={renderProps.onClick}>
@@ -63,8 +97,6 @@ export default function GoogleLoginForm() {
           </SocialLoginButton>
         );
       }}
-      onSuccess={onSuccess}
-      onFailure={onFailure}
     />
   );
 }
