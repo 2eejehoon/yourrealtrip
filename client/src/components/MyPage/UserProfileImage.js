@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState, useRef } from "react";
 import { ImCancelCircle } from "react-icons/im";
 import S3 from "react-aws-s3";
+import { v4 as uuidv4 } from "uuid";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -90,7 +91,8 @@ export default function UserProfile() {
 
   const handleFile = async (file) => {
     const ReactS3Client = new S3(config);
-    ReactS3Client.uploadFile(file, file.name)
+    const fileName = file.name + uuidv4();
+    ReactS3Client.uploadFile(file, fileName)
       .then((data) => setImage(data.location))
       .catch((err) => console.error(err));
   };

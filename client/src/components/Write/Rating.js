@@ -121,7 +121,7 @@ export default function Rating({ setPage }) {
         resetStreet();
         resetLatLng();
         resetScore();
-        navigate(`/review/${id}`);
+        navigate(`/reviews/${id}`);
         return queryClient.invalidateQueries(["reviews"]);
       },
     }
@@ -165,10 +165,10 @@ export default function Rating({ setPage }) {
     }
 
     const review = {
-      id: id,
+      id,
       title,
       startDate,
-      images: [1, 2, 3],
+      images,
       endDate,
       content,
       city,

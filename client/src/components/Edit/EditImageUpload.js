@@ -1,9 +1,17 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
 import { useState, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { editImagesState } from "../../atoms/edit";
 import { ImCancelCircle } from "react-icons/im";
+import S3 from "react-aws-s3";
+import { v4 as uuidv4 } from "uuid";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const ProfileDeleteButton = styled(ImCancelCircle)`
   position: absolute;
@@ -86,6 +94,7 @@ const StyledText = styled.p`
 `;
 
 export default function EditImageUpload() {
+  const location = useLocation();
   const [images, setImages] = useRecoilState(editImagesState);
   const [drag, setDrag] = useState(false);
   const imageRef = useRef();
@@ -102,8 +111,45 @@ export default function EditImageUpload() {
     handleFile(imageFiles);
   };
 
+  const handleClick = (e) => {
+    let imageFiles = e.target.files;
+    for (let i = 0; i < imageFiles.length; i++) {
+      handleFile(imageFiles[i]);
+    }
+  };
+
+  const { data } = useQuery(
+    ["review", location.state.reviewId],
+    () => {
+      return axios.get(
+        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
+      );
+    },
+    {
+      onSuccess: () => {
+        setImages(data?.data.images);
+      },
+    }
+  );
+
+  const config = {
+    bucketName: process.env.REACT_APP_BUCKET_NAME,
+    region: process.env.REACT_APP_REGION,
+    accessKeyId: process.env.REACT_APP_ACCESS,
+    secretAccessKey: process.env.REACT_APP_SECRET,
+  };
+
   const handleFile = (files) => {
-    setImages([...images, ...files]);
+    const ReactS3Client = new S3(config);
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      let fileName = file.name + uuidv4();
+      ReactS3Client.uploadFile(file, fileName)
+        .then((data) => {
+          setImages([...images, data.location]);
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   const handleDelete = (index) => {
@@ -140,9 +186,7 @@ export default function EditImageUpload() {
           type="file"
           multiple
           accept="image/*"
-          onChange={(e) => {
-            setImages([...images, ...e.target.files]);
-          }}
+          onChange={handleClick}
         />
       </UploadContainer>
       <PreviewContainer>
@@ -155,7 +199,7 @@ export default function EditImageUpload() {
                   handleDelete(index);
                 }}
               />
-              <img src={URL.createObjectURL(image)} alt="미리보기" />
+              <img src={image} alt="미리보기" />
             </PreviewImageContainter>
           );
         })}
