@@ -119,7 +119,10 @@ export default function UserProfile() {
         ) : null}
         <UserProfileImage
           drag={drag ? "drag" : null}
-          src={image}
+          src={
+            image ||
+            "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"
+          }
           onDragEnter={() => setDrag(true)}
           onDragLeave={() => setDrag(false)}
           onDragOver={handleDragOver}

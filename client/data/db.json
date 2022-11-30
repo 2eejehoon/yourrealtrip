@@ -1,11 +1,13 @@
 {
   "reviews": [
     {
-      "id": "cb98e137-c36d-4443-93b5-a5623574d985",
+      "id": "3974acff-a1a3-4a09-8e86-aeb443f84dbb",
       "title": "테스트1",
       "startDate": "2022-10-31T15:00:00.000Z",
       "images": [
-        "https://your-real-trip.s3-ap-northeast-2.amazonaws.com/IMG_4865.JPGd232c3c2-ca10-4486-9dd3-9b518a4a565a"
+        "https://your-real-trip.s3-ap-northeast-2.amazonaws.com/IMG_4865.JPGd5ef3fec-ec3d-4b7d-9afb-2fb9c8448e61",
+        "https://your-real-trip.s3-ap-northeast-2.amazonaws.com/sophie.JPGad2f15d1-5a32-45b9-a7df-ce249ca1432e",
+        "https://your-real-trip.s3-ap-northeast-2.amazonaws.com/IMG_4855.JPG04629eb8-ae1f-41d0-a0e6-abe2ff17eb11"
       ],
       "endDate": "2022-10-31T15:00:00.000Z",
       "content": "테스트1",
@@ -17,7 +19,7 @@
         "Ma": 37.5663929787351
       },
       "score": 5,
-      "createdAt": "2022-11-30T03:39:44.176Z"
+      "createdAt": "2022-11-30T04:08:00.627Z"
     }
   ],
   "users": [

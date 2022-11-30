@@ -108,7 +108,9 @@ export default function EditImageUpload() {
     e.stopPropagation();
 
     let imageFiles = e.dataTransfer.files;
-    handleFile(imageFiles);
+    for (let i = 0; i < imageFiles.length; i++) {
+      handleFile(imageFiles[i]);
+    }
   };
 
   const handleClick = (e) => {
@@ -139,17 +141,15 @@ export default function EditImageUpload() {
     secretAccessKey: process.env.REACT_APP_SECRET,
   };
 
-  const handleFile = (files) => {
+  const handleFile = (file) => {
     const ReactS3Client = new S3(config);
-    for (let i = 0; i < files.length; i++) {
-      let file = files[i];
-      let fileName = file.name + uuidv4();
-      ReactS3Client.uploadFile(file, fileName)
-        .then((data) => {
-          setImages([...images, data.location]);
-        })
-        .catch((err) => console.error(err));
-    }
+    const fileName = file.name + uuidv4();
+
+    ReactS3Client.uploadFile(file, fileName)
+      .then((data) => {
+        setImages([...images, data.location]);
+      })
+      .catch((err) => console.error(err));
   };
 
   const handleDelete = (index) => {
