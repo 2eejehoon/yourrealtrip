@@ -99,6 +99,13 @@ export default function EditImageUpload() {
   const [drag, setDrag] = useState(false);
   const imageRef = useRef();
 
+  const config = {
+    bucketName: process.env.REACT_APP_BUCKET_NAME,
+    region: process.env.REACT_APP_REGION,
+    accessKeyId: process.env.REACT_APP_ACCESS,
+    secretAccessKey: process.env.REACT_APP_SECRET,
+  };
+
   const handleDragOver = (e) => {
     e.preventDefault();
   };
@@ -107,17 +114,44 @@ export default function EditImageUpload() {
     e.preventDefault();
     e.stopPropagation();
 
-    let imageFiles = e.dataTransfer.files;
-    for (let i = 0; i < imageFiles.length; i++) {
-      handleFile(imageFiles[i]);
+    let imageFiles = [];
+    for (let file of e.dataTransfer.files) {
+      imageFiles.push(file);
     }
+    handleFile(imageFiles);
   };
 
   const handleClick = (e) => {
-    let imageFiles = e.target.files;
-    for (let i = 0; i < imageFiles.length; i++) {
-      handleFile(imageFiles[i]);
+    let imageFiles = [];
+    for (let file of e.target.files) {
+      imageFiles.push(file);
     }
+    handleFile(imageFiles);
+  };
+
+  const handleFile = async (files) => {
+    const arr = [];
+    const result = await Promise.all(
+      files.map((file) => {
+        const ReactS3Client = new S3(config);
+        const fileName = file.name + uuidv4();
+        ReactS3Client.uploadFile(file, fileName).then((data) => {
+          arr.push(data.location);
+          setImages([...images, ...arr]);
+        });
+      })
+    );
+
+    return result;
+  };
+
+  const handleDelete = (index) => {
+    const deletedImages = [];
+    for (let i = 0; i < images.length; i++) {
+      if (i === index) continue;
+      else deletedImages.push(images[i]);
+    }
+    setImages([...deletedImages]);
   };
 
   const { data } = useQuery(
@@ -134,32 +168,6 @@ export default function EditImageUpload() {
     }
   );
 
-  const config = {
-    bucketName: process.env.REACT_APP_BUCKET_NAME,
-    region: process.env.REACT_APP_REGION,
-    accessKeyId: process.env.REACT_APP_ACCESS,
-    secretAccessKey: process.env.REACT_APP_SECRET,
-  };
-
-  const handleFile = (file) => {
-    const ReactS3Client = new S3(config);
-    const fileName = file.name + uuidv4();
-
-    ReactS3Client.uploadFile(file, fileName)
-      .then((data) => {
-        setImages([...images, data.location]);
-      })
-      .catch((err) => console.error(err));
-  };
-
-  const handleDelete = (index) => {
-    const deletedImages = [];
-    for (let i = 0; i < images.length; i++) {
-      if (i === index) continue;
-      else deletedImages.push(images[i]);
-    }
-    setImages([...deletedImages]);
-  };
   return (
     <>
       <DescText>사진을 업로드 해주세요.</DescText>
