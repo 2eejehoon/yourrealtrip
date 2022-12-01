@@ -13,7 +13,13 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
 import WishList from "./pages/WishList";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   return (
