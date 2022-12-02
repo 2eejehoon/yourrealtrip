@@ -59,11 +59,10 @@ export default function GoogleLoginForm() {
   const navigate = useNavigate();
 
   const googleLogin = useMutation(
-    (loginInfo) => {
-      return axios.post(
-        `${process.env.REACT_APP_BASE_API}/users/signIn`,
-        loginInfo
-      );
+    async (loginInfo) => {
+      return axios
+        .post(`${process.env.REACT_APP_BASE_API}/users/signIn`, loginInfo)
+        .then((response) => setUser(response.data));
     },
     {
       onSuccess: () => {
@@ -78,10 +77,6 @@ export default function GoogleLoginForm() {
     const profileImg = currentUser.getBasicProfile().getImageUrl();
     const email = currentUser.getBasicProfile().getEmail();
     const { id_token } = currentUser.getAuthResponse();
-    setUser({
-      name: name,
-      profileImg: profileImg,
-    });
     const loginInfo = {
       data: {
         name,
@@ -105,14 +100,6 @@ export default function GoogleLoginForm() {
         console.log(JSON.stringify(error));
       }
     );
-  };
-
-  const signOut = () => {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(() => {
-      setUser(null);
-      alert("로그아웃");
-    });
   };
 
   useEffect(() => {

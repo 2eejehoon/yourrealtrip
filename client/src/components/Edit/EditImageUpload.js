@@ -135,10 +135,12 @@ export default function EditImageUpload() {
       files.map((file) => {
         const ReactS3Client = new S3(config);
         const fileName = file.name + uuidv4();
-        ReactS3Client.uploadFile(file, fileName).then((data) => {
-          arr.push(data.location);
-          setImages([...images, ...arr]);
-        });
+        ReactS3Client.uploadFile(file, fileName)
+          .then((data) => {
+            arr.push(data.location);
+            setImages([...images, ...arr]);
+          })
+          .catch((err) => console.error(err));
       })
     );
 
@@ -197,7 +199,7 @@ export default function EditImageUpload() {
           onChange={handleClick}
         />
       </UploadContainer>
-      <PreviewContainer>
+      {/* <PreviewContainer>
         {images.map((image, index) => {
           return (
             <PreviewImageContainter key={index}>
@@ -211,7 +213,7 @@ export default function EditImageUpload() {
             </PreviewImageContainter>
           );
         })}
-      </PreviewContainer>
+      </PreviewContainer> */}
     </>
   );
 }

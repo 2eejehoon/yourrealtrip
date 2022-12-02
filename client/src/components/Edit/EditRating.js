@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   editScoreState,
@@ -15,10 +14,12 @@ import {
   editContentState,
   editCityState,
   editDistrictState,
-  editLatLngState,
   editStreetState,
-  editImagesState,
+  // editImagesState,
+  editLatState,
+  editLngState,
 } from "../../atoms/edit";
+import { userState } from "../../atoms/user";
 
 const Star = styled(AiFillStar)`
   &:hover {
@@ -78,28 +79,31 @@ const StyledText = styled.p`
 `;
 
 export default function EditRating() {
+  const user = useRecoilValue(userState);
   const location = useLocation();
   const [hover, setHover] = useState(null);
   const [click, setClick] = useRecoilState(editScoreState);
   const title = useRecoilValue(editTitleState);
   const startDate = useRecoilValue(editStartDateState);
   const endDate = useRecoilValue(editEndDateState);
-  const images = useRecoilValue(editImagesState);
+  // const images = useRecoilValue(editImagesState);
   const content = useRecoilValue(editContentState);
   const city = useRecoilValue(editCityState);
   const district = useRecoilValue(editDistrictState);
-  const latlng = useRecoilValue(editLatLngState);
+  const lat = useRecoilValue(editLatState);
+  const lng = useRecoilValue(editLngState);
   const street = useRecoilValue(editStreetState);
 
   const resetTitle = useResetRecoilState(editTitleState);
   const resetStartDate = useResetRecoilState(editStartDateState);
   const resetEndDate = useResetRecoilState(editEndDateState);
-  const resetImages = useResetRecoilState(editImagesState);
+  // const resetImages = useResetRecoilState(editImagesState);
   const resetContent = useResetRecoilState(editContentState);
   const resetCity = useResetRecoilState(editCityState);
   const resetDistrict = useResetRecoilState(editDistrictState);
   const resetStreet = useResetRecoilState(editStreetState);
-  const resetLatLng = useResetRecoilState(editLatLngState);
+  const resetLat = useResetRecoilState(editLatState);
+  const resetLng = useResetRecoilState(editLngState);
   const resetScore = useResetRecoilState(editScoreState);
 
   const navigate = useNavigate();
@@ -132,11 +136,12 @@ export default function EditRating() {
         resetStartDate();
         resetEndDate();
         resetContent();
-        resetImages();
+        // resetImages();
         resetCity();
         resetDistrict();
         resetStreet();
-        resetLatLng();
+        resetLat();
+        resetLng();
         resetScore();
         navigate(`/reviews/${location.state.reviewId}`);
         return queryClient.invalidateQueries(["reviews"]);
@@ -157,10 +162,10 @@ export default function EditRating() {
       alert("종료일을 입력해주세요.");
       return setPage(1);
     }
-    if (images.length === 0) {
-      alert("사진을 업로드 해주세요.");
-      return setPage(2);
-    }
+    // if (images.length === 0) {
+    //   alert("사진을 업로드 해주세요.");
+    //   return setPage(2);
+    // }
     if (content === "") {
       alert("내용을 입력해주세요.");
       return setPage(3);
@@ -182,18 +187,20 @@ export default function EditRating() {
     }
 
     const editedReview = {
-      ...data?.data,
-      id: uuidv4(),
-      title,
-      startDate,
-      images,
-      endDate,
-      content,
-      city,
-      district,
-      street,
-      latlng,
-      score: click,
+      data: {
+        title,
+        startDate,
+        // images,
+        endDate,
+        content,
+        city,
+        district,
+        street,
+        lat,
+        lng,
+        score: click,
+        authorId: user.id,
+      },
     };
 
     editReview.mutate(editedReview);

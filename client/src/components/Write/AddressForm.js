@@ -1,9 +1,11 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import {
   cityState,
   districtState,
-  latLngState,
+  latState,
+  lngState,
   streetState,
 } from "../../atoms/write";
 import { useEffect } from "react";
@@ -79,7 +81,8 @@ export default function AddressForm() {
   const [city, setCity] = useRecoilState(cityState);
   const [district, setDistrict] = useRecoilState(districtState);
   const [street, setStreet] = useRecoilState(streetState);
-  const [, setLatLng] = useRecoilState(latLngState);
+  const [, setLat] = useRecoilState(latState);
+  const [, setLng] = useRecoilState(lngState);
 
   useEffect(() => {
     let mapContainer = document.getElementById("map"), // 지도를 표시할 div
@@ -98,7 +101,8 @@ export default function AddressForm() {
     geocoder.addressSearch(`${city}${district}${street}`, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        setLatLng(coords);
+        setLat(coords.La);
+        setLng(coords.Ma);
         map.setCenter(coords);
         marker.setPosition(coords);
       }
@@ -106,7 +110,8 @@ export default function AddressForm() {
 
     kakao.maps.event.addListener(map, "click", (mouseEvent) => {
       let latlng = mouseEvent.latLng;
-      setLatLng(latlng);
+      setLat(latlng.La);
+      setLng(latlng.Ma);
       marker.setPosition(latlng);
     });
   }, [city, district, street]);
