@@ -61,6 +61,9 @@ const CreatedAtSpan = styled.span`
   color: lightgray;
 `;
 
+const defaultImage =
+  "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png";
+
 export default function UserInfo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -72,7 +75,7 @@ export default function UserInfo() {
   return (
     <UserInfoContainer>
       <UserProfileContainer>
-        <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"></UserProfileImage>
+        <UserProfileImage src={defaultImage}></UserProfileImage>
         <UserNameSpan>작성자</UserNameSpan>
         <CreatedAtSpan>{elapsed(data?.data.createdAt)}</CreatedAtSpan>
       </UserProfileContainer>

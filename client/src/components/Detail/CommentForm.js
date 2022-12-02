@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
 
 const CommentFormContainer = styled.div`
   width: 100%;
@@ -93,7 +95,11 @@ const UserProfileImage = styled.img`
   }
 `;
 
+const defaultImage =
+  "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png";
+
 export default function CommentForm() {
+  const user = useRecoilValue(userState);
   const [isFocused, setIsFocused] = useState(false);
   const [commentInputValue, setCommentInputValue] = useState("");
 
@@ -127,7 +133,9 @@ export default function CommentForm() {
   return (
     <>
       <CommentFormContainer>
-        <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"></UserProfileImage>
+        <UserProfileImage
+          src={user.profileImg || defaultImage}
+        ></UserProfileImage>
         <CommentInputContainer>
           <CommentInput
             placeholder="댓글을 입력해주세요."
