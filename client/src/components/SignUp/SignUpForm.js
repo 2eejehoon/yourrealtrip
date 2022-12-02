@@ -257,7 +257,8 @@ export default function SignUpForm() {
           disabled={
             emailError !== "" ||
             passwordError !== "" ||
-            passwordCheckError !== ""
+            passwordCheckError !== "" ||
+            true
           }
           onClick={handleSignUp}
         >
