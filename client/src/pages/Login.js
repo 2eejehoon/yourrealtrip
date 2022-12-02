@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import GoogleLoginForm from "../components/Login/GoogleLoginForm";
 import LoginForm from "../components/Login/LoginForm";
-import SubHeader from "../components/Write/SubHeader";
+import SubHeader from "../components/SubHeader";
 
 const Wrapper = styled.div`
   width: 100%;

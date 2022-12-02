@@ -1,11 +1,11 @@
 import CategoryTag from "../components/Home/CategoryTag";
-import Header from "../components/Home/MainHeader";
+import MainHeader from "../components/MainHeader";
 import ReviewList from "../components/Home/ReviewList";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      <MainHeader />
       <CategoryTag />
       <ReviewList />
     </>

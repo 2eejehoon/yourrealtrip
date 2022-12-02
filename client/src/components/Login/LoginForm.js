@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
 
 const DescText = styled.p`
   width: 100%;
@@ -113,6 +115,7 @@ const LoginInputContainer = styled.div`
 `;
 
 export default function LoginForm() {
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -200,4 +203,6 @@ export default function LoginForm() {
       </ButtonContainer>
     </LoginContainer>
   );
+
+  return;
 }

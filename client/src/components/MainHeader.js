@@ -4,7 +4,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { searchState } from "../../atoms/search";
+import { searchState } from "../atoms/search";
 
 const MenuButton = styled(AiOutlineMenu)`
   &:hover {
@@ -51,7 +51,7 @@ const HeaderContainer = styled.header`
   background-color: white;
 `;
 
-export default function Header() {
+export default function MainHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useRecoilState(searchState);
 

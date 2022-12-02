@@ -1,6 +1,6 @@
 import UserInfo from "../components/MyPage/UserInfo";
 import UserProfile from "../components/MyPage/UserProfileImage";
-import SubHeader from "../components/Write/SubHeader";
+import SubHeader from "../components/SubHeader";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SubHeader from "../components/Write/SubHeader";
+import SubHeader from "../components/SubHeader";
 import WriteFooter from "../components/Write/WriteFooter";
 import EditTitleForm from "../components/Edit/EditTitleForm";
 import EditDateForm from "../components/Edit/EditDateForm";

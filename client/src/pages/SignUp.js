@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import SignUpForm from "../components/SignUp/SignUpForm";
-import SubHeader from "../components/Write/SubHeader";
+import SubHeader from "../components/SubHeader";
 
 const Wrapper = styled.div`
   width: 100%;
