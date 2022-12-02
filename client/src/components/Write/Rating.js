@@ -11,14 +11,15 @@ import {
   cityState,
   districtState,
   streetState,
-  latLngState,
+  latState,
+  lngState,
   imagesState,
 } from "../../atoms/write";
 import axios from "axios";
 import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { userState } from "../../atoms/user";
 
 const Star = styled(AiFillStar)`
   &:hover {
@@ -78,28 +79,30 @@ const StyledText = styled.p`
 `;
 
 export default function Rating({ setPage }) {
-  const id = uuidv4();
+  const user = useRecoilValue(userState);
   const [hover, setHover] = useState(null);
   const [click, setClick] = useRecoilState(scoreState);
   const title = useRecoilValue(titleState);
   const startDate = useRecoilValue(startDateState);
   const endDate = useRecoilValue(endDateState);
-  const images = useRecoilValue(imagesState);
+  // const images = useRecoilValue(imagesState);
   const content = useRecoilValue(contentState);
   const city = useRecoilValue(cityState);
   const district = useRecoilValue(districtState);
-  const latlng = useRecoilValue(latLngState);
+  const lat = useRecoilValue(latState);
+  const lng = useRecoilValue(lngState);
   const street = useRecoilValue(streetState);
 
   const resetTitle = useResetRecoilState(titleState);
   const resetStartDate = useResetRecoilState(startDateState);
   const resetEndDate = useResetRecoilState(endDateState);
-  const resetImages = useResetRecoilState(imagesState);
+  // const resetImages = useResetRecoilState(imagesState);
   const resetContent = useResetRecoilState(contentState);
   const resetCity = useResetRecoilState(cityState);
   const resetDistrict = useResetRecoilState(districtState);
   const resetStreet = useResetRecoilState(streetState);
-  const resetLatLng = useResetRecoilState(latLngState);
+  const resetLat = useResetRecoilState(latState);
+  const resetLng = useResetRecoilState(lngState);
   const resetScore = useResetRecoilState(scoreState);
 
   const navigate = useNavigate();
@@ -114,14 +117,15 @@ export default function Rating({ setPage }) {
         resetTitle();
         resetStartDate();
         resetEndDate();
-        resetImages();
+        // resetImages();
         resetContent();
         resetCity();
         resetDistrict();
         resetStreet();
-        resetLatLng();
+        resetLat();
+        resetLng();
         resetScore();
-        navigate(`/reviews/${id}`);
+        navigate(`/reviews`);
         return queryClient.invalidateQueries(["reviews"]);
       },
     }
@@ -140,10 +144,10 @@ export default function Rating({ setPage }) {
       alert("종료일을 입력해주세요.");
       return setPage(1);
     }
-    if (images.length === 0) {
-      alert("사진을 업로드 해주세요.");
-      return setPage(2);
-    }
+    // if (images.length === 0) {
+    //   alert("사진을 업로드 해주세요.");
+    //   return setPage(2);
+    // }
     if (content === "") {
       alert("내용을 입력해주세요.");
       return setPage(3);
@@ -165,18 +169,21 @@ export default function Rating({ setPage }) {
     }
 
     const review = {
-      id,
-      title,
-      startDate,
-      images,
-      endDate,
-      content,
-      city,
-      district,
-      street,
-      latlng,
-      score: click,
-      createdAt: new Date(),
+      data: {
+        title,
+        startDate,
+        // images,
+        endDate,
+        content,
+        city,
+        district,
+        street,
+        lat,
+        lng,
+        score: click,
+        createdAt: new Date(),
+        authorId: user.id,
+      },
     };
 
     addReview.mutate(review);

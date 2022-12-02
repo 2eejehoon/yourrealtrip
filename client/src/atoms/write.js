@@ -45,8 +45,13 @@ export const streetState = atom({
   default: "",
 });
 
-export const latLngState = atom({
-  key: "latLng",
+export const latState = atom({
+  key: "lat",
+  default: "",
+});
+
+export const lngState = atom({
+  key: "lng",
   default: "",
 });
 

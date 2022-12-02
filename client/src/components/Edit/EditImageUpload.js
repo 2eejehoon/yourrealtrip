@@ -199,7 +199,7 @@ export default function EditImageUpload() {
           onChange={handleClick}
         />
       </UploadContainer>
-      <PreviewContainer>
+      {/* <PreviewContainer>
         {images.map((image, index) => {
           return (
             <PreviewImageContainter key={index}>
@@ -213,7 +213,7 @@ export default function EditImageUpload() {
             </PreviewImageContainter>
           );
         })}
-      </PreviewContainer>
+      </PreviewContainer> */}
     </>
   );
 }

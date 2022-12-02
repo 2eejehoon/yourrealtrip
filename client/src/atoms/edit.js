@@ -45,8 +45,13 @@ export const editStreetState = atom({
   default: "",
 });
 
-export const editLatLngState = atom({
-  key: "editLatLng",
+export const editLatState = atom({
+  key: "editLat",
+  default: "",
+});
+
+export const editLngState = atom({
+  key: "editLng",
   default: "",
 });
 

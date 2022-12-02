@@ -9,6 +9,8 @@ import {
   editCityState,
   editDistrictState,
   editLatLngState,
+  editLatState,
+  editLngState,
   editStreetState,
 } from "../../atoms/edit";
 
@@ -85,7 +87,8 @@ export default function EditAddressForm() {
   const [city, setCity] = useRecoilState(editCityState);
   const [district, setDistrict] = useRecoilState(editDistrictState);
   const [street, setStreet] = useRecoilState(editStreetState);
-  const [, setLatLng] = useRecoilState(editLatLngState);
+  const [, setLat] = useRecoilState(editLatState);
+  const [, setLng] = useRecoilState(editLngState);
 
   const { data } = useQuery(
     ["review", location.state.reviewId],
@@ -99,7 +102,8 @@ export default function EditAddressForm() {
         setCity(data?.data.city);
         setDistrict(data?.data.district);
         setStreet(data?.data.street);
-        setLatLng(data?.data.latlng);
+        setLat(data?.data.lat);
+        setLng(data?.data.lng);
       },
     }
   );
@@ -121,7 +125,7 @@ export default function EditAddressForm() {
     geocoder.addressSearch(`${city}${district}${street}`, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        setLatLng(coords);
+        console.log(coords);
         map.setCenter(coords);
         marker.setPosition(coords);
       }
@@ -129,7 +133,7 @@ export default function EditAddressForm() {
 
     kakao.maps.event.addListener(map, "click", (mouseEvent) => {
       let latlng = mouseEvent.latLng;
-      setLatLng(latlng);
+      console.log(latlng);
       marker.setPosition(latlng);
     });
   }, [city, district, street]);
