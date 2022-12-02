@@ -1,5 +1,10 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import PasswordModal from "./PasswordModal";
 
 const UpdateButton = styled.button`
@@ -43,6 +48,13 @@ const InputContainer = styled.div`
     font-size: 1em;
     padding: 5px;
   }
+  & p {
+    padding: 5px;
+    width: 100%;
+    font-size: 0.75em;
+    color: gray;
+    border-bottom: 1px solid lightgray;
+  }
   & input {
     padding: 5px;
     width: 100%;
@@ -78,6 +90,8 @@ const SaveButton = styled.button`
 `;
 
 export default function UserInfo() {
+  const queryClient = useQueryClient();
+  const user = useRecoilValue(userState);
   const [nameUpdateShow, setNameUpdateShow] = useState(false);
   const [nameUpdate, setNameUpdate] = useState(false);
   const [emailUpdateShow, setEmailUpdateShow] = useState(false);
@@ -87,6 +101,42 @@ export default function UserInfo() {
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
+
+  const { data } = useQuery(["user", user.id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/users/${user.id}`);
+  });
+
+  const updateUser = useMutation(
+    (userInfo) => {
+      return axios.patch(
+        `${process.env.REACT_APP_BASE_API}/users/${user.id}`,
+        userInfo
+      );
+    },
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(["user", user.id]);
+      },
+    }
+  );
+
+  const [name, setName] = useState(data?.data.name);
+  const [email, setEmail] = useState(data?.data.email);
+
+  const handleNameSave = (e) => {
+    const userInfo = {
+      ...data?.data,
+      name: e.target.value,
+    };
+    updateUser(userInfo);
+  };
+  const handleEmailSave = (e) => {
+    const userInfo = {
+      ...data?.data,
+      email: e.target.value,
+    };
+    updateUser(userInfo);
+  };
 
   useEffect(() => {
     if (nameUpdate === true) {
@@ -111,11 +161,18 @@ export default function UserInfo() {
           onMouseLeave={() => setNameUpdateShow(false)}
         >
           <div>닉네임</div>
-          <input
-            type="text"
-            disabled={nameUpdate ? false : true}
-            ref={nameRef}
-          />
+          {nameUpdate ? (
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={nameUpdate ? false : true}
+              ref={nameRef}
+            />
+          ) : (
+            <p>{data?.data.name}</p>
+          )}
+
           {nameUpdateShow && !nameUpdate ? (
             <UpdateButton
               onClick={() => {
@@ -126,7 +183,8 @@ export default function UserInfo() {
             </UpdateButton>
           ) : nameUpdate ? (
             <SaveButton
-              onClick={() => {
+              onClick={(e) => {
+                handleNameSave(e);
                 setNameUpdate(false);
               }}
             >
@@ -139,11 +197,18 @@ export default function UserInfo() {
           onMouseLeave={() => setEmailUpdateShow(false)}
         >
           <div>이메일</div>
-          <input
-            type="text"
-            disabled={emailUpdate ? false : true}
-            ref={emailRef}
-          />
+          {emailUpdate ? (
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={emailUpdate ? false : true}
+              ref={emailRef}
+            />
+          ) : (
+            <p>{data?.data.email}</p>
+          )}
+
           {emailUpdateShow && !emailUpdate ? (
             <UpdateButton
               onClick={() => {
@@ -153,7 +218,14 @@ export default function UserInfo() {
               수정
             </UpdateButton>
           ) : emailUpdate ? (
-            <SaveButton onClick={() => setEmailUpdate(false)}>저장</SaveButton>
+            <SaveButton
+              onClick={(e) => {
+                handleEmailSave(e);
+                setEmailUpdate(false);
+              }}
+            >
+              저장
+            </SaveButton>
           ) : null}
         </InputContainer>
         <InputContainer

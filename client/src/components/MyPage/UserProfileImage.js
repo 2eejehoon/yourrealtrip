@@ -4,6 +4,11 @@ import { useState, useRef } from "react";
 import { ImCancelCircle } from "react-icons/im";
 import S3 from "react-aws-s3";
 import { v4 as uuidv4 } from "uuid";
+import { useQuery } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -60,14 +65,15 @@ const UserProfileContainer = styled.div`
   }
 `;
 
+const defaultImage =
+  "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png";
+
 export default function UserProfile() {
+  const user = useRecoilValue(userState);
+  const [image, setImage] = useState(null);
   const [profileImageDeleteButtonShow, setProfileImageDeleteButtonShow] =
     useState(false);
-  const [image, setImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"
-  );
   const [drag, setDrag] = useState(false);
-
   const imageRef = useRef(null);
 
   const handleDragOver = (e) => {
@@ -93,9 +99,23 @@ export default function UserProfile() {
     const ReactS3Client = new S3(config);
     const fileName = file.name + uuidv4();
     ReactS3Client.uploadFile(file, fileName)
-      .then((data) => setImage(data.location))
+      .then((data) => {
+        console.log(data.location);
+        setImage(data.location);
+      })
       .catch((err) => console.error(err));
   };
+
+  const { data } = useQuery(["user", user.id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/users/${user.id}`);
+  });
+
+  const updateProfileImage = useMutation((userInfo) => {
+    return axios.patch(
+      `${process.env.REACT_APP_BASE_API}/users/${id}`,
+      userInfo
+    );
+  });
 
   return (
     <>
@@ -110,19 +130,14 @@ export default function UserProfile() {
             color="darkgray"
             onClick={() => {
               if (confirm("정말 삭제하시겠습니까?")) {
-                setImage(
-                  "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"
-                );
+                setImage(defaultImage);
               }
             }}
           />
         ) : null}
         <UserProfileImage
           drag={drag ? "drag" : null}
-          src={
-            image ||
-            "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png"
-          }
+          src={image || data?.data.profileImg || defaultImage}
           onDragEnter={() => setDrag(true)}
           onDragLeave={() => setDrag(false)}
           onDragOver={handleDragOver}
