@@ -127,9 +127,10 @@ export default function Review({ review }) {
           />
 
           <StyledSlider {...settings} hover={hover ? "hover" : null}>
-            {review.images.map((image) => {
+            {/* {review.images.map((image) => {
               return <ReviewImage key={image} src={image} />;
-            })}
+            })} */}
+            <ReviewImage></ReviewImage>
           </StyledSlider>
         </ReviewImageContainer>
       </Link>

@@ -1,12 +1,11 @@
 /* eslint-disable */
 import styled from "styled-components";
-import { gapi } from "gapi-script";
+import { gapi, loadAuth2 } from "gapi-script";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleLogin } from "react-google-login";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
 const GoogleButton = styled(FcGoogle)`
@@ -37,66 +36,101 @@ const SocialLoginButton = styled.button`
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export default function GoogleLoginForm() {
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const googleLogin = useMutation(
-    async (loginInfo) => {
-      return axios
-        .post(`${process.env.REACT_APP_BASE_API}/users/login`, loginInfo)
-        .then((userInfo) => localStorage.setItem("user", userInfo))
-        .catch((err) => console.error(err));
-    },
-    {
-      onSuccess: () => {
-        alert("로그인 되었습니다.");
-        navigate("/reviews");
-      },
-      onError: () => {
-        alert("로그인에 실패했습니다.");
-      },
-    }
-  );
+  const googleLogin = useMutation(async (loginInfo) => {
+    return axios
+      .post(`${process.env.REACT_APP_BASE_API}/users/signIn`, loginInfo)
+      .catch((err) => console.error(err));
+  });
 
-  const onSuccess = (response) => {
-    console.log(response);
-    const loginInfo = {
-      id: uuidv4(),
-      name: response.profileObj.name,
-      email: response.profileObj.email,
-      profileImage: response.profileObj.imageUrl,
-      token: response.tokenId,
-    };
-    googleLogin.mutate(loginInfo);
+  const updateUser = (currentUser) => {
+    const name = currentUser.getBasicProfile().getName();
+    const profileImg = currentUser.getBasicProfile().getImageUrl();
+    const email = currentUser.getBasicProfile().getEmail();
+    const { id_token } = currentUser.getAuthResponse();
+    setUser({
+      name: name,
+      profileImg: profileImg,
+    });
+    axios.post("http://localhost:3000/api/users/signIn", {
+      data: {
+        name,
+        email,
+        profileImg: profileImg,
+        password: "",
+      },
+      idToken: id_token,
+    });
   };
 
-  const onFailure = (response) => {
-    console.log(response);
+  const attachSignin = (element, auth2) => {
+    auth2.attachClickHandler(
+      element,
+      {},
+      (googleUser) => {
+        updateUser(googleUser);
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+      }
+    );
+  };
+
+  const signOut = () => {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+      setUser(null);
+      console.log("User signed out.");
+    });
   };
 
   useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId,
-        scope: "email",
-      });
-    }
-
-    gapi.load("client:auth2", start);
+    const setAuth2 = async () => {
+      const auth2 = await loadAuth2(
+        gapi,
+        process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        ""
+      );
+      if (auth2.isSignedIn.get()) {
+        updateUser(auth2.currentUser.get());
+      } else {
+        attachSignin(document.getElementById("customBtn"), auth2);
+      }
+    };
+    setAuth2();
   }, []);
 
-  return (
-    <GoogleLogin
-      clientId={clientId}
-      onSuccess={onSuccess}
-      onFailure={onFailure}
-      render={(renderProps) => {
-        return (
-          <SocialLoginButton onClick={renderProps.onClick}>
-            <GoogleButton size={25} />
-            구글 로그인
-          </SocialLoginButton>
+  console.log(user);
+
+  useEffect(() => {
+    if (!user) {
+      const setAuth2 = async () => {
+        const auth2 = await loadAuth2(
+          gapi,
+          process.env.REACT_APP_GOOGLE_CLIENT_ID,
+          ""
         );
-      }}
-    />
+        attachSignin(document.getElementById("customBtn"), auth2);
+      };
+      setAuth2();
+    }
+  }, [user]);
+
+  if (user) {
+    return (
+      <SocialLoginButton id="" onClick={signOut}>
+        <GoogleButton size={25} />
+        로그아웃
+      </SocialLoginButton>
+    );
+  }
+
+  return (
+    <SocialLoginButton id="customBtn">
+      <GoogleButton size={25} />
+      구글 로그인
+    </SocialLoginButton>
   );
 }

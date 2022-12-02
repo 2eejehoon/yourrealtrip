@@ -92,9 +92,10 @@ export default function DetailCarousel() {
         onMouseLeave={() => setHover(false)}
       >
         <StyledSlider {...settings} hover={hover ? "hover" : null}>
-          {data?.data.images.map((image) => {
+          {/* {data?.data.images.map((image) => {
             return <DetailImage key={image} src={image} />;
-          })}
+          })} */}
+          <DetailImage></DetailImage>
         </StyledSlider>
       </DetailImageContainer>
     </>
