@@ -97,6 +97,7 @@ const UserProfileImage = styled.img`
 
 const defaultImage =
   "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png";
+
 export default function CommentForm() {
   const user = useRecoilValue(userState);
   const [isFocused, setIsFocused] = useState(false);

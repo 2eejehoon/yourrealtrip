@@ -112,6 +112,9 @@ const CommentEditSaveButton = styled.button`
   }
 `;
 
+const defaultImage =
+  "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png";
+
 export default function Comment({ comment }) {
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -159,7 +162,7 @@ export default function Comment({ comment }) {
 
   return (
     <CommnetLi>
-      <UserProfileImage src="https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png" />
+      <UserProfileImage src={defaultImage} />
       <CommentContainer>
         <UserInfoContainer>
           <UserNameSpan>작성자</UserNameSpan>
