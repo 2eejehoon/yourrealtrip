@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
-const ProfileDeleteButton = styled(ImCancelCircle)`
+const DeleteButton = styled(ImCancelCircle)`
   position: absolute;
   top: 7px;
   right: 7px;
@@ -186,7 +186,7 @@ export default function ImageUpload() {
         {images.map((image, index) => {
           return (
             <PreviewImageContainter key={index}>
-              <ProfileDeleteButton
+              <DeleteButton
                 color="black"
                 onClick={() => {
                   handleDelete(index);

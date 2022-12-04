@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/user";
+import axios from "axios";
 
 const CommentFormContainer = styled.div`
   width: 100%;
@@ -134,7 +134,7 @@ export default function CommentForm() {
     <>
       <CommentFormContainer>
         <UserProfileImage
-          src={user.profileImg || defaultImage}
+          src={user ? user.profileImg : defaultImage}
         ></UserProfileImage>
         <CommentInputContainer>
           <CommentInput

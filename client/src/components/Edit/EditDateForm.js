@@ -5,8 +5,8 @@ import { useRecoilState } from "recoil";
 import { ko } from "date-fns/esm/locale";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { editEndDateState, editStartDateState } from "../../atoms/edit";
+import axios from "axios";
 
 const DescText = styled.p`
   width: 100%;

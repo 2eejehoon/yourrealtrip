@@ -37,7 +37,7 @@ export default function Edit() {
         ) : page === 4 ? (
           <EditAddressForm />
         ) : page === 5 ? (
-          <EditRating />
+          <EditRating setPage={setPage} />
         ) : null}
       </Wrapper>
       <WriteFooter page={page} setPage={setPage} />

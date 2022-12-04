@@ -5,15 +5,15 @@ import { useState, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { editImagesState } from "../../atoms/edit";
 import { ImCancelCircle } from "react-icons/im";
-import S3 from "react-aws-s3";
 import { v4 as uuidv4 } from "uuid";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
+import S3 from "react-aws-s3";
 import axios from "axios";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
-const ProfileDeleteButton = styled(ImCancelCircle)`
+const DeleteButton = styled(ImCancelCircle)`
   position: absolute;
   top: 7px;
   right: 7px;
@@ -203,7 +203,7 @@ export default function EditImageUpload() {
         {images.map((image, index) => {
           return (
             <PreviewImageContainter key={index}>
-              <ProfileDeleteButton
+              <DeleteButton
                 color="black"
                 onClick={() => {
                   handleDelete(index);

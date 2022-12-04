@@ -1,9 +1,9 @@
 /* eslint-disable */
 import { useState } from "react";
-import Slider from "react-slick";
-import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import Slider from "react-slick";
+import styled from "styled-components";
 import axios from "axios";
 
 const DetailImageContainer = styled.div`
@@ -92,7 +92,7 @@ export default function DetailCarousel() {
         onMouseLeave={() => setHover(false)}
       >
         <StyledSlider {...settings} hover={hover ? "hover" : null}>
-          {/* {data?.data.images.map((image) => {
+          {/* {data?.data.photos.map((image) => {
             return <DetailImage key={image} src={image} />;
           })} */}
           <DetailImage></DetailImage>

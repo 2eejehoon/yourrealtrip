@@ -1,14 +1,11 @@
 /* eslint-disable */
 import styled from "styled-components";
 import { SlOptions } from "react-icons/sl";
-import CommentOptionModal from "./CommentOptionModal";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useRef, useEffect } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import elapsed from "../../utils/elapsedTime";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import CommentOptionModal from "./CommentOptionModal";
 
 const OptionButton = styled(SlOptions)`
   position: absolute;

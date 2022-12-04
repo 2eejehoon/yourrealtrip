@@ -8,7 +8,6 @@ import axios from "axios";
 import {
   editCityState,
   editDistrictState,
-  editLatLngState,
   editLatState,
   editLngState,
   editStreetState,
@@ -125,7 +124,8 @@ export default function EditAddressForm() {
     geocoder.addressSearch(`${city}${district}${street}`, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        console.log(coords);
+        setLat(coords.La);
+        setLng(coords.Ma);
         map.setCenter(coords);
         marker.setPosition(coords);
       }
@@ -133,7 +133,8 @@ export default function EditAddressForm() {
 
     kakao.maps.event.addListener(map, "click", (mouseEvent) => {
       let latlng = mouseEvent.latLng;
-      console.log(latlng);
+      setLat(latlng.La);
+      setLng(latlng.Ma);
       marker.setPosition(latlng);
     });
   }, [city, district, street]);
