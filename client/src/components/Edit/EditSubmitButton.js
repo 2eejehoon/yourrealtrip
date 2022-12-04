@@ -1,10 +1,10 @@
 /* eslint-disable */
 import styled from "styled-components";
-import { userState, useState } from "react";
-import { useRecoilValue, useRecoilState, useResetRecoilState } from "recoil";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { userState } from "react";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   editScoreState,
   editStartDateState,
@@ -36,8 +36,9 @@ const SubmitButton = styled.button`
 `;
 
 export default function EditSubmitButton({ setPage }) {
+  const { id } = useParams();
   const user = useRecoilValue(userState);
-  const location = useLocation();
+
   const title = useRecoilValue(editTitleState);
   const startDate = useRecoilValue(editStartDateState);
   const endDate = useRecoilValue(editEndDateState);
@@ -48,6 +49,7 @@ export default function EditSubmitButton({ setPage }) {
   const lat = useRecoilValue(editLatState);
   const lng = useRecoilValue(editLngState);
   const street = useRecoilValue(editStreetState);
+  const score = useRecoilValue(editScoreState);
 
   const resetTitle = useResetRecoilState(editTitleState);
   const resetStartDate = useResetRecoilState(editStartDateState);
@@ -64,24 +66,10 @@ export default function EditSubmitButton({ setPage }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data } = useQuery(
-    ["review", location.state.reviewId],
-    () => {
-      return axios.get(
-        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
-      );
-    },
-    {
-      onSuccess: () => {
-        setClick(data?.data.score);
-      },
-    }
-  );
-
   const editReview = useMutation(
     (editedReview) => {
       return axios.patch(
-        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`,
+        `${process.env.REACT_APP_BASE_API}/reviews/${id}`,
         editedReview
       );
     },
@@ -98,7 +86,7 @@ export default function EditSubmitButton({ setPage }) {
         resetLat();
         resetLng();
         resetScore();
-        navigate(`/reviews/${location.state.reviewId}`);
+        navigate(`/reviews/${id}`);
         return queryClient.invalidateQueries(["reviews"]);
       },
     }
@@ -137,7 +125,7 @@ export default function EditSubmitButton({ setPage }) {
       alert("도로명을 입력해주세요.");
       return setPage(4);
     }
-    if (click === "") {
+    if (score === "") {
       return alert("평점을 입력해주세요.");
     }
 
@@ -153,7 +141,7 @@ export default function EditSubmitButton({ setPage }) {
         street,
         lat,
         lng,
-        score: click,
+        score,
         authorId: user.id,
       },
     };

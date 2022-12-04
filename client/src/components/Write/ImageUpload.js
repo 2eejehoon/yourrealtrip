@@ -165,11 +165,7 @@ export default function ImageUpload() {
           setDrag(false);
         }}
       >
-        <ImageIcon
-          drag={drag ? "drag" : null}
-          size={50}
-          color="black"
-        ></ImageIcon>
+        <ImageIcon drag={drag ? "drag" : null} size={50} color="black" />
         <StyledText>여기에 사진을 놓아주세요.</StyledText>
         <UploadButton onClick={() => imageRef.current.click()}>
           기기에서 업로드

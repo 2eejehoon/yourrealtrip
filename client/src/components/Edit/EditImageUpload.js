@@ -7,7 +7,7 @@ import { editImagesState } from "../../atoms/edit";
 import { ImCancelCircle } from "react-icons/im";
 import { v4 as uuidv4 } from "uuid";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import S3 from "react-aws-s3";
 import axios from "axios";
 
@@ -94,7 +94,7 @@ const StyledText = styled.p`
 `;
 
 export default function EditImageUpload() {
-  const location = useLocation();
+  const { id } = useParams();
   const [images, setImages] = useRecoilState(editImagesState);
   const [drag, setDrag] = useState(false);
   const imageRef = useRef();
@@ -157,11 +157,9 @@ export default function EditImageUpload() {
   };
 
   const { data } = useQuery(
-    ["review", location.state.reviewId],
+    ["review", id],
     () => {
-      return axios.get(
-        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
-      );
+      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
     },
     {
       onSuccess: () => {
@@ -182,11 +180,7 @@ export default function EditImageUpload() {
           setDrag(false);
         }}
       >
-        <ImageIcon
-          drag={drag ? "drag" : null}
-          size={50}
-          color="black"
-        ></ImageIcon>
+        <ImageIcon drag={drag ? "drag" : null} size={50} color="black" />
         <StyledText>여기에 사진을 놓아주세요.</StyledText>
         <UploadButton onClick={() => imageRef.current.click()}>
           기기에서 업로드

@@ -1,10 +1,11 @@
 /* eslint-disable */
-import { useState } from "react";
-import StarScore from "./StarScore";
-import Slider from "react-slick";
+
 import styled from "styled-components";
+import Slider from "react-slick";
+import { useState } from "react";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import StarScore from "./StarScore";
 
 const WishlistButton = styled(BsFillSuitHeartFill)`
   position: absolute;
@@ -125,7 +126,6 @@ export default function Review({ review }) {
             color="white"
             fill={review.like ? "red" : "lightgray"}
           />
-
           <StyledSlider {...settings} hover={hover ? "hover" : null}>
             {/* {review.images.map((image) => {
               return <ReviewImage key={image} src={image} />;

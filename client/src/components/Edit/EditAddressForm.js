@@ -1,10 +1,10 @@
 /* eslint-disable */
 import styled from "styled-components";
+import axios from "axios";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import {
   editCityState,
   editDistrictState,
@@ -81,7 +81,7 @@ const Map = styled.div`
 const { kakao } = window;
 
 export default function EditAddressForm() {
-  const location = useLocation();
+  const { id } = useParams();
 
   const [city, setCity] = useRecoilState(editCityState);
   const [district, setDistrict] = useRecoilState(editDistrictState);
@@ -90,11 +90,9 @@ export default function EditAddressForm() {
   const [, setLng] = useRecoilState(editLngState);
 
   const { data } = useQuery(
-    ["review", location.state.reviewId],
+    ["review", id],
     () => {
-      return axios.get(
-        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
-      );
+      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
     },
     {
       onSuccess: () => {

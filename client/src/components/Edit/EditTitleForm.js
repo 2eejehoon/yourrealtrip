@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { editTitleState } from "../../atoms/edit";
 
@@ -40,15 +40,13 @@ const TitleInput = styled.input`
 `;
 
 export default function EditTitleForm() {
-  const location = useLocation();
+  const { id } = useParams();
   const [title, setTitle] = useRecoilState(editTitleState);
 
   const { data } = useQuery(
-    ["review", location.state.reviewId],
+    ["review", id],
     () => {
-      return axios.get(
-        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
-      );
+      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
     },
     {
       onSuccess: () => {

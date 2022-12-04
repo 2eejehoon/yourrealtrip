@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { editContentState } from "../../atoms/edit";
@@ -52,17 +52,15 @@ const LengthSpan = styled.span`
 `;
 
 export default function EditTextForm() {
-  const location = useLocation();
+  const { id } = useParams();
 
   const [text, setText] = useRecoilState(editContentState);
   const [length, setLength] = useState(text.length);
 
   const { data } = useQuery(
-    ["review", location.state.reviewId],
+    ["review", id],
     () => {
-      return axios.get(
-        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
-      );
+      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
     },
     {
       onSuccess: () => {

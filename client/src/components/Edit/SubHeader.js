@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
-import MenuModal from "../Home/MenuModal";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import MenuModal from "../MenuModal";
 
 const GoBack = styled(RiArrowGoBackFill)`
   position: absolute;

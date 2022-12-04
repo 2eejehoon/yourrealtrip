@@ -3,7 +3,7 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { useRecoilState } from "recoil";
 import { ko } from "date-fns/esm/locale";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { editEndDateState, editStartDateState } from "../../atoms/edit";
 import axios from "axios";
@@ -96,16 +96,14 @@ const DatePickerContainer = styled.div`
 `;
 
 export default function EditDateForm() {
-  const location = useLocation();
+  const { id } = useParams();
   const [startDate, setStartDate] = useRecoilState(editStartDateState);
   const [endDate, setEndDate] = useRecoilState(editEndDateState);
 
   const { data } = useQuery(
-    ["review", location.state.reviewId],
+    ["review", id],
     () => {
-      return axios.get(
-        `${process.env.REACT_APP_BASE_API}/reviews/${location.state.reviewId}`
-      );
+      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
     },
     {
       onSuccess: () => {
