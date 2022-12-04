@@ -29,7 +29,6 @@ const CategoryButtonContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border-bottom: solid 1px lightgray;
   padding: 10px;
 `;
 

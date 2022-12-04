@@ -10,10 +10,12 @@ import { useRecoilValue } from "recoil";
 import Review from "./Review";
 
 const ReviewListContainer = styled.div`
-  width: 100%;
   min-height: calc(100vh - 100px);
+  width: 100%;
   padding: 5px;
   background-color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 `;
 
 export default function ReviewList() {
@@ -56,7 +58,7 @@ export default function ReviewList() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const lastPage = Math.ceil(data?.length / 5);
+    const lastPage = Math.ceil(data?.length / 10);
 
     if (page !== lastPage && inView) setPage(page + 1);
   }, [inView]);
@@ -64,7 +66,7 @@ export default function ReviewList() {
   return (
     <>
       <ReviewListContainer>
-        {data?.slice(0, page * 5).map((review) => {
+        {data?.slice(0, page * 10).map((review) => {
           return <Review key={review.id} review={review} />;
         })}
         <div ref={ref} />

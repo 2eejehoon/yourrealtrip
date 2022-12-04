@@ -1,12 +1,15 @@
 import styled from "styled-components";
-import MenuModal from "./MenuModal";
 import { AiOutlineMenu } from "react-icons/ai";
 import { SlMagnifier } from "react-icons/sl";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { searchState } from "../atoms/search";
+import { searchState } from "../../atoms/search";
+import MenuModal from "../MenuModal";
 
 const MenuButton = styled(AiOutlineMenu)`
+  position: absolute;
+  right: 5px;
+  margin-left: 5px;
   &:hover {
     opacity: 70%;
     transition: 0.5s;
@@ -14,6 +17,7 @@ const MenuButton = styled(AiOutlineMenu)`
 `;
 
 const SearchContainer = styled.div`
+  max-width: 768px;
   width: calc(100% - 35px);
   height: 35px;
   display: flex;
@@ -41,11 +45,10 @@ const Searchbar = styled.input`
 const HeaderContainer = styled.header`
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 50px;
-  border-bottom: solid 1px lightgray;
   padding: 15px;
   top: 0;
   background-color: white;
