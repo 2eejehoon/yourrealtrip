@@ -13,20 +13,16 @@ const CommentListContainer = styled.ul`
 export default function CommentList() {
   const { id } = useParams();
 
-  const { data } = useQuery(
-    ["comments"],
-    () => {
-      return axios.get(`${process.env.REACT_APP_BASE_API}/comments/`);
-    },
-    {
-      select: (comments) => comments.data.filter((el) => el.reviewId == id),
-    }
-  );
+  const { data } = useQuery(["comments"], () => {
+    return axios.get(
+      `${process.env.REACT_APP_BASE_API}/reviews/${id}/comments/`
+    );
+  });
 
   return (
     <CommentListContainer>
-      {data?.map((comment) => {
-        return <Comment key={comment.id} comment={comment} />;
+      {data?.data.map((comment) => {
+        return <Comment key={comment.id} comment={comment} reviewId={id} />;
       })}
     </CommentListContainer>
   );

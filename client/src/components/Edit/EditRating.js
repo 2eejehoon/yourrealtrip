@@ -1,13 +1,12 @@
 /* eslint-disable */
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { editScoreState } from "../../atoms/edit";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
-import SubmitButton from "../Write/SubmitButton";
+import SubmitButton from "../Edit/EditSubmitButton";
 import { useParams } from "react-router-dom";
 
 const Star = styled(AiFillStar)`
@@ -56,17 +55,9 @@ export default function EditRating({ setPage }) {
   const [hover, setHover] = useState(null);
   const [score, setScore] = useRecoilState(editScoreState);
 
-  const { data } = useQuery(
-    ["review", id],
-    () => {
-      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
-    },
-    {
-      onSuccess: () => {
-        setScore(data?.data.score);
-      },
-    }
-  );
+  const { data, isLoading } = useQuery(["review", id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
+  });
 
   const text = [
     "매우 나빴어요.",
@@ -75,6 +66,10 @@ export default function EditRating({ setPage }) {
     "좋았어요.",
     "아주 좋았어요.",
   ];
+
+  useEffect(() => {
+    if (!isLoading) setScore(data?.data.score);
+  }, [data]);
 
   return (
     <>

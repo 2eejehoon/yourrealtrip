@@ -1,17 +1,17 @@
 /* eslint-disable */
-
 import styled from "styled-components";
 import Slider from "react-slick";
 import { useState } from "react";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import StarScore from "./StarScore";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
 
 const WishlistButton = styled(BsFillSuitHeartFill)`
   position: absolute;
   right: 5px;
   top: 5px;
-  z-index: 500;
 `;
 
 const ReviewContainer = styled.div`
@@ -105,6 +105,7 @@ const StyledSlider = styled(Slider)`
 
 export default function Review({ review }) {
   const [hover, setHover] = useState(false);
+  const user = useRecoilValue(userState);
 
   const settings = {
     dots: true,
@@ -112,6 +113,16 @@ export default function Review({ review }) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+  };
+
+  const isWish = (wishlist, userId) => {
+    let isWish = false;
+    for (let wish of wishlist) {
+      if (wish.userId === userId && wish.isWishlist) {
+        isWish = true;
+      }
+    }
+    return isWish;
   };
 
   return (
@@ -124,13 +135,19 @@ export default function Review({ review }) {
           <WishlistButton
             size={20}
             color="white"
-            fill={review.like ? "red" : "lightgray"}
+            fill={
+              !user
+                ? "gray"
+                : isWish(review.Wishlist, user.id)
+                ? "tomato"
+                : "gray"
+            }
           />
           <StyledSlider {...settings} hover={hover ? "hover" : null}>
-            {/* {review.images.map((image) => {
+            {review.photos.map((image) => {
               return <ReviewImage key={image} src={image} />;
-            })} */}
-            <ReviewImage></ReviewImage>
+            })}
+            <ReviewImage />
           </StyledSlider>
         </ReviewImageContainer>
       </Link>

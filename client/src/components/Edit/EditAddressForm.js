@@ -89,7 +89,7 @@ export default function EditAddressForm() {
   const [, setLat] = useRecoilState(editLatState);
   const [, setLng] = useRecoilState(editLngState);
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["review", id],
     () => {
       return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
@@ -136,6 +136,16 @@ export default function EditAddressForm() {
       marker.setPosition(latlng);
     });
   }, [city, district, street]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setCity(data?.data.city);
+      setDistrict(data?.data.district);
+      setStreet(data?.data.street);
+      setLat(data?.data.lat);
+      setLng(data?.data.lng);
+    }
+  }, [data]);
 
   return (
     <Wrapper>

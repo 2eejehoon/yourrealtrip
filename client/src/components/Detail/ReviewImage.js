@@ -15,7 +15,7 @@ const DetailImageContainer = styled.div`
 
 const DetailImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 390px;
   border-radius: 10px;
   object-fit: cover;
 `;
@@ -92,10 +92,9 @@ export default function DetailCarousel() {
         onMouseLeave={() => setHover(false)}
       >
         <StyledSlider {...settings} hover={hover ? "hover" : null}>
-          {/* {data?.data.photos.map((image) => {
+          {data?.data.photos.map((image) => {
             return <DetailImage key={image} src={image} />;
-          })} */}
-          <DetailImage></DetailImage>
+          })}
         </StyledSlider>
       </DetailImageContainer>
     </>

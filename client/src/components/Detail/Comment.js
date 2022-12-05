@@ -6,6 +6,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import elapsed from "../../utils/elapsedTime";
 import CommentOptionModal from "./CommentOptionModal";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
 
 const OptionButton = styled(SlOptions)`
   position: absolute;
@@ -109,22 +111,15 @@ const CommentEditSaveButton = styled.button`
   }
 `;
 
-const defaultImage =
-  "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png";
-
-export default function Comment({ comment }) {
+export default function Comment({ comment, reviewId }) {
+  const user = useRecoilValue(userState);
   const queryClient = useQueryClient();
+  const commentRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [commentEditInputValue, setCommentEditInputValue] = useState(
     comment.content
   );
-
-  const { data } = useQuery(["comment", comment.id], () => {
-    return axios.get(
-      `${process.env.REACT_APP_BASE_API}/comments/${comment.id}`
-    );
-  });
 
   const editComment = useMutation(
     (editedComment) => {
@@ -149,7 +144,11 @@ export default function Comment({ comment }) {
     editComment.mutate(editedComment);
   };
 
-  const commentRef = useRef(null);
+  const authorData = useQuery(["author", comment.id], () => {
+    return axios.get(
+      `${process.env.REACT_APP_BASE_API}/users/${comment.authorId}`
+    );
+  });
 
   useEffect(() => {
     if (isCommentEdit === true) {
@@ -159,11 +158,11 @@ export default function Comment({ comment }) {
 
   return (
     <CommnetLi>
-      <UserProfileImage src={defaultImage} />
+      <UserProfileImage src={authorData.data.data.profileImg} />
       <CommentContainer>
         <UserInfoContainer>
-          <UserNameSpan>작성자</UserNameSpan>
-          <CreatedAtSpan>{elapsed(data?.data.createdAt)}</CreatedAtSpan>
+          <UserNameSpan>{authorData.data.data.name}</UserNameSpan>
+          <CreatedAtSpan>{elapsed(comment.createdAt)}</CreatedAtSpan>
         </UserInfoContainer>
         {isCommentEdit ? (
           <CommentEditInput
@@ -172,10 +171,10 @@ export default function Comment({ comment }) {
             onChange={(e) => setCommentEditInputValue(e.target.value)}
           />
         ) : (
-          <CommentText>{data?.data.content}</CommentText>
+          <CommentText>{comment.content}</CommentText>
         )}
       </CommentContainer>
-      {isCommentEdit ? (
+      {isCommentEdit && user && user.id === comment.authorId ? (
         <CommentEditSaveButton
           onClick={() => {
             handleCommentEditSave();
@@ -184,18 +183,19 @@ export default function Comment({ comment }) {
         >
           저장
         </CommentEditSaveButton>
-      ) : (
+      ) : !isCommentEdit && user && user.id === comment.authorId ? (
         <OptionButton
           size={15}
           color="gray"
           onClick={() => setIsModalOpen(true)}
         />
-      )}
+      ) : null}
       {isModalOpen ? (
         <CommentOptionModal
+          comment={comment}
+          reviewId={reviewId}
           setIsModalOpen={setIsModalOpen}
           setIsCommentEdit={setIsCommentEdit}
-          comment={comment}
         />
       ) : null}
     </CommnetLi>

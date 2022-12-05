@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BiPencil } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 const EditIcon = styled(BiPencil)``;

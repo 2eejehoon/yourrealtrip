@@ -50,13 +50,14 @@ const ModalContainer = styled.ul`
 export default function CommentOptionModal({
   setIsModalOpen,
   comment,
+  reviewId,
   setIsCommentEdit,
 }) {
   const queryClient = useQueryClient();
   const deleteComment = useMutation(
     () => {
       return axios.delete(
-        `${process.env.REACT_APP_BASE_API}/comments/${comment.id}`
+        `${process.env.REACT_APP_BASE_API}/reviews/${reviewId}/comments/${comment.id}`
       );
     },
     {
@@ -71,6 +72,7 @@ export default function CommentOptionModal({
       deleteComment.mutate();
     }
   };
+
   return (
     <>
       <ModalContainer>

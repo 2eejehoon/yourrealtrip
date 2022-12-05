@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FiShare } from "react-icons/fi";
 import { BsFillSuitHeartFill } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
@@ -53,13 +53,13 @@ const HeaderContainer = styled.header`
 
 export default function DetailHeader() {
   const { id } = useParams();
-  const queryClient = useQueryClient();
   const user = useRecoilValue(userState);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { data } = useQuery(["review", id], () => {
     return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
   });
+
+  const queryClient = useQueryClient();
 
   const wish = useMutation(
     (authorId) => {
@@ -79,7 +79,7 @@ export default function DetailHeader() {
     (authorId) => {
       return axios.delete(
         `${process.env.REACT_APP_BASE_API}/reviews/${id}/wishlist`,
-        authorId
+        { data: authorId }
       );
     },
     {
@@ -90,7 +90,7 @@ export default function DetailHeader() {
   );
 
   const handleWish = () => {
-    if (!data?.data.wislist) {
+    if (!isWish(data?.data.Wishlist, user.id)) {
       wish.mutate({
         data: {
           authorId: user.id,
@@ -105,12 +105,35 @@ export default function DetailHeader() {
     }
   };
 
+  const isWish = (wishlist, userId) => {
+    let isWish = false;
+    for (let wish of wishlist) {
+      if (wish.userId === userId && wish.isWishlist) {
+        isWish = true;
+      }
+    }
+    return isWish;
+  };
+
   return (
     <HeaderContainer>
       <Link to="/reviews">
         <GoBack size={25} color="gray" />
       </Link>
-      <WishlistButton size={23} fill="gray" onClick={handleWish} />
+      <WishlistButton
+        size={23}
+        fill={
+          !user
+            ? "gray"
+            : isWish(data?.data.Wishlist, user.id)
+            ? "tomato"
+            : "gray"
+        }
+        onClick={() => {
+          user && handleWish();
+          !user && alert("로그인이 필요한 서비스입니다.");
+        }}
+      />
       <Share size={25} color="gray" onClick={() => setIsModalOpen(true)} />
       {isModalOpen ? <ShareModal setIsModalOpen={setIsModalOpen} /> : null}
     </HeaderContainer>

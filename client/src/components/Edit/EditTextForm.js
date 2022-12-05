@@ -1,6 +1,6 @@
 /* eslint-disable */
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -57,17 +57,13 @@ export default function EditTextForm() {
   const [text, setText] = useRecoilState(editContentState);
   const [length, setLength] = useState(text.length);
 
-  const { data } = useQuery(
-    ["review", id],
-    () => {
-      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
-    },
-    {
-      onSuccess: () => {
-        setText(data?.data.content);
-      },
-    }
-  );
+  const { data, isLoading } = useQuery(["review", id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
+  });
+
+  useEffect(() => {
+    if (!isLoading) setText(data?.data.content);
+  }, [data]);
 
   return (
     <>

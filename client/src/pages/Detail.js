@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import ReviewImage from "../components/Detail/ReviewImage";
 import ReviewTitle from "../components/Detail/ReviewTitle";
@@ -7,9 +8,12 @@ import ReviewContent from "../components/Detail/ReviewContent";
 import CommentForm from "../components/Detail/CommentForm";
 import CommentList from "../components/Detail/CommentList";
 import DetailMap from "../components/Detail/DetailMap";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Wrapper = styled.div`
-  width: 100%;
+  min-width: 390px;
   min-height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
@@ -19,11 +23,16 @@ const Wrapper = styled.div`
 `;
 
 export default function Detail() {
+  const { id } = useParams();
+  const { data } = useQuery(["review", id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
+  });
+
   return (
     <>
-      <DetailHeader />
+      <DetailHeader review={data?.data} reviewId={id} />
       <Wrapper>
-        <UserInfo />
+        <UserInfo review={data?.data} reviewId={id} />
         <ReviewTitle />
         <ReviewImage />
         <ReviewContent />

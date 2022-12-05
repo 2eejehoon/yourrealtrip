@@ -90,6 +90,20 @@ export default function CategoryTag() {
       >
         광주
       </CategoryButton>
+      <CategoryButton
+        value="대전"
+        clicked={category === "대전" ? "clicked" : null}
+        onClick={handleClick}
+      >
+        대전
+      </CategoryButton>
+      <CategoryButton
+        value="수원"
+        clicked={category === "수원" ? "clicked" : null}
+        onClick={handleClick}
+      >
+        수원
+      </CategoryButton>
     </CategoryButtonContainer>
   );
 }

@@ -9,7 +9,6 @@ import MenuModal from "../MenuModal";
 const MenuButton = styled(AiOutlineMenu)`
   position: absolute;
   right: 5px;
-  margin-left: 5px;
   &:hover {
     opacity: 70%;
     transition: 0.5s;
@@ -18,7 +17,7 @@ const MenuButton = styled(AiOutlineMenu)`
 
 const SearchContainer = styled.div`
   max-width: 768px;
-  width: calc(100% - 35px);
+  width: calc(100% - 20px);
   height: 35px;
   display: flex;
   justify-content: space-around;
@@ -28,12 +27,12 @@ const SearchContainer = styled.div`
   box-shadow: 0.5px 0.5px lightgray;
 
   &:focus-within {
-    border: solid 1.5px black;
+    outline: solid 1.5px black;
   }
 `;
 
 const Searchbar = styled.input`
-  width: calc(100% - 40px);
+  width: calc(100% - 45px);
   border: none;
   font-size: 0.75em;
 
@@ -45,7 +44,7 @@ const Searchbar = styled.input`
 const HeaderContainer = styled.header`
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   width: 100%;
   height: 50px;

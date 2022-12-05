@@ -63,8 +63,8 @@ export default function Rating({ setPage }) {
     <>
       <RatingContainer>
         <DescText>여행을 별점으로 평가해주세요.</DescText>
-        {text[click] !== null ? (
-          <StyledText>{text[click - 1]}</StyledText>
+        {text[score] !== null ? (
+          <StyledText>{text[score - 1]}</StyledText>
         ) : null}
         <StarContainer>
           {[1, 2, 3, 4, 5].map((num) => {

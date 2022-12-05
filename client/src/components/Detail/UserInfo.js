@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import elapsed from "../../utils/elapsedTime";
 import ReviewOptionModal from "./ReviewOptionModal";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
 
 const OptionButton = styled(SlOptions)`
   position: absolute;
@@ -28,7 +30,7 @@ const UserInfoContainer = styled.div`
 `;
 
 const UserProfileContainer = styled.div`
-  width: 150px;
+  width: calc(100% - 50px);
   height: 50px;
   display: flex;
   justify-content: start;
@@ -66,24 +68,36 @@ const defaultImage =
 
 export default function UserInfo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useRecoilValue(userState);
 
   const { id } = useParams();
-  const { data } = useQuery(["review", id], () => {
+  const reviewData = useQuery(["review", id], () => {
     return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
+  });
+
+  const authorData = useQuery(["author", id], () => {
+    return axios.get(
+      `${process.env.REACT_APP_BASE_API}/users/${reviewData.data.data.authorId}`
+    );
   });
 
   return (
     <UserInfoContainer>
       <UserProfileContainer>
-        <UserProfileImage src={defaultImage}></UserProfileImage>
-        <UserNameSpan>작성자</UserNameSpan>
-        <CreatedAtSpan>{elapsed(data?.data.createdAt)}</CreatedAtSpan>
+        <UserProfileImage
+          src={authorData.data.data.profileImg}
+        ></UserProfileImage>
+        <UserNameSpan>{authorData.data.data.name}</UserNameSpan>
+        <CreatedAtSpan>{elapsed(reviewData.data.data.createdAt)}</CreatedAtSpan>
       </UserProfileContainer>
-      <OptionButton
-        size={15}
-        color="gray"
-        onClick={() => setIsModalOpen(true)}
-      />
+      {user && user.id === reviewData.data.data.authorId ? (
+        <OptionButton
+          size={15}
+          color="gray"
+          onClick={() => setIsModalOpen(true)}
+        />
+      ) : null}
+
       {isModalOpen ? (
         <ReviewOptionModal setIsModalOpen={setIsModalOpen} />
       ) : null}

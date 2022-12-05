@@ -1,6 +1,5 @@
 /* eslint-disable */
 import styled from "styled-components";
-import { userState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -18,6 +17,7 @@ import {
   editLatState,
   editLngState,
 } from "../../atoms/edit";
+import { userState } from "../../atoms/user";
 
 const SubmitButton = styled.button`
   width: 60px;

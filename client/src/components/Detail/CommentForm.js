@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { v4 as uuidv4 } from "uuid";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/user";
 import axios from "axios";
@@ -106,43 +105,54 @@ export default function CommentForm() {
   const { id } = useParams();
   const queryClient = useQueryClient();
 
-  const addComment = useMutation((comment) => {
-    return axios.post(`${process.env.REACT_APP_BASE_API}/comments`, comment);
-  });
+  const addComment = useMutation(
+    (comment) => {
+      return axios.post(
+        `${process.env.REACT_APP_BASE_API}/reviews/${id}/comments`,
+        comment
+      );
+    },
+    {
+      onSuccess: () => {
+        setCommentInputValue("");
+        return queryClient.invalidateQueries(["comments"]);
+      },
+    }
+  );
 
   const handleCommentSubmit = () => {
+    if (!user) {
+      return alert("로그인이 필요한 서비스입니다.");
+    }
+
     if (commentInputValue === "") {
       return alert("댓글 내용을 입력해주세요.");
     }
 
     const comment = {
-      id: uuidv4(),
-      content: commentInputValue,
-      createdAt: new Date(),
-      reviewId: id,
+      data: {
+        content: commentInputValue,
+        createdAt: new Date(),
+        reviewId: Number(id),
+        authorId: Number(user.id),
+      },
     };
 
-    addComment.mutate(comment, {
-      onSuccess: () => {
-        setCommentInputValue("");
-        return queryClient.invalidateQueries(["comments"]);
-      },
-    });
+    addComment.mutate(comment);
+    setIsFocused(false);
   };
 
   return (
     <>
       <CommentFormContainer>
-        <UserProfileImage
-          src={user ? user.profileImg : defaultImage}
-        ></UserProfileImage>
+        <UserProfileImage src={user ? user.profileImg : defaultImage} />
         <CommentInputContainer>
           <CommentInput
             placeholder="댓글을 입력해주세요."
             value={commentInputValue}
             onFocus={() => setIsFocused(true)}
             onChange={(e) => setCommentInputValue(e.target.value)}
-          ></CommentInput>
+          />
         </CommentInputContainer>
       </CommentFormContainer>
       {isFocused ? (
@@ -150,12 +160,7 @@ export default function CommentForm() {
           <CommentCancleButton onClick={() => setIsFocused(false)}>
             취소
           </CommentCancleButton>
-          <CommentSubmitButton
-            onClick={() => {
-              handleCommentSubmit();
-              setIsFocused(false);
-            }}
-          >
+          <CommentSubmitButton onClick={handleCommentSubmit}>
             댓글
           </CommentSubmitButton>
         </ButtonContainer>

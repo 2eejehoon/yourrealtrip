@@ -121,7 +121,7 @@ export default function SubmitButton({ setPage }) {
       alert("도로명을 입력해주세요.");
       return setPage(4);
     }
-    if (click === "") {
+    if (score === "") {
       return alert("평점을 입력해주세요.");
     }
 

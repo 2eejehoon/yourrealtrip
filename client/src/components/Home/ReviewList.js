@@ -8,14 +8,12 @@ import { categoryState } from "../../atoms/filter";
 import { searchState } from "../../atoms/search";
 import { useRecoilValue } from "recoil";
 import Review from "./Review";
+import { userState } from "../../atoms/user";
 
 const ReviewListContainer = styled.div`
   min-height: calc(100vh - 100px);
-  width: 100%;
   padding: 5px;
   background-color: white;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 `;
 
 export default function ReviewList() {
@@ -58,7 +56,7 @@ export default function ReviewList() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const lastPage = Math.ceil(data?.length / 10);
+    const lastPage = Math.ceil(data?.length / 15);
 
     if (page !== lastPage && inView) setPage(page + 1);
   }, [inView]);
@@ -66,7 +64,7 @@ export default function ReviewList() {
   return (
     <>
       <ReviewListContainer>
-        {data?.slice(0, page * 10).map((review) => {
+        {data?.slice(0, page * 15).map((review) => {
           return <Review key={review.id} review={review} />;
         })}
         <div ref={ref} />

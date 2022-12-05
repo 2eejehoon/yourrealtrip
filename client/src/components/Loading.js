@@ -1,10 +1,14 @@
-function Loading() {
-  return (
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-      alt="loading"
-    />
-  );
-}
+import styled from "styled-components";
 
-export default Loading;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+`;
+
+export default function Loading() {
+  return <Wrapper></Wrapper>;
+}

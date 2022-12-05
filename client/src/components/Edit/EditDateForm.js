@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { editEndDateState, editStartDateState } from "../../atoms/edit";
 import axios from "axios";
+import { useEffect } from "react";
 
 const DescText = styled.p`
   width: 100%;
@@ -100,18 +101,16 @@ export default function EditDateForm() {
   const [startDate, setStartDate] = useRecoilState(editStartDateState);
   const [endDate, setEndDate] = useRecoilState(editEndDateState);
 
-  const { data } = useQuery(
-    ["review", id],
-    () => {
-      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
-    },
-    {
-      onSuccess: () => {
-        setStartDate(new Date(data?.data.startDate));
-        setEndDate(new Date(data?.data.endDate));
-      },
+  const { data, isLoading } = useQuery(["review", id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
+  });
+
+  useEffect(() => {
+    if (!isLoading) {
+      setStartDate(new Date(data?.data.startDate));
+      setEndDate(new Date(data?.data.endDate));
     }
-  );
+  }, [data]);
 
   return (
     <DatePickerContainer>

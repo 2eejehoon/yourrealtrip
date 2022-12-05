@@ -1,7 +1,7 @@
 /* eslint-disable */
 import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { editImagesState } from "../../atoms/edit";
 import { ImCancelCircle } from "react-icons/im";
@@ -156,17 +156,13 @@ export default function EditImageUpload() {
     setImages([...deletedImages]);
   };
 
-  const { data } = useQuery(
-    ["review", id],
-    () => {
-      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
-    },
-    {
-      onSuccess: () => {
-        setImages(data?.data.images);
-      },
-    }
-  );
+  const { data, isLoading } = useQuery(["review", id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
+  });
+
+  useEffect(() => {
+    if (!isLoading) setImages(data?.data.photos);
+  }, [data]);
 
   return (
     <>
@@ -193,7 +189,7 @@ export default function EditImageUpload() {
           onChange={handleClick}
         />
       </UploadContainer>
-      {/* <PreviewContainer>
+      <PreviewContainer>
         {images.map((image, index) => {
           return (
             <PreviewImageContainter key={index}>
@@ -207,7 +203,7 @@ export default function EditImageUpload() {
             </PreviewImageContainter>
           );
         })}
-      </PreviewContainer> */}
+      </PreviewContainer>
     </>
   );
 }
