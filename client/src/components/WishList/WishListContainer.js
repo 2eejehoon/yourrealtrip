@@ -47,7 +47,6 @@ export default function WishListContainer() {
     }
   );
 
-  console.log(data);
   return (
     <>
       <DescText>작성자님의 위시리스트</DescText>

@@ -37,7 +37,7 @@ const InfoContainer = styled.div`
 const ReviewImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 400px;
   border-radius: 10px;
 
   &:hover {
@@ -48,7 +48,7 @@ const ReviewImageContainer = styled.div`
 
 const ReviewImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 400px;
   border-radius: 10px;
   object-fit: cover;
 `;

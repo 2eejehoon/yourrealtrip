@@ -22,6 +22,8 @@ const StyledRightClick = styled(BsArrowRightCircle)`
 const CategoryButton = styled.button`
   width: 45px;
   height: 45px;
+  margin-left: 1px;
+  margin-right: 1px;
   border: 1px solid lightgray;
   border-radius: 50%;
   display: flex;

@@ -34,7 +34,6 @@ const SearchContainer = styled.div`
 const Searchbar = styled.input`
   width: calc(100% - 45px);
   border: none;
-  font-size: 0.75em;
 
   &:focus {
     outline: none;
