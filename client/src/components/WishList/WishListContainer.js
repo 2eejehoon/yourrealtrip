@@ -1,5 +1,11 @@
+/* eslint-disable */
 import styled from "styled-components";
 import Wish from "./Wish";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../atoms/user";
+import { Link } from "react-router-dom";
 
 const DescText = styled.p`
   width: 100%;
@@ -22,15 +28,34 @@ const WishContainer = styled.ul`
 `;
 
 export default function WishListContainer() {
+  const user = useRecoilValue(userState);
+  const { data } = useQuery(
+    ["reviews"],
+    () => {
+      return axios.get(`${process.env.REACT_APP_BASE_API}/reviews`);
+    },
+    {
+      select: (data) =>
+        data?.data.filter((el) => {
+          let wishlist = el.Wishlist;
+          let result = false;
+          for (let el of wishlist) {
+            if (el.userId === user.id && el.isWishlist) result = true;
+            return result;
+          }
+        }),
+    }
+  );
+
+  console.log(data);
   return (
-    <WishContainer>
+    <>
       <DescText>작성자님의 위시리스트</DescText>
-      <Wish />
-      <Wish />
-      <Wish />
-      <Wish />
-      <Wish />
-      <Wish />
-    </WishContainer>
+      <WishContainer>
+        {data.map((wish) => {
+          return <Wish key={wish.id} wish={wish} />;
+        })}
+      </WishContainer>
+    </>
   );
 }

@@ -110,6 +110,8 @@ const CommentEditSaveButton = styled.button`
     transition: 0.5s;
   }
 `;
+const defaultImage =
+  "https://cdn.pixabay.com/photo/2015/06/23/09/19/gears-818464__340.png";
 
 export default function Comment({ comment, reviewId }) {
   const user = useRecoilValue(userState);
@@ -158,7 +160,7 @@ export default function Comment({ comment, reviewId }) {
 
   return (
     <CommnetLi>
-      <UserProfileImage src={authorData.data.data.profileImg} />
+      <UserProfileImage src={authorData.data.data.profileImg || defaultImage} />
       <CommentContainer>
         <UserInfoContainer>
           <UserNameSpan>{authorData.data.data.name}</UserNameSpan>

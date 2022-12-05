@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 
@@ -11,8 +12,7 @@ const StarContainer = styled.div`
   align-items: center;
 `;
 
-export default function LikeStarScore() {
-  const score = 3;
+export default function LikeStarScore({ score }) {
   return (
     <StarContainer>
       {[1, 2, 3, 4, 5].map((num) => {

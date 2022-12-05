@@ -1,5 +1,7 @@
+/* eslint-disable */
 import styled from "styled-components";
 import LikeStarScore from "./StarScore";
+import { Link } from "react-router-dom";
 
 const ReviewContainer = styled.li`
   width: 100%;
@@ -47,15 +49,17 @@ const ContentContainer = styled.div`
   }
 `;
 
-export default function Wish() {
+export default function Wish({ wish }) {
   return (
     <ReviewContainer>
-      <ReivewImage src="http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg" />
+      <Link to={`/reviews/${wish.id}`}>
+        <ReivewImage src={wish.photos[0]} />
+      </Link>
       <ContentContainer>
-        <span>제목</span>
-        <p>장소명, 주소</p>
-        <LikeStarScore />
-        <p>내용</p>
+        <span>{wish.title}</span>
+        <p>{`${wish.city} ${wish.district} ${wish.street}`}</p>
+        <LikeStarScore score={wish.score} />
+        <p>{wish.content}</p>
       </ContentContainer>
     </ReviewContainer>
   );

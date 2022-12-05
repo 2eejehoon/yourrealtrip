@@ -147,7 +147,6 @@ export default function Review({ review }) {
             {review.photos.map((image) => {
               return <ReviewImage key={image} src={image} />;
             })}
-            <ReviewImage />
           </StyledSlider>
         </ReviewImageContainer>
       </Link>

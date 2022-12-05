@@ -85,8 +85,8 @@ export default function UserInfo() {
     <UserInfoContainer>
       <UserProfileContainer>
         <UserProfileImage
-          src={authorData.data.data.profileImg}
-        ></UserProfileImage>
+          src={authorData.data.data.profileImg || defaultImage}
+        />
         <UserNameSpan>{authorData.data.data.name}</UserNameSpan>
         <CreatedAtSpan>{elapsed(reviewData.data.data.createdAt)}</CreatedAtSpan>
       </UserProfileContainer>

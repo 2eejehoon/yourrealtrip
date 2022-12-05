@@ -92,6 +92,8 @@ const SaveButton = styled.button`
 export default function UserInfo() {
   const queryClient = useQueryClient();
   const user = useRecoilValue(userState);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [nameUpdateShow, setNameUpdateShow] = useState(false);
   const [nameUpdate, setNameUpdate] = useState(false);
   const [emailUpdateShow, setEmailUpdateShow] = useState(false);
@@ -102,7 +104,7 @@ export default function UserInfo() {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
 
-  const { data } = useQuery(["user", user.id], () => {
+  const { data, isLoading } = useQuery(["user", user.id], () => {
     return axios.get(`${process.env.REACT_APP_BASE_API}/users/${user.id}`);
   });
 
@@ -120,9 +122,6 @@ export default function UserInfo() {
     }
   );
 
-  const [name, setName] = useState(data?.data.name);
-  const [email, setEmail] = useState(data?.data.email);
-
   const handleNameSave = (e) => {
     const userInfo = {
       ...data?.data,
@@ -138,6 +137,12 @@ export default function UserInfo() {
     updateUser(userInfo);
   };
 
+  useEffect(() => {
+    if (!isLoading) {
+      setName(data?.data.name);
+      setEmail(data?.data.email);
+    }
+  }, [data]);
   useEffect(() => {
     if (nameUpdate === true) {
       nameRef.current.focus();
@@ -228,18 +233,20 @@ export default function UserInfo() {
             </SaveButton>
           ) : null}
         </InputContainer>
-        <InputContainer
-          onMouseEnter={() => setpassUpdateShow(true)}
-          onMouseLeave={() => setpassUpdateShow(false)}
-        >
-          <div>비밀번호</div>
-          <input type="password" disabled></input>
-          {passUpdateShow ? (
-            <UpdateButton onClick={() => setPasswordModalShow(true)}>
-              수정
-            </UpdateButton>
-          ) : null}
-        </InputContainer>
+        {user.password === "" ? null : (
+          <InputContainer
+            onMouseEnter={() => setpassUpdateShow(true)}
+            onMouseLeave={() => setpassUpdateShow(false)}
+          >
+            <div>비밀번호</div>
+            <input type="password" disabled></input>
+            {passUpdateShow ? (
+              <UpdateButton onClick={() => setPasswordModalShow(true)}>
+                수정
+              </UpdateButton>
+            ) : null}
+          </InputContainer>
+        )}
       </UserInfoContainer>
     </>
   );

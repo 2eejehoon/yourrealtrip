@@ -251,7 +251,7 @@ export default function CategoryTag() {
       </CategoryButtonContainer>
       <StyledLeftClick
         size={"20px"}
-        fill="gray"
+        fill={"lightgray"}
         hover={hover ? "hover" : null}
         page={page === 1 ? "none" : null}
         onClick={() => {
@@ -260,7 +260,7 @@ export default function CategoryTag() {
       />
       <StyledRightClick
         size={"20px"}
-        fill="gray"
+        fill={"lightgray"}
         hover={hover ? "hover" : null}
         page={page === lastPage ? "none" : null}
         onClick={() => {

@@ -26,7 +26,6 @@ const HeaderContainer = styled.header`
 `;
 
 const MenuButton = styled(AiOutlineMenu)`
-  top: 10px;
   right: 5px;
   position: absolute;
   &:hover {
