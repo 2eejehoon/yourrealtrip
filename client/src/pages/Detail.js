@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const Wrapper = styled.div`
-  max-width: 390px;
+  max-width: 410px;
   min-height: calc(100vh - 50px);
   margin: auto;
   display: flex;
@@ -21,6 +21,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 `;
 
 export default function Detail() {

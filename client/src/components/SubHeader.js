@@ -17,13 +17,15 @@ const GoBack = styled(RiArrowGoBackFill)`
 
 const HeaderContainer = styled.header`
   position: relative;
-  max-width: 390px;
+  max-width: 410px;
   margin: auto;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 `;
 
 const MenuButton = styled(AiOutlineMenu)`

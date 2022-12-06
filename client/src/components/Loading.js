@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
 `;
 
 export default function Loading() {

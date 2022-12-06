@@ -10,7 +10,7 @@ import EditRating from "../components/Edit/EditRating";
 import { useState } from "react";
 
 const Wrapper = styled.div`
-  max-width: 390px;
+  max-width: 410px;
   min-height: calc(100vh - 100px);
   margin: auto;
   display: flex;
@@ -18,6 +18,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 `;
 
 export default function Edit() {

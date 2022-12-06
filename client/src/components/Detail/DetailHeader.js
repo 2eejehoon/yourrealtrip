@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FiShare } from "react-icons/fi";
 import { BsFillSuitHeartFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
@@ -43,13 +43,15 @@ const Share = styled(FiShare)`
 
 const HeaderContainer = styled.header`
   position: relative;
-  max-width: 390px;
   margin: auto;
+  max-width: 410px;
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: white;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 `;
 
 export default function DetailHeader() {

@@ -16,7 +16,7 @@ const ReviewListContainer = styled.div`
   background-color: white;
 
   @media screen and (min-width: 400px) {
-    max-width: 405px;
+    max-width: 410px;
     display: grid;
     grid-template-columns: 400px;
   }

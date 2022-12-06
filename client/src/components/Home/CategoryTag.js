@@ -58,7 +58,7 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 10px;
   @media screen and (min-width: 400px) {
-    max-width: 405px;
+    max-width: 410px;
   }
   @media screen and (min-width: 800px) {
     max-width: 810px;

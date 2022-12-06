@@ -14,10 +14,14 @@ const DateContainer = styled.p`
   font-size: 0.75em;
 `;
 
-const TextContainter = styled.div`
+const TextContainter = styled.textarea`
   width: 100%;
   font-size: 0.75em;
   color: gray;
+  border: none;
+  outline: none;
+  resize: none;
+  background-color: white;
 `;
 
 export default function ReviewContent() {
@@ -38,7 +42,7 @@ export default function ReviewContent() {
           endDate.getMonth() + 1
         }월 ${endDate.getDate()}일`}
       </DateContainer>
-      <TextContainter>{data?.data.content}</TextContainter>
+      <TextContainter disabled>{data?.data.content}</TextContainter>
     </ContentContainer>
   );
 }

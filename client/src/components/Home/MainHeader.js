@@ -16,8 +16,7 @@ const MenuButton = styled(AiOutlineMenu)`
 `;
 
 const SearchContainer = styled.div`
-  max-width: 800px;
-  width: calc(70% - 20px);
+  width: 330px;
   height: 35px;
   display: flex;
   justify-content: space-around;
@@ -53,7 +52,7 @@ const HeaderContainer = styled.header`
   background-color: white;
 
   @media screen and (min-width: 400px) {
-    max-width: 405px;
+    max-width: 410px;
   }
   @media screen and (min-width: 800px) {
     max-width: 810px;

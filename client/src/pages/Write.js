@@ -10,7 +10,7 @@ import Rating from "../components/Write/Rating";
 import { useState } from "react";
 
 const Wrapper = styled.div`
-  max-width: 390px;
+  max-width: 410px;
   margin: auto;
   min-height: calc(100vh - 100px);
   display: flex;
@@ -18,6 +18,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 `;
 export default function Write() {
   const [page, setPage] = useState(0);

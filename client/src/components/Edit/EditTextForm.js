@@ -55,14 +55,17 @@ export default function EditTextForm() {
   const { id } = useParams();
 
   const [text, setText] = useRecoilState(editContentState);
-  const [length, setLength] = useState(text.length);
+  const [length, setLength] = useState(0);
 
   const { data, isLoading } = useQuery(["review", id], () => {
     return axios.get(`${process.env.REACT_APP_BASE_API}/reviews/${id}`);
   });
 
   useEffect(() => {
-    if (!isLoading) setText(data?.data.content);
+    if (!isLoading) {
+      setText(data?.data.content);
+      setLength(text.length);
+    }
   }, [data]);
 
   return (
