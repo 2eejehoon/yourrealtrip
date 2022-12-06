@@ -21,8 +21,8 @@ const StyledRightClick = styled(BsArrowRightCircle)`
 `;
 
 const CategoryButton = styled.button`
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   margin-left: 1px;
   margin-right: 1px;
   border: 1px solid lightgray;
@@ -52,11 +52,12 @@ const Wrapper = styled.div`
   margin: auto;
   position: relative;
   background-color: white;
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+
   @media screen and (min-width: 400px) {
     max-width: 410px;
   }
@@ -102,7 +103,7 @@ const cities = [
   "의정부",
   "김포",
   "구미",
-  "광주",
+  "울릉",
   "양산",
   "원주",
   "진주",
@@ -248,11 +249,11 @@ export default function CategoryTag() {
 
   const windowResize = () => {
     if (window.innerWidth > 1600) {
-      setLimit(32);
+      setLimit(36);
     } else if (window.innerWidth > 1200) {
-      setLimit(24);
+      setLimit(27);
     } else if (window.innerWidth > 800) {
-      setLimit(16);
+      setLimit(17);
     } else {
       setLimit(8);
     }
@@ -267,11 +268,11 @@ export default function CategoryTag() {
 
   useEffect(() => {
     if (window.innerWidth > 1600) {
-      setLimit(32);
+      setLimit(36);
     } else if (window.innerWidth > 1200) {
-      setLimit(24);
+      setLimit(27);
     } else if (window.innerWidth > 800) {
-      setLimit(16);
+      setLimit(17);
     } else {
       setLimit(8);
     }

@@ -17,7 +17,7 @@ const MenuButton = styled(AiOutlineMenu)`
 
 const SearchContainer = styled.div`
   width: 330px;
-  height: 35px;
+  height: 45px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -46,7 +46,7 @@ const HeaderContainer = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 80px;
   padding: 15px;
   top: 0;
   background-color: white;

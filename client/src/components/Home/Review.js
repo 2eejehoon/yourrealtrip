@@ -17,7 +17,7 @@ const WishlistButton = styled(BsFillSuitHeartFill)`
 
 const ReviewContainer = styled.div`
   width: 100%;
-  padding: 5px;
+  padding: 20px;
 `;
 
 const InfoContainer = styled.div`

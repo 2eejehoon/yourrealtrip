@@ -42,7 +42,7 @@ export default function ReviewContent() {
           endDate.getMonth() + 1
         }월 ${endDate.getDate()}일`}
       </DateContainer>
-      <TextContainter disabled>{data?.data.content}</TextContainter>
+      <TextContainter value={data?.data.content} disabled />
     </ContentContainer>
   );
 }

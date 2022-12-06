@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
-  max-width: 390px;
+  max-width: 410px;
   margin: auto;
   height: 50px;
   display: flex;

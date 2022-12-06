@@ -9,6 +9,7 @@ const MapContainer = styled.div`
   width: 100%;
   height: 390px;
   padding: 10px;
+  border-radius: 10px;
 `;
 
 const Map = styled.div`
