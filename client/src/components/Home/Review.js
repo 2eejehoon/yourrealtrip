@@ -12,6 +12,7 @@ const WishlistButton = styled(BsFillSuitHeartFill)`
   position: absolute;
   right: 5px;
   top: 5px;
+  z-index: 500;
 `;
 
 const ReviewContainer = styled.div`
@@ -37,7 +38,7 @@ const InfoContainer = styled.div`
 const ReviewImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 390px;
   border-radius: 10px;
 
   &:hover {
@@ -48,7 +49,7 @@ const ReviewImageContainer = styled.div`
 
 const ReviewImage = styled.img`
   width: 100%;
-  height: 400px;
+  height: 390px;
   border-radius: 10px;
   object-fit: cover;
 `;

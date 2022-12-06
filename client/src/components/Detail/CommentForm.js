@@ -145,7 +145,10 @@ export default function CommentForm() {
   return (
     <>
       <CommentFormContainer>
-        <UserProfileImage src={user ? user.profileImg : defaultImage} />
+        <UserProfileImage
+          src={user ? user.profileImg : defaultImage}
+          referrerpolicy="no-referrer"
+        />
         <CommentInputContainer>
           <CommentInput
             placeholder="댓글을 입력해주세요."

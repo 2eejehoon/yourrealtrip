@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/user";
-import { Link } from "react-router-dom";
 
 const DescText = styled.p`
   width: 100%;
@@ -49,7 +48,7 @@ export default function WishListContainer() {
 
   return (
     <>
-      <DescText>작성자님의 위시리스트</DescText>
+      <DescText>{user.name} 님의 위시리스트</DescText>
       <WishContainer>
         {data.map((wish) => {
           return <Wish key={wish.id} wish={wish} />;

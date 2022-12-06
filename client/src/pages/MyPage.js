@@ -4,7 +4,8 @@ import SubHeader from "../components/SubHeader";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  width: 100%;
+  max-width: 390px;
+  margin: auto;
   min-height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;

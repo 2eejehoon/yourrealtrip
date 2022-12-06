@@ -137,6 +137,7 @@ export default function UserProfile() {
         <UserProfileImage
           drag={drag ? "drag" : null}
           src={image || data?.data.profileImg || defaultImage}
+          referrerpolicy="no-referrer"
           onDragEnter={() => setDrag(true)}
           onDragLeave={() => setDrag(false)}
           onDragOver={handleDragOver}

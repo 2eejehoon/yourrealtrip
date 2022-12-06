@@ -16,8 +16,8 @@ const MenuButton = styled(AiOutlineMenu)`
 `;
 
 const SearchContainer = styled.div`
-  max-width: 768px;
-  width: calc(100% - 20px);
+  max-width: 800px;
+  width: calc(70% - 20px);
   height: 35px;
   display: flex;
   justify-content: space-around;
@@ -41,15 +41,29 @@ const Searchbar = styled.input`
 `;
 
 const HeaderContainer = styled.header`
+  margin: auto;
   position: relative;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 50px;
   padding: 15px;
   top: 0;
   background-color: white;
+
+  @media screen and (min-width: 400px) {
+    max-width: 405px;
+  }
+  @media screen and (min-width: 800px) {
+    max-width: 810px;
+  }
+  @media screen and (min-width: 1200px) {
+    max-width: 1210px;
+  }
+  @media screen and (min-width: 1600px) {
+    max-width: 1610px;
+  }
 `;
 
 export default function MainHeader() {

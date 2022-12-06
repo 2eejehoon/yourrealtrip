@@ -13,12 +13,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const Wrapper = styled.div`
-  min-width: 390px;
+  max-width: 390px;
   min-height: calc(100vh - 50px);
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
   background-color: white;
 `;
 

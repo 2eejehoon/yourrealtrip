@@ -160,7 +160,10 @@ export default function Comment({ comment, reviewId }) {
 
   return (
     <CommnetLi>
-      <UserProfileImage src={authorData.data.data.profileImg || defaultImage} />
+      <UserProfileImage
+        src={authorData.data.data.profileImg || defaultImage}
+        referrerpolicy="no-referrer"
+      />
       <CommentContainer>
         <UserInfoContainer>
           <UserNameSpan>{authorData.data.data.name}</UserNameSpan>

@@ -1,21 +1,22 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { categoryState } from "../../atoms/filter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 
 const StyledLeftClick = styled(BsArrowLeftCircle)`
   display: ${(props) => (props.page === "none" ? "none" : null)};
   visibility: ${(props) => (props.hover === "hover" ? "visible" : "hidden")};
   position: absolute;
-  left: 5px;
+  left: 10px;
   z-index: 50;
 `;
+
 const StyledRightClick = styled(BsArrowRightCircle)`
   display: ${(props) => (props.page === "none" ? "none" : null)};
   visibility: ${(props) => (props.hover === "hover" ? "visible" : "hidden")};
   position: absolute;
-  right: 5px;
+  right: 10px;
   z-index: 50;
 `;
 
@@ -48,14 +49,26 @@ const CategoryButtonContainer = styled.div`
 `;
 
 const Wrapper = styled.div`
+  margin: auto;
   position: relative;
   background-color: white;
-  width: 100%;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  @media screen and (min-width: 400px) {
+    max-width: 405px;
+  }
+  @media screen and (min-width: 800px) {
+    max-width: 810px;
+  }
+  @media screen and (min-width: 1200px) {
+    max-width: 1210px;
+  }
+  @media screen and (min-width: 1600px) {
+    max-width: 1610px;
+  }
 `;
 
 const cities = [
@@ -225,12 +238,44 @@ export default function CategoryTag() {
   const [category, setCategory] = useRecoilState(categoryState);
   const [hover, setHover] = useState(false);
   const [page, setPage] = useState(1);
-  const lastPage = Math.ceil(cities.length / 8);
-  const offset = (page - 1) * 8;
+  const [limit, setLimit] = useState(null);
+  const lastPage = Math.ceil(cities.length / limit);
+  const offset = (page - 1) * limit;
 
   const handleClick = (e) => {
     setCategory(e.target.value);
   };
+
+  const windowResize = () => {
+    if (window.innerWidth > 1600) {
+      setLimit(32);
+    } else if (window.innerWidth > 1200) {
+      setLimit(24);
+    } else if (window.innerWidth > 800) {
+      setLimit(16);
+    } else {
+      setLimit(8);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", windowResize);
+    return () => {
+      window.removeEventListener("resize", windowResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth > 1600) {
+      setLimit(32);
+    } else if (window.innerWidth > 1200) {
+      setLimit(24);
+    } else if (window.innerWidth > 800) {
+      setLimit(16);
+    } else {
+      setLimit(8);
+    }
+  }, []);
 
   return (
     <Wrapper
@@ -238,7 +283,7 @@ export default function CategoryTag() {
       onMouseLeave={() => setHover(false)}
     >
       <CategoryButtonContainer>
-        {cities.slice(offset, 8 * page).map((city, index) => {
+        {cities.slice(offset, limit * page).map((city, index) => {
           return (
             <CategoryButton
               key={index}
@@ -253,7 +298,7 @@ export default function CategoryTag() {
       </CategoryButtonContainer>
       <StyledLeftClick
         size={"20px"}
-        fill={"lightgray"}
+        fill={"gray"}
         hover={hover ? "hover" : null}
         page={page === 1 ? "none" : null}
         onClick={() => {
@@ -262,7 +307,7 @@ export default function CategoryTag() {
       />
       <StyledRightClick
         size={"20px"}
-        fill={"lightgray"}
+        fill={"gray"}
         hover={hover ? "hover" : null}
         page={page === lastPage ? "none" : null}
         onClick={() => {

@@ -43,7 +43,8 @@ const Share = styled(FiShare)`
 
 const HeaderContainer = styled.header`
   position: relative;
-  width: 100%;
+  max-width: 390px;
+  margin: auto;
   height: 50px;
   display: flex;
   justify-content: space-between;

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 350px;
+  height: 390px;
   padding: 10px;
 `;
 

@@ -8,12 +8,33 @@ import { categoryState } from "../../atoms/filter";
 import { searchState } from "../../atoms/search";
 import { useRecoilValue } from "recoil";
 import Review from "./Review";
-import { userState } from "../../atoms/user";
 
 const ReviewListContainer = styled.div`
   min-height: calc(100vh - 100px);
+  margin: auto;
   padding: 5px;
   background-color: white;
+
+  @media screen and (min-width: 400px) {
+    max-width: 405px;
+    display: grid;
+    grid-template-columns: 400px;
+  }
+  @media screen and (min-width: 800px) {
+    max-width: 810px;
+    display: grid;
+    grid-template-columns: 400px 400px;
+  }
+  @media screen and (min-width: 1200px) {
+    max-width: 1210px;
+    display: grid;
+    grid-template-columns: 400px 400px 400px;
+  }
+  @media screen and (min-width: 1600px) {
+    max-width: 1610px;
+    display: grid;
+    grid-template-columns: 400px 400px 400px 400px;
+  }
 `;
 
 export default function ReviewList() {

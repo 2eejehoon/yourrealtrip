@@ -86,6 +86,7 @@ export default function UserInfo() {
       <UserProfileContainer>
         <UserProfileImage
           src={authorData.data.data.profileImg || defaultImage}
+          referrerpolicy="no-referrer"
         />
         <UserNameSpan>{authorData.data.data.name}</UserNameSpan>
         <CreatedAtSpan>{elapsed(reviewData.data.data.createdAt)}</CreatedAtSpan>

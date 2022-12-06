@@ -12,12 +12,9 @@ const GlobalStyle = createGlobalStyle`
     }   
     
     body {
-        margin: auto;
-        background-color: lightgray;
-        max-width: 400px;
+        background-color: lavender;
         min-height: 100vh;
         overflow-y: scroll;
-        height:auto;
     }
 `;
 
