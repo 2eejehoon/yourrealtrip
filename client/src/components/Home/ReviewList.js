@@ -10,7 +10,7 @@ import { useRecoilValue } from "recoil";
 import Review from "./Review";
 
 const ReviewListContainer = styled.div`
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 140px);
   margin: auto;
   padding: 5px;
   background-color: white;
