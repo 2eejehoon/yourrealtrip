@@ -8,6 +8,7 @@ import { categoryState } from "../../atoms/filter";
 import { searchState } from "../../atoms/search";
 import { useRecoilValue } from "recoil";
 import Review from "./Review";
+import MainMap from "./MainMap";
 
 const ReviewListContainer = styled.div`
   min-height: calc(100vh - 140px);
