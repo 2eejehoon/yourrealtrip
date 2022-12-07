@@ -8,7 +8,7 @@ import MenuModal from "../MenuModal";
 
 const MenuButton = styled(AiOutlineMenu)`
   position: absolute;
-  right: 5px;
+  right: 25px;
   &:hover {
     opacity: 70%;
     transition: 0.5s;
@@ -16,16 +16,18 @@ const MenuButton = styled(AiOutlineMenu)`
 `;
 
 const SearchContainer = styled.div`
-  width: 330px;
+  width: 280px;
   height: 45px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   border: solid 1px darkgray;
   border-radius: 15px;
-  box-shadow: 0.5px 0.5px lightgray;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 2px;
 
   &:focus-within {
+    width: 300px;
+    transition: 0.5s;
     outline: solid 1.5px black;
   }
 `;

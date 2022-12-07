@@ -42,7 +42,7 @@ const ReviewImageContainer = styled.div`
   border-radius: 10px;
 
   &:hover {
-    opacity: 70%;
+    opacity: 80%;
     transition: 0.5s;
   }
 `;

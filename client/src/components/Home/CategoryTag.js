@@ -25,18 +25,20 @@ const CategoryButton = styled.button`
   height: 40px;
   margin-left: 1px;
   margin-right: 1px;
-  border: 1px solid lightgray;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.75em;
-  box-shadow: 0.5px 0.5px lightgray;
+  border: none;
+  color: ${(props) => (props.clicked === "clicked" ? "white" : "gray")};
+
   background-color: ${(props) =>
-    props.clicked === "clicked" ? "lightgray" : "white"};
+    props.clicked === "clicked" ? "black" : "white"};
 
   &:hover {
-    opacity: 70%;
+    width: 45px;
+    height: 45px;
+    font-size: 1em;
     transition: 0.5s;
   }
 `;
@@ -299,7 +301,7 @@ export default function CategoryTag() {
       </CategoryButtonContainer>
       <StyledLeftClick
         size={"20px"}
-        fill={"gray"}
+        fill={"black"}
         hover={hover ? "hover" : null}
         page={page === 1 ? "none" : null}
         onClick={() => {
@@ -308,7 +310,7 @@ export default function CategoryTag() {
       />
       <StyledRightClick
         size={"20px"}
-        fill={"gray"}
+        fill={"black"}
         hover={hover ? "hover" : null}
         page={page === lastPage ? "none" : null}
         onClick={() => {

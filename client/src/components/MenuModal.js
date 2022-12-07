@@ -18,13 +18,13 @@ const ModalContainer = styled.ul`
   justify-content: center;
   align-items: center;
   font-size: 0.75em;
-  width: 70px;
+  width: 120px;
   border: 1px solid darkgray;
   border-radius: 5px;
   position: absolute;
   box-shadow: 0.5px 0.5px lightgray;
-  right: 15px;
-  top: 40px;
+  right: 25px;
+  top: 55px;
   background-color: white;
   z-index: 2000;
 
@@ -46,7 +46,7 @@ const ModalContainer = styled.ul`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25px;
+    height: 40px;
 
     &:hover {
       background-color: lightgray;
