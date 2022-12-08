@@ -24,6 +24,9 @@ const Wrapper = styled.div`
   @media screen and (min-width: 1200px) {
     width: 1210px;
   }
+  @media screen and (min-width: 1600px) {
+    width: 1610px;
+  }
 `;
 
 export default function Wishlist() {

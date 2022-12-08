@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import MenuModal from "../MenuModal";
+import WishMenuModal from "./WishMenuModal";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const GoBack = styled(RiArrowGoBackFill)`
   position: absolute;
   top: 10px;
-  left: 5px;
+  left: 25px;
   &:hover {
     opacity: 70%;
     transition: 0.5s;
@@ -35,10 +35,13 @@ const HeaderContainer = styled.header`
   @media screen and (min-width: 1200px) {
     width: 1210px;
   }
+  @media screen and (min-width: 1600px) {
+    width: 1610px;
+  }
 `;
 
 const MenuButton = styled(AiOutlineMenu)`
-  right: 5px;
+  right: 25px;
   position: absolute;
   &:hover {
     opacity: 70%;
@@ -55,7 +58,7 @@ export default function WishHeader() {
         <GoBack size={25} color="gray" />
       </Link>
       <MenuButton size={25} color="gray" onClick={() => setIsModalOpen(true)} />
-      {isModalOpen ? <MenuModal setIsModalOpen={setIsModalOpen} /> : null}
+      {isModalOpen ? <WishMenuModal setIsModalOpen={setIsModalOpen} /> : null}
     </HeaderContainer>
   );
 }
