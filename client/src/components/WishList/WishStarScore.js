@@ -12,7 +12,7 @@ const StarContainer = styled.div`
   align-items: center;
 `;
 
-export default function LikeStarScore({ score }) {
+export default function WishStarScore({ score }) {
   return (
     <StarContainer>
       {[1, 2, 3, 4, 5].map((num) => {

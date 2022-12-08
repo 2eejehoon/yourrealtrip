@@ -1,6 +1,6 @@
 /* eslint-disable */
 import styled from "styled-components";
-import LikeStarScore from "./StarScore";
+import WishStarScore from "./WishStarScore";
 import { Link } from "react-router-dom";
 
 const ReviewContainer = styled.li`
@@ -62,7 +62,7 @@ export default function Wish({ wish }) {
       <ContentContainer>
         <span>{wish.title}</span>
         <p>{`${wish.city} ${wish.district} ${wish.street}`}</p>
-        <LikeStarScore score={wish.score} />
+        <WishStarScore score={wish.score} />
       </ContentContainer>
     </ReviewContainer>
   );

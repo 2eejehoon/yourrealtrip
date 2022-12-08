@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import WishListContainer from "../components/WishList/WishListContainer";
 import WishHeader from "../components/WishList/WishHeader";
+import WishMap from "../components/WishList/WishMap";
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
   margin: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: white;
@@ -30,6 +31,7 @@ export default function Wishlist() {
       <WishHeader />
       <Wrapper>
         <WishListContainer />
+        <WishMap />
       </Wrapper>
     </>
   );

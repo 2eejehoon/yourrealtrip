@@ -8,10 +8,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { userState } from "../../atoms/user";
+import WishCustomMarker from "./WishCustomMarker";
+import WishCustomOverlay from "./WishCustomOverlay";
 
 const MapContainer = styled.div`
   margin: auto;
-  min-height: calc(100vh - 50px);
+  width: calc(100% - 300px);
   padding: 25px;
   background-color: white;
 `;
@@ -42,25 +44,25 @@ export default function WishMap() {
             return result;
           }
         }),
-      //   onSuccess: () => {
-      //     const bounds = new kakao.maps.LatLngBounds();
-      //     data.forEach((review) => {
-      //       bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
-      //     });
-      //     const map = mapRef.current;
-      //     if (map) map.setBounds(bounds);
-      //   },
+      onSuccess: () => {
+        const bounds = new kakao.maps.LatLngBounds();
+        data.forEach((review) => {
+          bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+        });
+        const map = mapRef.current;
+        if (map) map.setBounds(bounds);
+      },
     }
   );
 
-  //   useEffect(() => {
-  //     const bounds = new kakao.maps.LatLngBounds();
-  //     data.forEach((review) => {
-  //       bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
-  //     });
-  //     const map = mapRef.current;
-  //     if (map) map.setBounds(bounds);
-  //   }, [data]);
+  useEffect(() => {
+    const bounds = new kakao.maps.LatLngBounds();
+    data.forEach((review) => {
+      bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+    });
+    const map = mapRef.current;
+    if (map) map.setBounds(bounds);
+  }, [data]);
 
   return (
     <MapContainer>
@@ -72,14 +74,14 @@ export default function WishMap() {
         }}
         style={{
           width: "100%",
-          height: "calc(100vh - 50px)",
+          height: "calc(100vh - 100px)",
         }}
         level={3} // 지도의 확대 레벨
         ref={mapRef}
       >
-        {/* {data.map((review, index) => (
+        {data.map((review, index) => (
           <OverlayWrapper key={`${index}+${review.lat}`}>
-            <CustomMarker
+            <WishCustomMarker
               key={index}
               position={{ lat: review.lat, lng: review.lng }}
               onClick={() => setSelected(index)}
@@ -88,11 +90,11 @@ export default function WishMap() {
               position={{ lat: review.lat, lng: review.lng }}
             >
               {selected === index && (
-                <CustomOverlay review={review} setSelected={setSelected} />
+                <WishCustomOverlay review={review} setSelected={setSelected} />
               )}
             </StyledCustomOverlay>
           </OverlayWrapper>
-        ))} */}
+        ))}
       </Map>
     </MapContainer>
   );
