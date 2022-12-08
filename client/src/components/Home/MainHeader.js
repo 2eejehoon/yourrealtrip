@@ -4,7 +4,7 @@ import { SlMagnifier } from "react-icons/sl";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { searchState } from "../../atoms/search";
-import MenuModal from "../MenuModal";
+import HomeMenuModal from "./HomeMenuModal";
 
 const MenuButton = styled(AiOutlineMenu)`
   position: absolute;
@@ -82,7 +82,7 @@ export default function MainHeader() {
         />
       </SearchContainer>
       <MenuButton size={25} color="gray" onClick={() => setIsModalOpen(true)} />
-      {isModalOpen ? <MenuModal setIsModalOpen={setIsModalOpen} /> : null}
+      {isModalOpen ? <HomeMenuModal setIsModalOpen={setIsModalOpen} /> : null}
     </HeaderContainer>
   );
 }

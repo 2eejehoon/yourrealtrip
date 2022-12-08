@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { gapi, loadAuth2 } from "gapi-script";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userState } from "../atoms/user";
+import { userState } from "../../atoms/user";
 
 const BackgroundDiv = styled.div`
   inset: 0;
@@ -23,8 +23,8 @@ const ModalContainer = styled.ul`
   border-radius: 5px;
   position: absolute;
   box-shadow: 0.5px 0.5px lightgray;
-  right: 7px;
-  top: 40px;
+  right: 25px;
+  top: 55px;
   background-color: white;
   z-index: 2000;
 
@@ -55,7 +55,7 @@ const ModalContainer = styled.ul`
   }
 `;
 
-export default function MenuModal({ setIsModalOpen }) {
+export default function HomeMenuModal({ setIsModalOpen }) {
   const [user, setUser] = useRecoilState(userState);
 
   const signOut = () => {

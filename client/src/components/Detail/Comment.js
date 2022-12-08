@@ -132,7 +132,7 @@ export default function Comment({ comment, reviewId }) {
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(["comment", comment.id]);
+        return queryClient.invalidateQueries(["comments"]);
       },
     }
   );
@@ -144,7 +144,6 @@ export default function Comment({ comment, reviewId }) {
         content: commentEditInputValue,
       },
     };
-    console.log(editedComment);
 
     editComment.mutate(editedComment);
   };
