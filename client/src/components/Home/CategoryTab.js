@@ -39,7 +39,7 @@ const CategoryButton = styled.button`
     width: 45px;
     height: 45px;
     font-size: 1em;
-    transition: 0.5s;
+    transition: 0.2s;
   }
 `;
 
