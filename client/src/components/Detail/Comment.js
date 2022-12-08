@@ -125,8 +125,8 @@ export default function Comment({ comment, reviewId }) {
 
   const editComment = useMutation(
     (editedComment) => {
-      return axios.patch(
-        `${process.env.REACT_APP_BASE_API}/comments/${comment.id}`,
+      return axios.put(
+        `${process.env.REACT_APP_BASE_API}/reviews/${reviewId}/comments/${comment.id}`,
         editedComment
       );
     },
@@ -139,9 +139,12 @@ export default function Comment({ comment, reviewId }) {
 
   const handleCommentEditSave = () => {
     const editedComment = {
-      ...comment,
-      content: commentEditInputValue,
+      data: {
+        ...comment,
+        content: commentEditInputValue,
+      },
     };
+    console.log(editedComment);
 
     editComment.mutate(editedComment);
   };

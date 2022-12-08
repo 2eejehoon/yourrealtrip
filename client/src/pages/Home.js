@@ -15,9 +15,8 @@ const SwitchButton = styled.button`
   transform: 50%;
   bottom: 100px;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   color: white;
-  opacity: 90%;
   transform: translateX(-50%);
 `;
 
@@ -37,7 +36,7 @@ export default function Home() {
       {view === 1 && (
         <>
           <MainMap />
-          <SwitchButton onClick={() => setView(0)}>리스트로 보기</SwitchButton>
+          <SwitchButton onClick={() => setView(0)}>목록 보기</SwitchButton>
         </>
       )}
     </>

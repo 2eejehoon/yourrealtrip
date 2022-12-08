@@ -68,7 +68,7 @@ export default function EditSubmitButton({ setPage }) {
 
   const editReview = useMutation(
     (editedReview) => {
-      return axios.patch(
+      return axios.put(
         `${process.env.REACT_APP_BASE_API}/reviews/${id}`,
         editedReview
       );

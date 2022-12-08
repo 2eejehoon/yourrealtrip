@@ -101,8 +101,8 @@ export default function AddressForm() {
     geocoder.addressSearch(`${city}${district}${street}`, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        setLat(coords.La);
-        setLng(coords.Ma);
+        setLat(coords.Ma);
+        setLng(coords.La);
         map.setCenter(coords);
         marker.setPosition(coords);
       }
@@ -110,8 +110,8 @@ export default function AddressForm() {
 
     kakao.maps.event.addListener(map, "click", (mouseEvent) => {
       let latlng = mouseEvent.latLng;
-      setLat(latlng.La);
-      setLng(latlng.Ma);
+      setLat(latlng.Ma);
+      setLng(latlng.La);
       marker.setPosition(latlng);
     });
   }, [city, district, street]);

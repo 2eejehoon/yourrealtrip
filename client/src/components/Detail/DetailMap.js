@@ -29,10 +29,10 @@ export default function DetailMap() {
     if (!isLoading) {
       let mapContainer = document.getElementById("map"), // 지도를 표시할 div
         mapOption = {
-          center: new kakao.maps.LatLng(data?.data.lng, data?.data.lat), // 지도의 중심좌표
+          center: new kakao.maps.LatLng(data?.data.lat, data?.data.lng), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
-      let makerPosition = new kakao.maps.LatLng(data?.data.lng, data?.data.lat);
+      let makerPosition = new kakao.maps.LatLng(data?.data.lat, data?.data.lng);
       let map = new kakao.maps.Map(mapContainer, mapOption);
       let marker = new kakao.maps.Marker({
         position: makerPosition,
