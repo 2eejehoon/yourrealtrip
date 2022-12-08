@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const ReviewContainer = styled.li`
   width: 100%;
-  height: 135px;
+  height: 80px;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -17,8 +17,8 @@ const ReviewContainer = styled.li`
 `;
 
 const ReivewImage = styled.img`
-  width: 130px;
-  height: 130px;
+  width: 70px;
+  height: 70px;
   border: 1px solid lightgray;
   object-fit: cover;
   border-radius: 10px;
@@ -42,8 +42,12 @@ const ContentContainer = styled.div`
     color: gray;
   }
 
-  & :last-child {
-    height: 70px;
+  & textarea {
+    background-color: white;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 80px;
     font-size: 0.75em;
     color: black;
   }
@@ -59,7 +63,6 @@ export default function Wish({ wish }) {
         <span>{wish.title}</span>
         <p>{`${wish.city} ${wish.district} ${wish.street}`}</p>
         <LikeStarScore score={wish.score} />
-        <p>{wish.content}</p>
       </ContentContainer>
     </ReviewContainer>
   );

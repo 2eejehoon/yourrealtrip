@@ -33,6 +33,8 @@ const MapContainer = styled.div`
 
 const StyledCustomOverlay = styled(CustomOverlayMap)``;
 
+const OverlayWrapper = styled.div``;
+
 const { kakao } = window;
 
 export default function MainMap() {
@@ -109,20 +111,20 @@ export default function MainMap() {
         ref={mapRef}
       >
         {data.map((review, index) => (
-          <StyledCustomOverlay
-            yAnchor={1}
-            key={`${index}+${review.lat}`}
-            position={{ lat: review.lat, lng: review.lng }}
-          >
+          <OverlayWrapper key={`${index}+${review.lat}`}>
             <CustomMarker
               key={index}
               position={{ lat: review.lat, lng: review.lng }}
               onClick={() => setSelected(index)}
             />
-            {selected === index && (
-              <CustomOverlay review={review} setSelected={setSelected} />
-            )}
-          </StyledCustomOverlay>
+            <StyledCustomOverlay
+              position={{ lat: review.lat, lng: review.lng }}
+            >
+              {selected === index && (
+                <CustomOverlay review={review} setSelected={setSelected} />
+              )}
+            </StyledCustomOverlay>
+          </OverlayWrapper>
         ))}
       </Map>
     </MapContainer>

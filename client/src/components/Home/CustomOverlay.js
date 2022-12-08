@@ -4,15 +4,16 @@ import { useState } from "react";
 import { ImCancelCircle } from "react-icons/im";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import StarScore from "./StarScore";
 
-const CustomOverlayWrapper = styled.div``;
+const CustomOverlayWrapper = styled.div`
+  transform: translateX(-50%) translateY(-50%);
+`;
 
 const CustomOverlayHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 140px;
+  width: 100%;
   height: 33px;
   background-color: black;
   color: white;
@@ -29,7 +30,7 @@ const CustomOverlayBody = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 140px;
+  width: 100%;
   height: 140px;
   background-color: white;
   color: black;
@@ -59,13 +60,13 @@ const CustomOverlayBody = styled.div`
 
 const StyledSlider = styled(Slider)`
   .slick-prev {
-    left: 10px !important;
+    left: 5px !important;
     z-index: 1000;
     visibility: ${(props) => (props.hover === "hover" ? "visible" : "hidden")};
   }
 
   .slick-next {
-    right: 10px !important;
+    right: 5px !important;
     z-index: 1000;
     visibility: ${(props) => (props.hover === "hover" ? "visible" : "hidden")};
   }
