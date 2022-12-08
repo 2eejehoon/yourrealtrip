@@ -30,7 +30,7 @@ export default function Home() {
       {view === 0 && (
         <>
           <ReviewList />
-          <SwitchButton onClick={() => setView(1)}>지도로 보기</SwitchButton>
+          <SwitchButton onClick={() => setView(1)}>지도 보기</SwitchButton>
         </>
       )}
       {view === 1 && (

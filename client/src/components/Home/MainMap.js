@@ -10,6 +10,7 @@ import axios from "axios";
 import { useState } from "react";
 import CustomMarker from "./CustomMarker";
 import CustomOverlay from "./CustomOverlay";
+import { useEffect } from "react";
 
 const MapContainer = styled.div`
   margin: auto;
@@ -81,6 +82,15 @@ export default function MainMap() {
     }
   );
 
+  useEffect(() => {
+    const bounds = new kakao.maps.LatLngBounds();
+    data.forEach((review) => {
+      bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+    });
+    const map = mapRef.current;
+    if (map) map.setBounds(bounds);
+  }, [data]);
+
   return (
     <MapContainer>
       <Map // 지도를 표시할 Container
@@ -97,21 +107,19 @@ export default function MainMap() {
         ref={mapRef}
       >
         {data.map((review, index) => (
-          <>
+          <StyledCustomOverlay
+            key={`${index}+${review.lat}`}
+            position={{ lat: review.lat, lng: review.lng }}
+          >
             <CustomMarker
-              key={`${review.lat}-${review.lng}+${index}`}
+              key={index}
               position={{ lat: review.lat, lng: review.lng }}
               onClick={() => setSelected(index)}
             />
             {selected === index && (
-              <StyledCustomOverlay
-                position={{ lat: review.lat, lng: review.lng }}
-                yAnchor={1}
-              >
-                <CustomOverlay review={review} setSelected={setSelected} />
-              </StyledCustomOverlay>
+              <CustomOverlay review={review} setSelected={setSelected} />
             )}
-          </>
+          </StyledCustomOverlay>
         ))}
       </Map>
     </MapContainer>

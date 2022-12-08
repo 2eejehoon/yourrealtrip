@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ImCancelCircle } from "react-icons/im";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import StarScore from "./StarScore";
 
 const CustomOverlayWrapper = styled.div``;
 
