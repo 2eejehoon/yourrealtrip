@@ -108,7 +108,7 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-export default function WishCustomOverlay({ review, setSelected }) {
+export default function WishCustomOverlay({ wish, setSelected }) {
   const [hover, setHover] = useState(false);
   const settings = {
     dots: true,
@@ -123,17 +123,17 @@ export default function WishCustomOverlay({ review, setSelected }) {
       onMouseLeave={() => setHover(false)}
     >
       <CustomOverlayHeader>
-        <h3>{review.title}</h3>
+        <h3>{wish.title}</h3>
         <DeleteButton
           fill="white"
           size={18}
           onClick={() => setSelected(null)}
         />
       </CustomOverlayHeader>
-      <Link to={`/reviews/${review.id}`}>
+      <Link to={`/reviews/${wish.id}`}>
         <CustomOverlayBody>
           <StyledSlider {...settings} hover={hover ? "hover" : null}>
-            {review.photos.map((image) => {
+            {wish.photos.map((image) => {
               return (
                 <div key={image}>
                   <img src={image} />

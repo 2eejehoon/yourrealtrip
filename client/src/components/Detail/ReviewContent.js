@@ -16,7 +16,7 @@ const DateContainer = styled.p`
 
 const TextContainter = styled.textarea`
   width: 100%;
-  height: 200px;
+  height: 210px;
   font-size: 0.75em;
   color: gray;
   border: none;

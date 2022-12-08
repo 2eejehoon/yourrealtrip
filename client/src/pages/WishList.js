@@ -2,6 +2,7 @@ import styled from "styled-components";
 import WishListContainer from "../components/WishList/WishListContainer";
 import WishHeader from "../components/WishList/WishHeader";
 import WishMap from "../components/WishList/WishMap";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
@@ -26,12 +27,14 @@ const Wrapper = styled.div`
 `;
 
 export default function Wishlist() {
+  const [selected, setSelected] = useState(null);
+
   return (
     <>
       <WishHeader />
       <Wrapper>
-        <WishListContainer />
-        <WishMap />
+        <WishListContainer setSelected={setSelected} />
+        <WishMap selected={selected} setSelected={setSelected} />
       </Wrapper>
     </>
   );

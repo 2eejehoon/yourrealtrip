@@ -5,7 +5,6 @@ import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
 import { useEffect } from "react";
 import { userState } from "../../atoms/user";
 import WishCustomMarker from "./WishCustomMarker";
@@ -24,13 +23,12 @@ const OverlayWrapper = styled.div``;
 
 const { kakao } = window;
 
-export default function WishMap() {
+export default function WishMap({ selected, setSelected }) {
   const user = useRecoilValue(userState);
-  const [selected, setSelected] = useState(null);
   const mapRef = useRef();
 
-  const { data } = useQuery(
-    ["reviews"],
+  const { data, isLoading } = useQuery(
+    ["wishlist"],
     () => {
       return axios.get(`${process.env.REACT_APP_BASE_API}/reviews`);
     },
@@ -56,12 +54,14 @@ export default function WishMap() {
   );
 
   useEffect(() => {
-    const bounds = new kakao.maps.LatLngBounds();
-    data.forEach((review) => {
-      bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
-    });
-    const map = mapRef.current;
-    if (map) map.setBounds(bounds);
+    if (!isLoading) {
+      const bounds = new kakao.maps.LatLngBounds();
+      data.forEach((review) => {
+        bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+      });
+      const map = mapRef.current;
+      if (map) map.setBounds(bounds);
+    }
   }, [data]);
 
   return (
@@ -79,18 +79,16 @@ export default function WishMap() {
         level={3} // 지도의 확대 레벨
         ref={mapRef}
       >
-        {data.map((review, index) => (
-          <OverlayWrapper key={`${index}+${review.lat}`}>
+        {data.map((wish, index) => (
+          <OverlayWrapper key={`${index}+${wish.lat}`}>
             <WishCustomMarker
-              key={index}
-              position={{ lat: review.lat, lng: review.lng }}
-              onClick={() => setSelected(index)}
+              key={wish.id}
+              position={{ lat: wish.lat, lng: wish.lng }}
+              onClick={() => setSelected(wish.id)}
             />
-            <StyledCustomOverlay
-              position={{ lat: review.lat, lng: review.lng }}
-            >
-              {selected === index && (
-                <WishCustomOverlay review={review} setSelected={setSelected} />
+            <StyledCustomOverlay position={{ lat: wish.lat, lng: wish.lng }}>
+              {selected === wish.id && (
+                <WishCustomOverlay wish={wish} setSelected={setSelected} />
               )}
             </StyledCustomOverlay>
           </OverlayWrapper>

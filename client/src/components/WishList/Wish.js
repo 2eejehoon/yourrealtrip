@@ -53,9 +53,12 @@ const ContentContainer = styled.div`
   }
 `;
 
-export default function Wish({ wish }) {
+export default function Wish({ wish, setSelected }) {
   return (
-    <ReviewContainer>
+    <ReviewContainer
+      onMouseEnter={() => setSelected(wish.id)}
+      onMouseLeave={() => setSelected(null)}
+    >
       <Link to={`/reviews/${wish.id}`}>
         <ReivewImage src={wish.photos[0]} />
       </Link>
