@@ -13,7 +13,7 @@ const SwitchButton = styled.button`
   z-index: 2000;
   left: 50%;
   transform: 50%;
-  bottom: 100px;
+  bottom: 60px;
   border: none;
   border-radius: 20px;
   color: white;
