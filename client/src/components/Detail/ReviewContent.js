@@ -16,7 +16,9 @@ const DateContainer = styled.p`
 
 const TextContainter = styled.textarea`
   width: 100%;
+  height: 200px;
   font-size: 0.75em;
+  overflow: visible;
   color: gray;
   border: none;
   outline: none;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CategoryTag from "../components/Home/CategoryTag";
+import CategoryTab from "../components/Home/CategoryTab";
 import MainHeader from "../components/Home/MainHeader";
 import ReviewList from "../components/Home/ReviewList";
 import { useState } from "react";
@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <>
       <MainHeader />
-      <CategoryTag />
+      <CategoryTab />
       {view === 0 && (
         <>
           <ReviewList />

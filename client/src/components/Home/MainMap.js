@@ -41,7 +41,7 @@ export default function MainMap() {
   const search = useRecoilValue(searchState);
   const mapRef = useRef();
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     ["reviews"],
     () => {
       return axios.get(`${process.env.REACT_APP_BASE_API}/reviews`);
@@ -91,6 +91,8 @@ export default function MainMap() {
     if (map) map.setBounds(bounds);
   }, [data]);
 
+  if (data.length === 0) return <MapContainer></MapContainer>;
+
   return (
     <MapContainer>
       <Map // 지도를 표시할 Container
@@ -108,6 +110,7 @@ export default function MainMap() {
       >
         {data.map((review, index) => (
           <StyledCustomOverlay
+            yAnchor={1}
             key={`${index}+${review.lat}`}
             position={{ lat: review.lat, lng: review.lng }}
           >

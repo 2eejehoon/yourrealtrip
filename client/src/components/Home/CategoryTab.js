@@ -237,7 +237,7 @@ const cities = [
   "군위",
 ];
 
-export default function CategoryTag() {
+export default function CategoryTab() {
   const [category, setCategory] = useRecoilState(categoryState);
   const [hover, setHover] = useState(false);
   const [page, setPage] = useState(1);
