@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import CategoryTab from "../components/Home/CategoryTab";
 import MainHeader from "../components/Home/MainHeader";

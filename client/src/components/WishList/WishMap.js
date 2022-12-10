@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { userState } from "../../atoms/user";
 import WishCustomMarker from "./WishCustomMarker";
 import WishCustomOverlay from "./WishCustomOverlay";
+import { useState } from "react";
 
 const MapContainer = styled.div`
   margin: auto;
@@ -24,6 +25,10 @@ const OverlayWrapper = styled.div``;
 const { kakao } = window;
 
 export default function WishMap({ selected, setSelected }) {
+  const [state, setState] = useState({
+    center: { lat: 33.450701, lng: 126.570667 },
+    isPanto: false,
+  });
   const user = useRecoilValue(userState);
   const mapRef = useRef();
 
@@ -33,19 +38,17 @@ export default function WishMap({ selected, setSelected }) {
       return axios.get(`${process.env.REACT_APP_BASE_API}/reviews`);
     },
     {
-      select: (data) =>
-        data?.data.filter((el) => {
-          let wishlist = el.Wishlist;
-          let result = false;
-          for (let el of wishlist) {
-            if (el.userId === user.id && el.isWishlist) result = true;
-            return result;
+      select: (wish) =>
+        wish.data.filter((wish) => {
+          let wishlist = wish.Wishlist;
+          for (let wish of wishlist) {
+            if (wish.userId === user.id && wish.isWishlist) return true;
           }
         }),
       onSuccess: () => {
         const bounds = new kakao.maps.LatLngBounds();
-        data.forEach((review) => {
-          bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+        data.forEach((wish) => {
+          bounds.extend(new kakao.maps.LatLng(wish.lat, wish.lng));
         });
         const map = mapRef.current;
         if (map) map.setBounds(bounds);
@@ -54,24 +57,25 @@ export default function WishMap({ selected, setSelected }) {
   );
 
   useEffect(() => {
-    if (!isLoading) {
-      const bounds = new kakao.maps.LatLngBounds();
-      data.forEach((review) => {
-        bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
-      });
-      const map = mapRef.current;
-      if (map) map.setBounds(bounds);
+    const bounds = new kakao.maps.LatLngBounds();
+    data.forEach((review) => {
+      bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+    });
+    const map = mapRef.current;
+    if (map) {
+      map.setBounds(bounds);
+      map.relayout();
     }
   }, [data]);
 
   return (
     <MapContainer>
       <Map // 지도를 표시할 Container
-        center={{
+        center={
           // 지도의 중심좌표
-          lat: 33.450701,
-          lng: 126.570667,
-        }}
+          state.center
+        }
+        isPanto={state.isPanto}
         style={{
           width: "100%",
           height: "calc(100vh - 100px)",
@@ -84,7 +88,13 @@ export default function WishMap({ selected, setSelected }) {
             <WishCustomMarker
               key={wish.id}
               position={{ lat: wish.lat, lng: wish.lng }}
-              onClick={() => setSelected(wish.id)}
+              onClick={() => {
+                setSelected(wish.id);
+                setState({
+                  center: { lat: wish.lat, lng: wish.lng },
+                  isPanto: true,
+                });
+              }}
             />
             <StyledCustomOverlay position={{ lat: wish.lat, lng: wish.lng }}>
               {selected === wish.id && (

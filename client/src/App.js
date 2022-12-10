@@ -16,6 +16,8 @@ import WishList from "./pages/WishList";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      cacheTime: 0,
+      staleTime: 0,
       refetchOnWindowFocus: false,
       suspense: true,
     },

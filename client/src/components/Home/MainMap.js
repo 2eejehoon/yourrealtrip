@@ -1,5 +1,6 @@
 /* eslint-disable */
 import styled from "styled-components";
+import { useState } from "react";
 import { useRef } from "react";
 import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useRecoilValue } from "recoil";
@@ -7,7 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 import { categoryState } from "../../atoms/filter";
 import { searchState } from "../../atoms/search";
 import axios from "axios";
-import { useState } from "react";
 import CustomMarker from "./CustomMarker";
 import CustomOverlay from "./CustomOverlay";
 import { useEffect } from "react";
@@ -38,12 +38,16 @@ const OverlayWrapper = styled.div``;
 const { kakao } = window;
 
 export default function MainMap() {
+  const [state, setState] = useState({
+    center: { lat: 33.450701, lng: 126.570667 },
+    isPanto: false,
+  });
   const [selected, setSelected] = useState(null);
   const category = useRecoilValue(categoryState);
   const search = useRecoilValue(searchState);
   const mapRef = useRef();
 
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["reviews"],
     () => {
       return axios.get(`${process.env.REACT_APP_BASE_API}/reviews`);
@@ -79,7 +83,7 @@ export default function MainMap() {
           bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
         });
         const map = mapRef.current;
-        if (map) map.setBounds(bounds);
+        map.setBounds(bounds);
       },
     }
   );
@@ -98,11 +102,11 @@ export default function MainMap() {
   return (
     <MapContainer>
       <Map // 지도를 표시할 Container
-        center={{
+        center={
           // 지도의 중심좌표
-          lat: 33.450701,
-          lng: 126.570667,
-        }}
+          state.center
+        }
+        isPanto={state.isPanto}
         style={{
           width: "100%",
           height: "calc(100vh - 190px)",
@@ -110,17 +114,22 @@ export default function MainMap() {
         level={3} // 지도의 확대 레벨
         ref={mapRef}
       >
-        {data.map((review, index) => (
-          <OverlayWrapper key={`${index}+${review.lat}`}>
+        {data.map((review) => (
+          <OverlayWrapper key={`${review.id}+${review.lat}`}>
             <CustomMarker
-              key={index}
               position={{ lat: review.lat, lng: review.lng }}
-              onClick={() => setSelected(index)}
+              onClick={() => {
+                setSelected(review.id);
+                setState({
+                  center: { lat: review.lat, lng: review.lng },
+                  isPanto: true,
+                });
+              }}
             />
             <StyledCustomOverlay
               position={{ lat: review.lat, lng: review.lng }}
             >
-              {selected === index && (
+              {selected === review.id && (
                 <CustomOverlay review={review} setSelected={setSelected} />
               )}
             </StyledCustomOverlay>

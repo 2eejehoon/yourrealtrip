@@ -33,12 +33,10 @@ export default function WishListContainer({ setSelected }) {
     },
     {
       select: (data) =>
-        data?.data.filter((el) => {
-          let wishlist = el.Wishlist;
-          let result = false;
-          for (let el of wishlist) {
-            if (el.userId === user.id && el.isWishlist) result = true;
-            return result;
+        data?.data.filter((review) => {
+          let wishlist = review.Wishlist;
+          for (let wish of wishlist) {
+            if (wish.userId === user.id && wish.isWishlist) return true;
           }
         }),
     }
