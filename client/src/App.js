@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
 import WishList from "./pages/WishList";
+import Prac from "./components/Prac";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +41,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/mypage" element={<MyPage />} />
               <Route path="/wishlist" element={<WishList />} />
+              <Route path="/prac" element={<Prac />} />
             </Routes>
           </Suspense>
         </BrowserRouter>

@@ -7,10 +7,10 @@ import { useRecoilValue } from "recoil";
 import { useQuery } from "@tanstack/react-query";
 import { categoryState } from "../../atoms/filter";
 import { searchState } from "../../atoms/search";
+import { useEffect } from "react";
 import axios from "axios";
 import CustomMarker from "./CustomMarker";
 import CustomOverlay from "./CustomOverlay";
-import { useEffect } from "react";
 
 const MapContainer = styled.div`
   margin: auto;

@@ -25,6 +25,7 @@ const OverlayWrapper = styled.div``;
 const { kakao } = window;
 
 export default function WishMap({ selected, setSelected }) {
+  const [mapView, setMapView] = useState(null);
   const [state, setState] = useState({
     center: { lat: 33.450701, lng: 126.570667 },
     isPanto: false,
@@ -32,7 +33,7 @@ export default function WishMap({ selected, setSelected }) {
   const user = useRecoilValue(userState);
   const mapRef = useRef();
 
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["wishlist"],
     () => {
       return axios.get(`${process.env.REACT_APP_BASE_API}/reviews`);
@@ -68,42 +69,64 @@ export default function WishMap({ selected, setSelected }) {
     }
   }, [data]);
 
+  const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setMapView(false);
+    } else {
+      setMapView(true);
+    }
+  };
+
+  useEffect(() => {
+    if (window.innerWidth < 800) {
+      setMapView(false);
+    } else {
+      setMapView(true);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <MapContainer>
-      <Map // 지도를 표시할 Container
-        center={
-          // 지도의 중심좌표
-          state.center
-        }
-        isPanto={state.isPanto}
-        style={{
-          width: "100%",
-          height: "calc(100vh - 100px)",
-        }}
-        level={3} // 지도의 확대 레벨
-        ref={mapRef}
-      >
-        {data.map((wish, index) => (
-          <OverlayWrapper key={`${index}+${wish.lat}`}>
-            <WishCustomMarker
-              key={wish.id}
-              position={{ lat: wish.lat, lng: wish.lng }}
-              onClick={() => {
-                setSelected(wish.id);
-                setState({
-                  center: { lat: wish.lat, lng: wish.lng },
-                  isPanto: true,
-                });
-              }}
-            />
-            <StyledCustomOverlay position={{ lat: wish.lat, lng: wish.lng }}>
-              {selected === wish.id && (
-                <WishCustomOverlay wish={wish} setSelected={setSelected} />
-              )}
-            </StyledCustomOverlay>
-          </OverlayWrapper>
-        ))}
-      </Map>
+      {mapView && (
+        <Map // 지도를 표시할 Container
+          center={
+            // 지도의 중심좌표
+            state.center
+          }
+          isPanto={state.isPanto}
+          style={{
+            width: "100%",
+            height: "calc(100vh - 100px)",
+          }}
+          level={3} // 지도의 확대 레벨
+          ref={mapRef}
+        >
+          {data.map((wish, index) => (
+            <OverlayWrapper key={`${index}+${wish.lat}`}>
+              <WishCustomMarker
+                key={wish.id}
+                position={{ lat: wish.lat, lng: wish.lng }}
+                onClick={() => {
+                  setSelected(wish.id);
+                  setState({
+                    center: { lat: wish.lat, lng: wish.lng },
+                    isPanto: true,
+                  });
+                }}
+              />
+              <StyledCustomOverlay position={{ lat: wish.lat, lng: wish.lng }}>
+                {selected === wish.id && (
+                  <WishCustomOverlay wish={wish} setSelected={setSelected} />
+                )}
+              </StyledCustomOverlay>
+            </OverlayWrapper>
+          ))}
+        </Map>
+      )}
     </MapContainer>
   );
 }
