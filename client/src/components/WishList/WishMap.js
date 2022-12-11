@@ -70,10 +70,23 @@ export default function WishMap({ selected, setSelected }) {
   }, [data]);
 
   const handleResize = () => {
+    const bounds = new kakao.maps.LatLngBounds();
+    data.forEach((review) => {
+      bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+    });
+    const map = mapRef.current;
     if (window.innerWidth < 800) {
       setMapView(false);
+      if (map) {
+        map.setBounds(bounds);
+        map.relayout();
+      }
     } else {
       setMapView(true);
+      if (map) {
+        map.setBounds(bounds);
+        map.relayout();
+      }
     }
   };
 

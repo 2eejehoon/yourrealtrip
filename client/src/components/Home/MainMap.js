@@ -88,6 +88,30 @@ export default function MainMap() {
     }
   );
 
+  const handleResize = () => {
+    const bounds = new kakao.maps.LatLngBounds();
+    data.forEach((review) => {
+      bounds.extend(new kakao.maps.LatLng(review.lat, review.lng));
+    });
+    const map = mapRef.current;
+    if (window.innerWidth < 800) {
+      if (map) {
+        map.setBounds(bounds);
+        map.relayout();
+      }
+    } else if (window.innerWidth < 1200) {
+      if (map) {
+        map.setBounds(bounds);
+        map.relayout();
+      }
+    } else if (window.innerWidth < 1600) {
+      if (map) {
+        map.setBounds(bounds);
+        map.relayout();
+      }
+    }
+  };
+
   useEffect(() => {
     const bounds = new kakao.maps.LatLngBounds();
     data.forEach((review) => {
@@ -96,6 +120,13 @@ export default function MainMap() {
     const map = mapRef.current;
     if (map) map.setBounds(bounds);
   }, [data]);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   if (data.length === 0) return <MapContainer></MapContainer>;
 
