@@ -113,6 +113,7 @@ export default function DetailHeader() {
     for (let wish of wishlist) {
       if (wish.userId === userId && wish.isWishlist) {
         isWish = true;
+        break;
       }
     }
     return isWish;

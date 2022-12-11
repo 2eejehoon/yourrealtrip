@@ -1,12 +1,14 @@
 /* eslint-disable */
 import styled from "styled-components";
-import Slider from "react-slick";
 import { useState } from "react";
 import { BsFillSuitHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import StarScore from "./StarScore";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/user";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import Slider from "react-slick";
+import StarScore from "./StarScore";
 
 const WishlistButton = styled(BsFillSuitHeartFill)`
   position: absolute;
@@ -126,31 +128,78 @@ export default function Review({ review }) {
     return isWish;
   };
 
+  const queryClient = useQueryClient();
+
+  const wish = useMutation(
+    (authorId) => {
+      return axios.post(
+        `${process.env.REACT_APP_BASE_API}/reviews/${review.id}/wishlist`,
+        authorId
+      );
+    },
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(["reviews"]);
+      },
+    }
+  );
+
+  const unwish = useMutation(
+    (authorId) => {
+      return axios.delete(
+        `${process.env.REACT_APP_BASE_API}/reviews/${review.id}/wishlist`,
+        { data: authorId }
+      );
+    },
+    {
+      onSuccess: () => {
+        return queryClient.invalidateQueries(["reviews"]);
+      },
+    }
+  );
+
+  const handleWish = () => {
+    if (!isWish(review.Wishlist, user.id)) {
+      wish.mutate({
+        data: {
+          authorId: user.id,
+        },
+      });
+    } else {
+      unwish.mutate({
+        data: {
+          authorId: user.id,
+        },
+      });
+    }
+  };
+
   return (
     <ReviewContainer>
-      <Link to={`/reviews/${review.id}`}>
-        <ReviewImageContainer
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          <WishlistButton
-            size={20}
-            color="white"
-            fill={
-              !user
-                ? "gray"
-                : isWish(review.Wishlist, user.id)
-                ? "tomato"
-                : "gray"
-            }
-          />
+      <ReviewImageContainer
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        <WishlistButton
+          size={20}
+          color="white"
+          fill={
+            !user
+              ? "gray"
+              : isWish(review.Wishlist, user.id)
+              ? "tomato"
+              : "gray"
+          }
+          onClick={handleWish}
+        />
+        <Link to={`/reviews/${review.id}`}>
           <StyledSlider {...settings} hover={hover ? "hover" : null}>
             {review.photos.map((image) => {
               return <ReviewImage key={image} src={image} />;
             })}
           </StyledSlider>
-        </ReviewImageContainer>
-      </Link>
+        </Link>
+      </ReviewImageContainer>
       <InfoContainer>
         <StarScore score={review.score} />
         <h3>{review.title}</h3>
