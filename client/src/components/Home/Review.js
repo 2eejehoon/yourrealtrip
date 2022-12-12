@@ -190,7 +190,10 @@ export default function Review({ review }) {
               ? "tomato"
               : "gray"
           }
-          onClick={handleWish}
+          onClick={() => {
+            user && handleWish();
+            !user && alert("로그인이 필요한 서비스입니다.");
+          }}
         />
         <Link to={`/reviews/${review.id}`}>
           <StyledSlider {...settings} hover={hover ? "hover" : null}>

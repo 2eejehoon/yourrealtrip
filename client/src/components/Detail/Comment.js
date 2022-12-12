@@ -115,13 +115,14 @@ const defaultImage =
 
 export default function Comment({ comment, reviewId }) {
   const user = useRecoilValue(userState);
-  const queryClient = useQueryClient();
   const commentRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [commentEditInputValue, setCommentEditInputValue] = useState(
     comment.content
   );
+
+  const queryClient = useQueryClient();
 
   const editComment = useMutation(
     (editedComment) => {

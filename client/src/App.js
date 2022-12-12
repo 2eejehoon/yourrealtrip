@@ -1,18 +1,17 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 
-import Loading from "./components/Loading";
-import Home from "./pages/Home";
-import Detail from "./pages/Detail";
-import Write from "./pages/Write";
-import Edit from "./pages/Edit";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import MyPage from "./pages/MyPage";
-import WishList from "./pages/WishList";
-import Prac from "./components/Prac";
+const Loading = React.lazy(() => import("./components/Loading"));
+const Home = React.lazy(() => import("./pages/Home"));
+const Detail = React.lazy(() => import("./pages/Detail"));
+const Write = React.lazy(() => import("./pages/Write"));
+const Edit = React.lazy(() => import("./pages/Edit"));
+const Login = React.lazy(() => import("./pages/Login"));
+const SignUp = React.lazy(() => import("./pages/SignUp"));
+const MyPage = React.lazy(() => import("./pages/MyPage"));
+const WishList = React.lazy(() => import("./pages/WishList"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,7 +40,6 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/mypage" element={<MyPage />} />
               <Route path="/wishlist" element={<WishList />} />
-              <Route path="/prac" element={<Prac />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
