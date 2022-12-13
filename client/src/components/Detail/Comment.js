@@ -1,11 +1,11 @@
 /* eslint-disable */
 import styled from "styled-components";
-import { SlOptions } from "react-icons/sl";
-import { useState, useRef, useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import elapsed from "../../utils/elapsedTime";
 import CommentOptionModal from "./CommentOptionModal";
+import { SlOptions } from "react-icons/sl";
+import { useState, useRef, useEffect } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/user";
 
@@ -18,7 +18,7 @@ const OptionButton = styled(SlOptions)`
   }
 `;
 
-const CommnetLi = styled.li`
+const CommentLi = styled.li`
   position: relative;
   width: 100%;
   display: flex;
@@ -162,7 +162,7 @@ export default function Comment({ comment, reviewId }) {
   }, [isCommentEdit]);
 
   return (
-    <CommnetLi>
+    <CommentLi>
       <UserProfileImage
         src={authorData.data.data.profileImg || defaultImage}
         referrerpolicy="no-referrer"
@@ -206,6 +206,6 @@ export default function Comment({ comment, reviewId }) {
           setIsCommentEdit={setIsCommentEdit}
         />
       ) : null}
-    </CommnetLi>
+    </CommentLi>
   );
 }

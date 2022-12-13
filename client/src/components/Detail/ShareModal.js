@@ -1,12 +1,13 @@
 /* eslint-disable */
 import styled from "styled-components";
 import { AiOutlineCopy } from "react-icons/ai";
-import { RiKakaoTalkFill } from "react-icons/ri";
+import { RiKakaoTalkFill, RiFacebookCircleFill } from "react-icons/ri";
 import { useLocation, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+const FacebookIcon = styled(RiFacebookCircleFill)``;
 const KakaoTalkIcon = styled(RiKakaoTalkFill)``;
 const ShareIcon = styled(AiOutlineCopy)``;
 
@@ -100,6 +101,12 @@ export default function ShareModal({ setIsModalOpen }) {
     });
   };
 
+  const onClickFacebook = () => {
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${process.env.REACT_APP_BASE_URL}/${id}`
+    );
+  };
+
   return (
     <>
       <ModalContainer>
@@ -120,6 +127,15 @@ export default function ShareModal({ setIsModalOpen }) {
         >
           <KakaoTalkIcon size={20} />
           카카오톡
+        </button>
+        <button
+          onClick={() => {
+            onClickFacebook();
+            setIsModalOpen(false);
+          }}
+        >
+          <FacebookIcon size={20} />
+          페이스북
         </button>
       </ModalContainer>
       <BackgroundDiv onClick={() => setIsModalOpen(false)} />
