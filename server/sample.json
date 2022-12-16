@@ -1,0 +1,41 @@
+{
+  "reviews": [
+    {
+      "id": "9b1d8b57-cc1f-4aa4-a79f-987a5bf694e4",
+      "title": "1",
+      "startDate": "2022-10-31T15:00:00.000Z",
+      "images": [
+        1,
+        2,
+        3
+      ],
+      "endDate": "2022-11-01T15:00:00.000Z",
+      "content": "1",
+      "city": "서울",
+      "district": "중구",
+      "street": "남대문로 4가",
+      "latlng": {
+        "La": 126.97530407576598,
+        "Ma": 37.55998498705345
+      },
+      "score": 5,
+      "createdAt": "2022-11-25T08:50:01.295Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "16189bcf-23eb-47ef-ba1f-92b5284fa689",
+      "name": "남대문",
+      "email": "namdaemun123@gmail.com",
+      "password": "!tnsehfdl6808"
+    }
+  ],
+  "comments": [
+    {
+      "id": "25027a19-a863-40db-894f-181763975910",
+      "content": "1",
+      "createdAt": "2022-11-25T08:50:13.444Z",
+      "reviewId": "9b1d8b57-cc1f-4aa4-a79f-987a5bf694e4"
+    }
+  ]
+}

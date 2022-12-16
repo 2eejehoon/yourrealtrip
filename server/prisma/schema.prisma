@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  email      String     @unique
+  googleId   String     @unique
+  password   String     @db.VarChar(255)
+  name       String?
+  profileImg String     @db.Text
+  profile    Profile?
+  review     Review[]
+  comment    Comment[]
+  Wishlist   Wishlist[]
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
+}
+
+model Review {
+  id        Int        @id @default(autoincrement())
+  title     String     @db.VarChar(255)
+  startDate DateTime   @db.Timestamp()
+  endDate   DateTime   @db.Timestamp()
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  content   String     @db.Text
+  city      String     @db.Text
+  district  String     @db.Text
+  street    String     @db.Text
+  lat       Float      @db.DoublePrecision
+  lng       Float      @db.DoublePrecision
+  score     Int
+  author    User       @relation(fields: [authorId], references: [id])
+  authorId  Int
+  Wishlist  Wishlist[]
+  photos    String[]
+  comment   Comment[]
+}
+
+model Wishlist {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isWishlist Boolean
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  review     Review?  @relation(fields: [reviewId], references: [id])
+  reviewId   Int?
+
+  @@unique(fields: [userId, reviewId], name: "wishlistId")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String   @db.Text
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  review    Review?   @relation(fields: [reviewId], references: [id])
+  reviewId  Int?
+}

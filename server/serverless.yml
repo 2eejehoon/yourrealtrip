@@ -1,0 +1,60 @@
+service: 'seb40-main-000-server'
+
+frameworkVersion: '3'
+useDotenv: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-webpack-prisma
+
+# package:
+# patterns:
+#   - '!node_modules/.prisma/client/libquery_engine-*'
+#   - 'node_modules/.prisma/client/libquery_engine-rhel-*'
+#   - '!node_modules/prisma/libquery_engine-*'
+#   - '!node_modules/@prisma/engines/**'
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+    packager: 'yarn'
+    excludeFiles: src/**/*.test.js
+    packagerOptions:
+      scripts:
+        - prisma generate
+
+provider:
+  name: aws
+  stage: prod
+  runtime: 'nodejs16.x'
+  timeout: 10
+  region: 'ap-northeast-2'
+  deploymentBucket:
+    name: yourrealtrip-server
+  apiGateway:
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+    DATABASE_URL: ${env:DATABASE_URL}
+    ACCESS_SECRET: ${env:ACCESS_SECRET}
+    REFRESH_SECRET: ${env:REFRESH_SECRET}
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 's3:getObject'
+          Resource: 'arn:aws:s3:::yourrealtrip-server'
+        - Effect: 'Allow'
+          Action:
+            - 'sts:AssumeRole'
+          Resource: 'arn:aws:sts:::assumed-role/*'
+
+functions:
+  api:
+    handler: src/handler.handler
+    events:
+      - httpApi: '*'
