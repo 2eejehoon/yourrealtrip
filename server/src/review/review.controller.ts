@@ -2,23 +2,9 @@ import { PrismaClient, Review, Wishlist } from '@prisma/client';
 import { Request, Response } from 'express';
 const prisma = new PrismaClient();
 
-// const getPageStartEnd = (limit: number, page: number) => {
-//   const pageStart = (page - 1) * limit;
-//   const pageEnd = pageStart + limit;
-//   return { pageStart, pageEnd };
-// };
-
 export default {
   findMany: async (req: Request, res: Response) => {
-    // const { limit, page } = req.query;
-
-    // if (!limit || !page) res.status(400).send('should have pagination parameter');
-
-    // const { pageStart, pageEnd } = getPageStartEnd(Number(limit), Number(page));
-
     const result = await prisma.review.findMany({
-      // skip: pageStart,
-      // take: pageEnd,
       include: {
         Wishlist: true,
       },
