@@ -110,31 +110,36 @@ export default function UserInfo() {
 
   const updateUser = useMutation(
     (userInfo) => {
-      return axios.patch(
+      return axios.put(
         `${process.env.REACT_APP_BASE_API}/users/${user.id}`,
         userInfo
       );
     },
     {
-      onSuccess: () => {
+      onSettled: () => {
         return queryClient.invalidateQueries(["user", user.id]);
       },
     }
   );
 
-  const handleNameSave = (e) => {
+  const handleNameSave = () => {
     const userInfo = {
-      ...data?.data,
-      name: e.target.value,
+      data: {
+        ...data?.data,
+        name,
+      },
     };
-    updateUser(userInfo);
+    updateUser.mutate(userInfo);
   };
-  const handleEmailSave = (e) => {
+
+  const handleEmailSave = () => {
     const userInfo = {
-      ...data?.data,
-      email: e.target.value,
+      data: {
+        ...data?.data,
+        email,
+      },
     };
-    updateUser(userInfo);
+    updateUser.mutate(userInfo);
   };
 
   useEffect(() => {
@@ -143,6 +148,7 @@ export default function UserInfo() {
       setEmail(data?.data.email);
     }
   }, [data]);
+
   useEffect(() => {
     if (nameUpdate === true) {
       nameRef.current.focus();

@@ -7,7 +7,9 @@ import { v4 as uuidv4 } from "uuid";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/user";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import UserInfo from "../Detail/UserInfo";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
@@ -69,11 +71,29 @@ const defaultImage =
 
 export default function UserProfile() {
   const user = useRecoilValue(userState);
-  const [image, setImage] = useState(null);
+  const queryClient = useQueryClient();
   const [profileImageDeleteButtonShow, setProfileImageDeleteButtonShow] =
     useState(false);
   const [drag, setDrag] = useState(false);
   const imageRef = useRef(null);
+
+  const { data } = useQuery(["user", user.id], () => {
+    return axios.get(`${process.env.REACT_APP_BASE_API}/users/${user.id}`);
+  });
+
+  const updateProfileImage = useMutation(
+    (userInfo) => {
+      return axios.put(
+        `${process.env.REACT_APP_BASE_API}/users/${user.id}`,
+        userInfo
+      );
+    },
+    {
+      onSettled: () => {
+        return queryClient.invalidateQueries(["user", user.id]);
+      },
+    }
+  );
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -98,27 +118,21 @@ export default function UserProfile() {
     const ReactS3Client = new S3(config);
     const fileName = file.name + uuidv4();
     ReactS3Client.uploadFile(file, fileName)
-      .then((data) => {
-        console.log(data.location);
-        setImage(data.location);
+      .then((d) => {
+        const userInfo = {
+          data: {
+            ...data?.data,
+            profileImg: d.location,
+          },
+        };
+        updateProfileImage.mutate(userInfo);
       })
       .catch((err) => console.error(err));
   };
 
-  const { data } = useQuery(["user", user.id], () => {
-    return axios.get(`${process.env.REACT_APP_BASE_API}/users/${user.id}`);
-  });
-
-  const updateProfileImage = useMutation((userInfo) => {
-    return axios.patch(
-      `${process.env.REACT_APP_BASE_API}/users/${id}`,
-      userInfo
-    );
-  });
-
   return (
     <>
-      <DescText>작성자님의 정보</DescText>
+      <DescText>{user.name} 님의 정보</DescText>
       <UserProfileContainer
         onMouseEnter={() => setProfileImageDeleteButtonShow(true)}
         onMouseLeave={() => setProfileImageDeleteButtonShow(false)}
@@ -129,14 +143,20 @@ export default function UserProfile() {
             color="darkgray"
             onClick={() => {
               if (confirm("정말 삭제하시겠습니까?")) {
-                setImage(defaultImage);
+                const userInfo = {
+                  data: {
+                    ...data?.data,
+                    profileImg: defaultImage,
+                  },
+                };
+                updateProfileImage.mutate(userInfo);
               }
             }}
           />
         ) : null}
         <UserProfileImage
           drag={drag ? "drag" : null}
-          src={image || data?.data.profileImg || defaultImage}
+          src={data?.data.profileImg || defaultImage}
           referrerpolicy="no-referrer"
           onDragEnter={() => setDrag(true)}
           onDragLeave={() => setDrag(false)}
