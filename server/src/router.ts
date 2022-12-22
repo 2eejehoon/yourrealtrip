@@ -7,6 +7,7 @@ import commentController from './comment/comment.controller';
 const reviewRouter = express.Router();
 const userRouter = express.Router();
 
+// review
 reviewRouter.get('/', reviewController.findMany);
 reviewRouter.get('/:id', reviewController.findOne);
 reviewRouter.post('/', reviewController.createOne);
@@ -24,8 +25,10 @@ reviewRouter.post('/:id/comments', commentController.createOne);
 reviewRouter.put('/:id/comments/:commentId', commentController.updateOne);
 reviewRouter.delete('/:id/comments/:commentId', commentController.deleteOne);
 
+// user
 userRouter.get('/:id', userController.findOne);
 userRouter.post('/', userController.createOne);
+userRouter.put(`/:id`, userController.updateOne);
 userRouter.delete('/:id', userController.deleteOne);
 userRouter.post('/signIn', signInController.signIn);
 
