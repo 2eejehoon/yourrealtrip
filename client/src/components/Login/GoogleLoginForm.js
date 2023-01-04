@@ -34,26 +34,6 @@ const GoogleLoginButton = styled.button`
   }
 `;
 
-const GoogleLogoutButton = styled.button`
-  font-size: 0.75em;
-  color: gray;
-  position: relative;
-  width: 250px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-  box-shadow: 0.5px 0.5px gray;
-
-  &:hover {
-    opacity: 70%;
-    transition: 0.5s;
-  }
-`;
-
 export default function GoogleLoginForm() {
   const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();

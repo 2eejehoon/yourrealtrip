@@ -184,6 +184,7 @@ export default function PasswordModal({ setPasswordModalShow }) {
           value={newPassword}
           onChange={handlePasswordChange}
           type="password"
+          autoComplete="none"
         />
         <div>새 비밀번호 확인</div>
         <input
@@ -191,6 +192,7 @@ export default function PasswordModal({ setPasswordModalShow }) {
           value={passwordCheck}
           onChange={(e) => setPasswordCheck(e.target.value)}
           type="password"
+          autoComplete="none"
         />
       </ModalContainer>
       <UpdateButton

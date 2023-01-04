@@ -137,13 +137,13 @@ export default function SignUpForm() {
       alert("비밀번호를 입력해주세요.");
       return passwordInput.current.focus();
     }
-
-    signUp.mutate({
-      id: uuidv4(),
-      name: name,
-      email: email,
-      password: password,
-    });
+    return alert("기능 구현중입니다");
+    // signUp.mutate({
+    //   id: uuidv4(),
+    //   name: name,
+    //   email: email,
+    //   password: password,
+    // });
   };
 
   const nameInput = useRef(null);

@@ -9,7 +9,6 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../../atoms/user";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import UserInfo from "../Detail/UserInfo";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 

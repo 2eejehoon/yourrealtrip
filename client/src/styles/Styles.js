@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     }   
     
     body {
-        background-color:slategray;
+        background-color: slategray;
         min-height: 100vh;
         overflow-y: scroll;
     }
