@@ -91,8 +91,7 @@ export default function ShareModal({ setIsModalOpen }) {
       objectType: "feed",
       content: {
         title: data?.data.title,
-        imageUrl:
-          "http://infor515.cafe24.com/data/file/gallery02/3695747573_0oqRySMm_c0233900223a6c07c902469675421072cd90f0d9.jpg",
+        imageUrl: data?.data.photos[0],
         link: {
           mobileWebUrl: `${process.env.REACT_APP_BASE_URL}/reviews/${id}`,
           webUrl: `${process.env.REACT_APP_BASE_URL}/reviews/${id}`,
@@ -103,7 +102,7 @@ export default function ShareModal({ setIsModalOpen }) {
 
   const onClickFacebook = () => {
     window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${process.env.REACT_APP_BASE_URL}/${id}`
+      `https://www.facebook.com/sharer/sharer.php?u=${process.env.REACT_APP_BASE_URL}/reviews/${id}`
     );
   };
 
@@ -112,7 +111,7 @@ export default function ShareModal({ setIsModalOpen }) {
       <ModalContainer>
         <button
           onClick={() => {
-            copyToClipboard(`http://localhost:3000${location.pathname}`);
+            copyToClipboard(`${process.env.REACT_APP_BASE_URL}/reviews/${id}`);
             setIsModalOpen(false);
           }}
         >
