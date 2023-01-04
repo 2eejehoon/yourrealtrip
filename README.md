@@ -24,13 +24,16 @@ TypeScript, Express, Serverless, Serverless-http(AWS Lamda), Prisma, AWS(S3)
 ## API
 <details>
 <summary>Review</summary>
-<details>
+  <details>
+    <summary>getReviews</summary>
+  </details>
+</details>
 <details>
 <summary>User</summary>
-<details>
+</details>
 <details>
 <summary>Comment</summary>
-<details>
+</details>
 
 ## 향후 진행사항
 로그인, 회원가입 기능
