@@ -14,6 +14,10 @@ YOUR REAL TRIP은 국내 여행 리뷰를 공유하는 웹 사이트입니다.
 
 ### 지도
 
+![지도 메인](https://user-images.githubusercontent.com/106265483/211391637-2b222477-778f-49ea-aeac-79e32930c001.gif)
+
+![지도 위시리스트](https://user-images.githubusercontent.com/106265483/211391646-2240d620-1c8d-4b10-9942-10d4a5bf9cd7.gif)
+
 ### 댓글
 
 ### 위시리스트
