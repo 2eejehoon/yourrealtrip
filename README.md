@@ -20,6 +20,8 @@ YOUR REAL TRIP은 국내 여행 리뷰를 공유하는 웹 사이트입니다.
 
 ### 댓글
 
+![댓글 CRUD](https://user-images.githubusercontent.com/106265483/211392078-c19d64ef-578b-4068-8119-48f323e70355.gif)
+
 ### 위시리스트
 
 ### 소셜 로그인
