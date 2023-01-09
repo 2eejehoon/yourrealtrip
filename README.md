@@ -3,6 +3,7 @@ YOUR REAL TRIP은 국내 여행 리뷰를 공유하는 웹 사이트입니다.
 
 ## 핵심 기능
 ### 리뷰
+![리뷰조회2](https://user-images.githubusercontent.com/106265483/211388069-0f8cfcad-84e1-41d6-850f-9f1935b6e360.gif)
 
 
 ### 지도
