@@ -18,17 +18,29 @@ YOUR REAL TRIP은 국내 여행 리뷰를 공유하는 웹 사이트입니다.
 
 ![지도 위시리스트](https://user-images.githubusercontent.com/106265483/211391646-2240d620-1c8d-4b10-9942-10d4a5bf9cd7.gif)
 
-### 댓글
+### 댓글 CRUD
 
 ![댓글 CRUD](https://user-images.githubusercontent.com/106265483/211392078-c19d64ef-578b-4068-8119-48f323e70355.gif)
 
+### 유저 CRUD
+
+![마이페이지](https://user-images.githubusercontent.com/106265483/211393973-18bdbb5d-4b15-47b1-bf0f-9908be0a6b1e.gif)
+
 ### 위시리스트
+
+![위시리스트](https://user-images.githubusercontent.com/106265483/211392808-c670c8ad-400c-4f03-ae20-0e66f5a31cf5.gif)
 
 ### 소셜 로그인
 
-### 검색, 카테고리
+![소셜로그인](https://user-images.githubusercontent.com/106265483/211393219-36bbb43e-9b92-4529-a821-e8673210e900.gif)
+
+### 검색, 필터링
+
+![검색,카테고리](https://user-images.githubusercontent.com/106265483/211394368-ab33e4fe-eea4-4ba6-973a-16a74bb4dc71.gif)
 
 ### 공유
+
+![공유](https://user-images.githubusercontent.com/106265483/211394935-15e1dcd4-5cad-4968-bd7b-de874861ca70.gif)
 
 ## 기술 스택
 ### 프론트엔드
