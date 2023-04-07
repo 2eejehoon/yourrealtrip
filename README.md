@@ -48,12 +48,3 @@ React, React Query, Recoil, Styled-Components, AWS(S3, Cloudfront, Route53)
 
 ### 백엔드
 TypeScript, Express, Serverless, Serverless-http(AWS Lamda), Prisma, AWS(S3)
-
-## 향후 개선방향
-### 리뷰
-사진 리사이즈
-
-### 로그인/회원가입
-JWT기반 로그인 및 회원가입 기능
-
-### 코드 리팩토링
